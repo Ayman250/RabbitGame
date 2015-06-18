@@ -39,6 +39,7 @@ public class GameRender {
 
         cam = new OrthographicCamera();
         cam.setToOrtho(true, this.gameWidth, this.gameHeight);
+        //cam.setToOrtho(true, 1080, 1920);
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(cam.combined);
@@ -73,7 +74,12 @@ public class GameRender {
     }
 
     public void drawRabbit() {
-        batch.draw(rabbitDown, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
+        if (rabbit.inAir()){
+            batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
+        }
+        else{
+            batch.draw(rabbitDown, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
+        }
     }
 
     public void render(float runTime) {
@@ -84,9 +90,9 @@ public class GameRender {
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
         drawGround();
         drawFence();
-        drawRabbit();
         drawHillBottoms();
         drawHillTops();
+        drawRabbit();
         batch.end();
     }
 

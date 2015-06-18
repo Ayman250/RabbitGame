@@ -22,12 +22,12 @@ public class ScrollHandler {
         this.world = world;
         this.gameWidth = gameWidth;
 
-        SCROLL_SPEED = -gameWidth/5;
+        SCROLL_SPEED = -gameWidth/2;
         PIPE_GAP = gameWidth/2;
 
-        hill1 = new Hill(gameWidth, groundY-60, world.getGameWidth()/20, 60, SCROLL_SPEED, groundY);
-        hill2 = new Hill(hill1.getTailX() + PIPE_GAP, groundY - 100, world.getGameWidth() / 20, 100, SCROLL_SPEED, groundY);
-        hill3 = new Hill(hill2.getTailX() + PIPE_GAP, groundY - 40, world.getGameWidth()/20, 40, SCROLL_SPEED, groundY);
+        hill1 = new Hill(gameWidth, groundY - 60, world.getGameWidth() / 15, 60, SCROLL_SPEED, groundY);
+        hill2 = new Hill(hill1.getTailX() + PIPE_GAP, groundY - 100, world.getGameWidth() / 15, 100, SCROLL_SPEED, groundY);
+        hill3 = new Hill(hill2.getTailX() + PIPE_GAP, groundY - 40, world.getGameWidth() / 15, 40, SCROLL_SPEED, groundY);
 
         ground1 = new Ground(0, groundY, gameWidth, 90, SCROLL_SPEED, groundY);
         ground2 = new Ground(ground1.getTailX(), groundY, gameWidth, 90, SCROLL_SPEED, groundY);

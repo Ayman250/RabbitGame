@@ -8,18 +8,23 @@ import com.badlogic.gdx.InputProcessor;
  */
 public class InputHandler implements InputProcessor {
 
-    public InputHandler(Rabbit rabbit) {
+    private Rabbit myRabbit;
 
+    public InputHandler(Rabbit rabbit) {
+        myRabbit = rabbit;
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+
+        myRabbit.onClick();
+        return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        return false;
+        myRabbit.onRelease();
+        return true;
     }
 
     @Override
