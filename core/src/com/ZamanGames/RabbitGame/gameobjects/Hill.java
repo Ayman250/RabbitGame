@@ -30,6 +30,6 @@ public class Hill extends Scrollable {
     public void reset(float newX) {
         super.reset(newX);
         height = r.nextInt(90) + 15;
-        position.y = groundY - height;
+        position.y = groundY - height + 10;
        }
 }

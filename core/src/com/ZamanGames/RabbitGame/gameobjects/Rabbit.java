@@ -22,7 +22,7 @@ public class Rabbit {
 
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
-        acceleration = new Vector2(0, 800);
+        acceleration = new Vector2(0, 2000);
 
     }
 
@@ -43,18 +43,20 @@ public class Rabbit {
     }
 
     public void onClick() {
-        timePressed = .4f;
+        timePressed = 1f;
     }
     public void onRelease() {
+        if (timePressed > 3) {
+            timePressed = 4f;
+        }
 
         System.out.println(timePressed);
         if (!inAir())
-            if(-300*timePressed < - 200) {
-                velocity.add(0, -300 * timePressed);
+            if (timePressed > 1.2f) {
+                velocity.add(0, -700 -200* timePressed);
                 System.out.println("if");
-            }
-        else {
-                velocity.add(0, - 200);
+            } else {
+                velocity.add(0, -800);
                 System.out.println("else");
             }
         System.out.println("Pressed");

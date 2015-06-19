@@ -53,12 +53,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        //DO THIS SHIT SOON!
+        System.out.println("Pause");
     }
 
     @Override
     public void pause() {
-
+        System.out.println("Pause");
     }
 
     @Override

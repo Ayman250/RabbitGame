@@ -20,10 +20,10 @@ public class GameWorld {
         this.gameHeight = gameHeight;
         this.groundY = groundY;
 
-        rabbitWidth = this.gameWidth/8;
-        rabbitHeight = this.gameHeight/5;
+        rabbitWidth = this.gameWidth/12;
+        rabbitHeight = this.gameHeight/7;
         scroller = new ScrollHandler(this, this.gameWidth, this.gameHeight, this.groundY);
-        rabbit = new Rabbit(this.gameWidth/2-rabbitWidth/20*9, this.groundY, rabbitWidth, rabbitHeight,this.groundY);
+        rabbit = new Rabbit(this.gameWidth/4-rabbitWidth/40*9, this.groundY, rabbitWidth, rabbitHeight,this.groundY);
 
 
     }

@@ -88,10 +88,10 @@ public class GameRender {
 
         batch.begin();
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
-        drawGround();
         drawFence();
         drawHillBottoms();
         drawHillTops();
+        drawGround();
         drawRabbit();
         batch.end();
     }
@@ -109,7 +109,6 @@ public class GameRender {
     }
 
     public void initAssets() {
-        rTexture = AssetLoader.rTexture;
         hillTop = AssetLoader.hillTop;
         hillBottom = AssetLoader.hillBottom;
         background = AssetLoader.background;
