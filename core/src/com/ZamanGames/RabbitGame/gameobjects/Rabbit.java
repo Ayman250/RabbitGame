@@ -15,6 +15,7 @@ public class Rabbit {
 
     private float delta, timePressed;
 
+
     public Rabbit(float x, float y, int width, int height, int groundY) {
         this.height = height;
         this.width = width;
@@ -45,9 +46,10 @@ public class Rabbit {
     public void onClick() {
         timePressed = 1f;
     }
+
     public void onRelease() {
         if (timePressed > 3) {
-            timePressed = 4f;
+            timePressed = 3.4f;
         }
 
         System.out.println(timePressed);
@@ -60,6 +62,10 @@ public class Rabbit {
                 System.out.println("else");
             }
         System.out.println("Pressed");
+    }
+
+    public void changeHeight(float newY) {
+        position.y = newY;
     }
 
     public boolean inAir() {

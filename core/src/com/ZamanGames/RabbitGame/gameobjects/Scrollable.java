@@ -34,6 +34,9 @@ public class Scrollable {
         isScrolledLeft = false;
     }
 
+    public void stop() {
+
+    }
     public boolean isScrolledLeft() {
         return isScrolledLeft;
     }

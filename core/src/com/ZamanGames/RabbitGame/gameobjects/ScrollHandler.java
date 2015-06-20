@@ -14,6 +14,8 @@ public class ScrollHandler {
     public static int SCROLL_SPEED;
     public static int PIPE_GAP;
 
+    private Rabbit rabbit;
+
     private int gameWidth;
 
     public GameWorld world;
@@ -21,6 +23,8 @@ public class ScrollHandler {
     public ScrollHandler(GameWorld world, int gameWidth, int gameHeight, float groundY) {
         this.world = world;
         this.gameWidth = gameWidth;
+
+        rabbit = this.world.getRabbit();
 
         SCROLL_SPEED = -gameWidth/2;
         PIPE_GAP = gameWidth/2;
@@ -49,6 +53,13 @@ public class ScrollHandler {
 
         fence1.update(delta);
         fence2.update(delta);
+
+        if (ground1.rabbitOn(rabbit)){
+            rabbit.changeHeight(ground1.getY());
+        }
+        else if (ground2.rabbitOn(rabbit)) {
+            rabbit.changeHeight(ground2.getY());
+        }
 
         if (hill1.isScrolledLeft()) {
             hill1.reset(hill3.getTailX() + PIPE_GAP);

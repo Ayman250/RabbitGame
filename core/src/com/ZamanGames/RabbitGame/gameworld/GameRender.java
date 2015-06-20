@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameworld;
 
+import com.ZamanGames.RabbitGame.gameobjects.Ground;
 import com.ZamanGames.RabbitGame.gameobjects.Hill;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
@@ -26,7 +27,8 @@ public class GameRender {
 
     private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown;
 
-    private Scrollable hill1, hill2, hill3, ground1, ground2, fence1, fence2;
+    private Scrollable hill1, hill2, hill3, fence1, fence2;
+    private Ground ground1, ground2;
     private ScrollHandler scroller;
 
     private TextureRegion hillTop, hillBottom;
@@ -63,7 +65,16 @@ public class GameRender {
     }
 
     public void drawGround() {
-        batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+        switch (ground1.getGroundHeight()){
+            case 1: batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                break;
+            case 2: batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                break;
+            case 3: batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                break;
+        }
+
+
         batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
     }
 
@@ -114,7 +125,7 @@ public class GameRender {
         background = AssetLoader.background;
         tGround  = AssetLoader.ground;
         tFence = AssetLoader.fence;
-        rabbitJumped = AssetLoader.rabbitJumepd;
+        rabbitJumped = AssetLoader.rabbitJumped;
         rabbitDown = AssetLoader.rabbitDown;
 
     }
