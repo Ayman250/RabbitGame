@@ -25,9 +25,9 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown;
+    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water;
 
-    private Scrollable hill1, hill2, hill3, fence1, fence2;
+    private Scrollable hill1, hill2, hill3, fence1, fence2, water1, water2;
     private Ground ground1, ground2;
     private ScrollHandler scroller;
 
@@ -66,16 +66,42 @@ public class GameRender {
 
     public void drawGround() {
         switch (ground1.getGroundHeight()){
-            case 1: batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+            case 0:
+                batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                //System.out.println("ground1 1");
                 break;
-            case 2: batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+            case 1:
+                batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                batch.draw(dirt, ground1.getX(), ground1.getY()+ground1.getHeight(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                //System.out.println("ground1 2");
                 break;
-            case 3: batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+            case 2:
+                batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                batch.draw(dirt, ground1.getX(), ground1.getY()+ground1.getHeight(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                batch.draw(dirt, ground1.getX(), ground1.getY()+2*ground1.getHeight(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                //System.out.println("ground1 3");
                 break;
         }
 
 
-        batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+
+        switch (ground2.getGroundHeight()){
+            case 0:
+                batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                //System.out.println("ground2 1");
+                break;
+            case 1:
+                batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                batch.draw(dirt, ground2.getX(), ground2.getY()+ground2.getHeight(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                //System.out.println("ground2 2");
+                break;
+            case 2:
+                batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                batch.draw(dirt, ground2.getX(), ground2.getY()+ground2.getHeight(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                batch.draw(dirt, ground2.getX(), ground2.getY()+2*ground2.getHeight(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                //System.out.println("ground2 3");
+                break;
+        }
     }
 
     public void drawFence() {
@@ -127,7 +153,8 @@ public class GameRender {
         tFence = AssetLoader.fence;
         rabbitJumped = AssetLoader.rabbitJumped;
         rabbitDown = AssetLoader.rabbitDown;
-
+        dirt = AssetLoader.dirt;
+        water = AssetLoader.water;
     }
 
 }

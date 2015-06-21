@@ -27,9 +27,11 @@ public class Hill extends Scrollable {
     }
 
     @Override
-    public void reset(float newX) {
-        super.reset(newX);
+    public void reset(float newX, float newY) {
+        super.reset(newX, newY);
         height = r.nextInt(90) + 15;
         position.y = groundY - height + 10;
+        position.y -= newY;
+        System.out.println(newY);
        }
 }

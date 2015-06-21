@@ -29,7 +29,7 @@ public class Scrollable {
         }
     }
 
-    public void reset(float newX) {
+    public void reset(float newX, float newY) {
         position.x = newX;
         isScrolledLeft = false;
     }

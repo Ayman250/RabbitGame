@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
         float gameHeight = screenHeight;
 
         int midPointY = (int) (gameHeight / 2);
-        int groundY = (int) (gameHeight * 8 / 10) + 15;
+        int groundY = (int) (gameHeight * 9 / 10);
 
         world = new GameWorld((int) gameWidth, (int) gameHeight, midPointY, groundY);
         renderer = new GameRender(world, (int) gameHeight, (int) gameWidth, groundY);

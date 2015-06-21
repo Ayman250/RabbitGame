@@ -16,14 +16,14 @@ public class Ground extends Scrollable {
         super(x, y, width, height, scrollSpeed);
         r = new Random();
         initY = y;
-        groundHeight = 1;
+        groundHeight = 0;
 
     }
 
     @Override
-    public void reset(float newX) {
-        super.reset(newX);
-        groundHeight = r.nextInt(3) + 1;
+    public void reset(float newX, float newY) {
+        super.reset(newX, newY);
+        groundHeight = r.nextInt(3);
         System.out.println(groundHeight);
 
     }
@@ -39,10 +39,18 @@ public class Ground extends Scrollable {
         return false;
     }
 
+    public boolean isOn(float xPosition) {
+        if (xPosition >= getX() && xPosition < getX() + getWidth()) {
+            return true;
+        }
+        return false;
+
+    }
+
     @Override
     public float getY() {
         //System.out.println(initY * groundHeight);
-        return initY/groundHeight;
+        return initY - height*groundHeight;
     }
 
     //determines number of blocks needed to fill screen

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt;
+    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water;
     public static TextureRegion hillTop, hillBottom;
 
 
@@ -24,18 +24,28 @@ public class AssetLoader {
         rabbitDown = new Texture(Gdx.files.internal("data/PixelRabbit.png"));
         rabbitJumped = new Texture(Gdx.files.internal("data/RabbitUp.png"));
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
+        water = new Texture(Gdx.files.internal("data/water.png"));
 
 
         hillTop = new TextureRegion(hill, 0, 0, 48, 48);
         hillTop.flip(false, true);
         hillBottom = new TextureRegion(hill, 0, 47, 48, 100);
         hillBottom.flip(false, true);
+
         fence.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         ground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        water.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 }
 
     public void dispose() {
-
+        hill.dispose();
+        background.dispose();
+        ground.dispose();
+        fence.dispose();
+        rabbitDown.dispose();
+        rabbitJumped.dispose();
+        dirt.dispose();
     }
 
 }

@@ -66,13 +66,16 @@ public class Rabbit {
 
     public void changeHeight(float newY) {
         position.y = newY;
+        groundY = newY;
     }
 
     public boolean inAir() {
         if (position.y < groundY) {
+            //System.out.println("true");
             return true;
         }
         else {
+            //System.out.println("false");
             return false;
         }
     }
