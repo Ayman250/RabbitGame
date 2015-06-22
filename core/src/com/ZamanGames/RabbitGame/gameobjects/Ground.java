@@ -24,7 +24,7 @@ public class Ground extends Scrollable {
     public void reset(float newX, float newY) {
         super.reset(newX, newY);
         groundHeight = r.nextInt(3);
-        System.out.println(groundHeight);
+        //System.out.println(groundHeight);
 
     }
 
@@ -45,6 +45,13 @@ public class Ground extends Scrollable {
         }
         return false;
 
+    }
+
+    public boolean isOnRight(Ground ground) {
+        if (getX() > ground.getX()) {
+            return true;
+        }
+        return false;
     }
 
     @Override

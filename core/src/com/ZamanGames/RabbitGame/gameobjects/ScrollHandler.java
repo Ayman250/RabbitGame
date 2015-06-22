@@ -8,7 +8,7 @@ import com.ZamanGames.RabbitGame.gameworld.GameWorld;
 public class ScrollHandler {
 
     private Hill hill1, hill2, hill3;
-    private Ground ground1, ground2;
+    private Ground ground1, ground2, rightGround;
     private Fence fence1, fence2;
 
     public static int SCROLL_SPEED;
@@ -74,30 +74,24 @@ public class ScrollHandler {
         else if (fence2.isScrolledLeft()) {
             fence2.reset(gameWidth-2, 0);
         }
+        //Determine which ground is on the right side and make sure hills spawn according to that one
 
         //when hill is reset, parameter is passed in to determine how high it will stand now
-        if (hill1.isScrolledLeft()) {
-            if (ground1.isOn(hill1.getX())) {
-                hill1.reset(hill3.getTailX() + PIPE_GAP, ground1.getGroundHeight()*ground1.getHeight());
-            }
-            else{
-                hill1.reset(hill3.getTailX() + PIPE_GAP, ground2.getGroundHeight()*ground2.getHeight());
-            }
+        if (ground1.isOnRight(ground2)) {
+            rightGround = ground1;
         }
+        else {
+            rightGround = ground2;
+        }
+        if (hill1.isScrolledLeft()) {
+                hill1.reset(hill3.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
+            }
+
         else if (hill2.isScrolledLeft()) {
-            if (ground1.isOn(hill2.getX())) {
-                hill2.reset(hill1.getTailX() + PIPE_GAP, ground1.getGroundHeight()*ground1.getHeight());
-            }
-            else{
-                hill2.reset(hill1.getTailX() + PIPE_GAP, ground2.getGroundHeight()*ground2.getHeight());
-            }
+                hill2.reset(hill1.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
         }
         else if (hill3.isScrolledLeft()) {
-            if (ground1.isOn(hill3.getX())) {
-                hill3.reset(hill2.getTailX() + PIPE_GAP, ground1.getGroundHeight()*ground1.getHeight());
-            } else {
-                hill3.reset(hill2.getTailX() + PIPE_GAP, ground2.getGroundHeight()*ground2.getHeight());
-            }
+                hill3.reset(hill2.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
         }
         //Second parameter for reset unnecessary except for hills... So 0 is passed in as filler
 

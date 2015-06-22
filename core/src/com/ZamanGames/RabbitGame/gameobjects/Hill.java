@@ -32,6 +32,6 @@ public class Hill extends Scrollable {
         height = r.nextInt(90) + 15;
         position.y = groundY - height + 10;
         position.y -= newY;
-        System.out.println(newY);
+        //System.out.println(newY);
        }
 }
