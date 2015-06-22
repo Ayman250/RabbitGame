@@ -1,13 +1,13 @@
 package com.ZamanGames.RabbitGame.gameworld;
 
 import com.ZamanGames.RabbitGame.gameobjects.Ground;
-import com.ZamanGames.RabbitGame.gameobjects.Hill;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.gameobjects.Scrollable;
-import com.ZamanGames.RabbitGame.gameobjects.Spikes;
+import com.ZamanGames.RabbitGame.gameobjects.Spike;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,11 +26,13 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water;
+    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes;
+
+    private Music bgMusic;
 
     private Scrollable hill1, hill2, hill3, fence1, fence2, water1, water2;
     private Ground ground1, ground2;
-    private Spikes spike1, spike2, spike3;
+    private Spike spike1, spike2, spike3;
     private ScrollHandler scroller;
 
     private TextureRegion hillTop, hillBottom;
@@ -112,6 +114,11 @@ public class GameRender {
 
     }
 
+    public void drawSpikes() {
+        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), spikes.getHeight());
+        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
+    }
+
     public void drawRabbit() {
         if (rabbit.inAir()){
             batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
@@ -119,6 +126,14 @@ public class GameRender {
         else{
             batch.draw(rabbitDown, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
         }
+    }
+
+    public void playMusic() {
+        bgMusic.play();
+    }
+
+    public void pauseMusic() {
+        bgMusic.pause();
     }
 
     public void render(float runTime) {
@@ -130,6 +145,8 @@ public class GameRender {
         //drawFence();
         //drawHillBottoms();
         //drawHillTops();
+        //Temporary Location
+        playMusic();
         drawGround();
         drawRabbit();
         batch.end();
@@ -145,6 +162,8 @@ public class GameRender {
         ground2 = scroller.getGround2();
         fence1 = scroller.getFence1();
         fence2 = scroller.getFence2();
+        spike1 = scroller.getSpike1();
+        spike2 = scroller.getSpike2();
     }
 
     public void initAssets() {
@@ -157,6 +176,9 @@ public class GameRender {
         rabbitDown = AssetLoader.rabbitDown;
         dirt = AssetLoader.dirt;
         water = AssetLoader.water;
+        spikes = AssetLoader.spikes;
+        bgMusic = AssetLoader.bgMusic;
+
     }
 
 }

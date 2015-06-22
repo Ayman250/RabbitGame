@@ -2,6 +2,8 @@ package com.ZamanGames.RabbitGame.gameobjects;
 
 import com.ZamanGames.RabbitGame.gameworld.GameWorld;
 
+import java.util.Random;
+
 /**
  * Created by Ayman on 6/6/2015.
  */
@@ -10,14 +12,16 @@ public class ScrollHandler {
     private Hill hill1, hill2, hill3;
     private Ground ground1, ground2, rightGround;
     private Fence fence1, fence2;
-    private Spikes spike1, spike2, spike3;
+    private Spike spike1, spike2, spike3;
 
     public static int SCROLL_SPEED;
     public static int PIPE_GAP;
 
+    private Random r;
+
     private Rabbit rabbit;
 
-    private int gameWidth;
+    private int gameWidth, spikeLocation;
 
     public GameWorld world;
 
@@ -27,7 +31,7 @@ public class ScrollHandler {
 
         rabbit = this.world.getRabbit();
 
-        SCROLL_SPEED = -gameWidth/2;
+        SCROLL_SPEED = -gameWidth/20;
         PIPE_GAP = gameWidth/2;
 
         hill1 = new Hill(gameWidth, groundY - 60+10, gameWidth / 15, 60, SCROLL_SPEED, groundY);
@@ -40,6 +44,11 @@ public class ScrollHandler {
         fence1 = new Fence(0, groundY-70, 1300, 70, SCROLL_SPEED, groundY);
         fence2 = new Fence(ground1.getTailX(), groundY-70, gameWidth, 70, SCROLL_SPEED, groundY);
 
+        //initialize spikes to be invisble to player
+        spike1 = new Spike(0, -200 - 10, 70, 50, SCROLL_SPEED);
+        spike2 = new Spike(0, -200 - 10, 70, 50, SCROLL_SPEED);
+
+        r = new Random();
 
     }
 
@@ -60,19 +69,34 @@ public class ScrollHandler {
         else if (ground2.rabbitOn(rabbit)) {
             rabbit.changeHeight(ground2.getY());
         }
-
         if (ground1.isScrolledLeft()) {
+            //After reset hasSpike is changed to false so it is not rendered
             ground1.reset(ground2.getTailX(), 0);
-            fence1.changeHeight(ground1.getY());
+            //fence1.changeHeight(ground1.getY());
+            //50% chance of there being a spiek on the ground
+            //Same code logic for spike2
+            if (r.nextInt(10) % 2 == 0) {
+                ground1.setSpike(true);
+                ground1.newSpike(spike1);
+                spikeLocation = r.nextInt();
+            }
 
         }
         else if (ground2.isScrolledLeft()) {
             ground2.reset(ground1.getTailX(), 0);
-            fence2.changeHeight(ground2.getY());
+
+            if (r.nextInt(10) % 2 == 0) {
+                ground2.setSpike(true);
+                ground2.newSpike(spike2);
+            }
+            //fence2.changeHeight(ground2.getY());
         }
 
         ground1.update(delta);
         ground2.update(delta);
+
+        spike1.update(delta);
+        spike2.update(delta);
 
        /* if (fence1.isScrolledLeft()) {
             fence1.reset(gameWidth-2, 0);
@@ -130,5 +154,17 @@ public class ScrollHandler {
 
     public Fence getFence2() {
         return fence2;
+    }
+
+    public Spike getSpike1() {
+        return spike1;
+    }
+
+    public Spike getSpike2() {
+        return spike2;
+    }
+
+    public Spike getSpike3() {
+        return spike3;
     }
 }

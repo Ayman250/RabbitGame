@@ -1,6 +1,7 @@
 package com.ZamanGames.RabbitGame.rhelpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,6 +15,8 @@ public class AssetLoader {
     public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes;
     public static TextureRegion hillTop, hillBottom;
 
+    public static Music bgMusic;
+
 
 
     public static void load() {
@@ -26,6 +29,8 @@ public class AssetLoader {
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
         water = new Texture(Gdx.files.internal("data/water.png"));
         spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
+
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
 
 
         hillTop = new TextureRegion(hill, 0, 0, 48, 48);

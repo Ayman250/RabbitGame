@@ -11,6 +11,7 @@ public class Scrollable {
     protected int width;
     protected int height;
     protected boolean isScrolledLeft;
+    protected Spike spike;
 
     public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
         position = new Vector2(x, y);
@@ -37,6 +38,10 @@ public class Scrollable {
     public void stop() {
 
     }
+
+    public void newSpike (Spike newSpike) {
+        spike = newSpike;
+    }
     public boolean isScrolledLeft() {
         return isScrolledLeft;
     }
@@ -59,5 +64,9 @@ public class Scrollable {
 
     public int getHeight() {
         return height;
+    }
+
+    public Spike getSpike() {
+        return spike;
     }
 }

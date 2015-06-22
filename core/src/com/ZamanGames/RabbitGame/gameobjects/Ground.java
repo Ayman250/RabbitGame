@@ -10,6 +10,8 @@ public class Ground extends Scrollable {
     private int groundHeight;
     private float initY;
 
+    private boolean hasSpike;
+
     private Random r;
 
     public Ground(float x, float y, int width, int height, float scrollSpeed, float groundY) {
@@ -17,6 +19,7 @@ public class Ground extends Scrollable {
         r = new Random();
         initY = y;
         groundHeight = 0;
+        hasSpike = false;
 
     }
 
@@ -24,6 +27,7 @@ public class Ground extends Scrollable {
     public void reset(float newX, float newY) {
         super.reset(newX, newY);
         groundHeight = r.nextInt(3);
+        hasSpike = false;
         //System.out.println(groundHeight);
 
     }
@@ -33,8 +37,7 @@ public class Ground extends Scrollable {
     }
 
     public boolean rabbitOn(Rabbit rabbit) {
-        if (rabbit.getX() + rabbit.getWidth() / 2 >= getX() && rabbit.getX() + width / 2 < getX() + getWidth()) {
-
+        if (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth()) {
             return true;
         }
         return false;
@@ -61,5 +64,12 @@ public class Ground extends Scrollable {
         return initY - height*groundHeight;
     }
 
+    public boolean hasSpike() {
+        return hasSpike;
+    }
+
+    public void setSpike (boolean state){
+        hasSpike = state;
+    }
     //determines number of blocks needed to fill screen
 }
