@@ -42,6 +42,9 @@ public class AssetLoader {
         ground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         water.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+
+        bgMusic.setLooping(true);
+        bgMusic.setVolume(.5f);
 }
 
     public void dispose() {

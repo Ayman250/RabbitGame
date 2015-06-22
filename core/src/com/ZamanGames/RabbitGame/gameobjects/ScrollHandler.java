@@ -31,7 +31,7 @@ public class ScrollHandler {
 
         rabbit = this.world.getRabbit();
 
-        SCROLL_SPEED = -gameWidth/20;
+        SCROLL_SPEED = -gameWidth/2;
         PIPE_GAP = gameWidth/2;
 
         hill1 = new Hill(gameWidth, groundY - 60+10, gameWidth / 15, 60, SCROLL_SPEED, groundY);
