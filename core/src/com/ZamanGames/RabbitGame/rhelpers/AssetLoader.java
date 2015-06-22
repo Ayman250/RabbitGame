@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water;
+    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes;
     public static TextureRegion hillTop, hillBottom;
 
 
@@ -25,6 +25,7 @@ public class AssetLoader {
         rabbitJumped = new Texture(Gdx.files.internal("data/RabbitUp.png"));
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
         water = new Texture(Gdx.files.internal("data/water.png"));
+        spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
 
 
         hillTop = new TextureRegion(hill, 0, 0, 48, 48);

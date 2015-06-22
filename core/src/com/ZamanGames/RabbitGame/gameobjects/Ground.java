@@ -33,7 +33,8 @@ public class Ground extends Scrollable {
     }
 
     public boolean rabbitOn(Rabbit rabbit) {
-        if (rabbit.getX() >= getX() && rabbit.getX() < getX() + getWidth()) {
+        if (rabbit.getX() + rabbit.getWidth() / 2 >= getX() && rabbit.getX() + width / 2 < getX() + getWidth()) {
+
             return true;
         }
         return false;

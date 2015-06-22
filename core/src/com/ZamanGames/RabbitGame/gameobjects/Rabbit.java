@@ -65,7 +65,6 @@ public class Rabbit {
     }
 
     public void changeHeight(float newY) {
-        position.y = newY;
         groundY = newY;
     }
 

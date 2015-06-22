@@ -24,7 +24,7 @@ public class Scrollable {
         position.add(velocity.cpy().scl(delta));
 
         //If no longer visible FUCKIT
-        if (position.x + width < 0 ) {
+        if (position.x + width <= 0 ) {
             isScrolledLeft = true;
         }
     }

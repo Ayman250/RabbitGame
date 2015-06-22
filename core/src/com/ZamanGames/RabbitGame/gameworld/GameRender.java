@@ -5,6 +5,7 @@ import com.ZamanGames.RabbitGame.gameobjects.Hill;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.gameobjects.Scrollable;
+import com.ZamanGames.RabbitGame.gameobjects.Spikes;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -29,6 +30,7 @@ public class GameRender {
 
     private Scrollable hill1, hill2, hill3, fence1, fence2, water1, water2;
     private Ground ground1, ground2;
+    private Spikes spike1, spike2, spike3;
     private ScrollHandler scroller;
 
     private TextureRegion hillTop, hillBottom;
@@ -125,9 +127,9 @@ public class GameRender {
 
         batch.begin();
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
-        drawFence();
-        drawHillBottoms();
-        drawHillTops();
+        //drawFence();
+        //drawHillBottoms();
+        //drawHillTops();
         drawGround();
         drawRabbit();
         batch.end();

@@ -10,6 +10,7 @@ public class ScrollHandler {
     private Hill hill1, hill2, hill3;
     private Ground ground1, ground2, rightGround;
     private Fence fence1, fence2;
+    private Spikes spike1, spike2, spike3;
 
     public static int SCROLL_SPEED;
     public static int PIPE_GAP;
@@ -33,10 +34,10 @@ public class ScrollHandler {
         hill2 = new Hill(hill1.getTailX() + PIPE_GAP, groundY - 100 + 10, gameWidth/ 15, 100, SCROLL_SPEED, groundY);
         hill3 = new Hill(hill2.getTailX() + PIPE_GAP, groundY - 40 + 10, gameWidth / 15, 40, SCROLL_SPEED, groundY);
 
-        ground1 = new Ground(0, groundY, gameWidth, 50, SCROLL_SPEED, groundY);
-        ground2 = new Ground(ground1.getTailX(), groundY, gameWidth, 50, SCROLL_SPEED, groundY);
+        ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
+        ground2 = new Ground(ground1.getTailX(), groundY, gameWidth + 20, 80, SCROLL_SPEED, groundY);
 
-        fence1 = new Fence(0, groundY-70, gameWidth, 70, SCROLL_SPEED, groundY);
+        fence1 = new Fence(0, groundY-70, 1300, 70, SCROLL_SPEED, groundY);
         fence2 = new Fence(ground1.getTailX(), groundY-70, gameWidth, 70, SCROLL_SPEED, groundY);
 
 
@@ -44,15 +45,14 @@ public class ScrollHandler {
 
     public void update(float delta) {
 
-        hill1.update(delta);
-        hill2.update(delta);
-        hill3.update(delta);
+        //hill1.update(delta);
+        //hill2.update(delta);
+        //hill3.update(delta);
 
-        ground1.update(delta);
-        ground2.update(delta);
 
-        fence1.update(delta);
-        fence2.update(delta);
+
+        //fence1.update(delta);
+        //fence2.update(delta);
 
         if (ground1.rabbitOn(rabbit)){
             rabbit.changeHeight(ground1.getY());
@@ -62,13 +62,19 @@ public class ScrollHandler {
         }
 
         if (ground1.isScrolledLeft()) {
-            ground1.reset(gameWidth-2, 0);
+            ground1.reset(ground2.getTailX(), 0);
+            fence1.changeHeight(ground1.getY());
+
         }
         else if (ground2.isScrolledLeft()) {
-            ground2.reset(gameWidth-2, 0);
+            ground2.reset(ground1.getTailX(), 0);
+            fence2.changeHeight(ground2.getY());
         }
 
-        if (fence1.isScrolledLeft()) {
+        ground1.update(delta);
+        ground2.update(delta);
+
+       /* if (fence1.isScrolledLeft()) {
             fence1.reset(gameWidth-2, 0);
         }
         else if (fence2.isScrolledLeft()) {
@@ -83,6 +89,7 @@ public class ScrollHandler {
         else {
             rightGround = ground2;
         }
+
         if (hill1.isScrolledLeft()) {
                 hill1.reset(hill3.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
             }
@@ -92,7 +99,7 @@ public class ScrollHandler {
         }
         else if (hill3.isScrolledLeft()) {
                 hill3.reset(hill2.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
-        }
+        }*/
         //Second parameter for reset unnecessary except for hills... So 0 is passed in as filler
 
     }
