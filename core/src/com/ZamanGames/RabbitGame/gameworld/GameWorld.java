@@ -12,7 +12,8 @@ public class GameWorld {
     private ScrollHandler scroller;
     private int rabbitWidth, rabbitHeight;
 
-    private int gameWidth, gameHeight, groundY;
+    private int gameWidth, gameHeight, groundY, score;
+    private float scoreCounter;
 
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
 
@@ -25,6 +26,8 @@ public class GameWorld {
         rabbit = new Rabbit(this.gameWidth/4-rabbitWidth/40*9, this.groundY, rabbitWidth, rabbitHeight,this.groundY);
         scroller = new ScrollHandler(this, this.gameWidth, this.gameHeight, this.groundY);
 
+        score = 0;
+        scoreCounter = 0;
 
 
     }
@@ -32,6 +35,12 @@ public class GameWorld {
     public void update(float delta) {
         rabbit.update(delta);
         scroller.update(delta);
+        //adds point every 1/20th of a second
+        scoreCounter += delta;
+        if (scoreCounter >= 20) {
+            scoreCounter -= 20;
+            score++;
+        }
 
     }
 
@@ -50,6 +59,10 @@ public class GameWorld {
     public int getGameHeight() {
         return this.gameHeight;
 
+    }
+
+    public int getScore() {
+        return score;
     }
 
 }

@@ -129,6 +129,13 @@ public class GameRender {
         }
     }
 
+    private void drawScore() {
+        int length = ("" + world.getScore()).length();
+        AssetLoader.gameFont.draw(batch, "" + world.getScore(),
+                68 - (3 * length), gameHeight/2 - 83);
+    }
+
+
     public void playMusic() {
         bgMusic.play();
     }
@@ -149,6 +156,7 @@ public class GameRender {
         //drawHillTops();
         //Temporary Location
         playMusic();
+        drawScore();
         drawGround();
         drawSpikes();
         drawRabbit();
