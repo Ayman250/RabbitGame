@@ -21,7 +21,9 @@ public class ScrollHandler {
 
     private Rabbit rabbit;
 
-    private int gameWidth, spikeLocation;
+    private int gameWidth;
+
+    private float spikeLocation;
 
     public GameWorld world;
 
@@ -78,7 +80,8 @@ public class ScrollHandler {
             if (r.nextInt(10) % 2 == 0) {
                 ground1.setSpike(true);
                 ground1.newSpike(spike1);
-                spikeLocation = r.nextInt();
+                spikeLocation = r.nextInt((int)ground1.getWidth()) + ground1.getX() - spike1.getWidth();
+                spike1.reset(spikeLocation, ground1.getY());
             }
 
         }
@@ -88,6 +91,8 @@ public class ScrollHandler {
             if (r.nextInt(10) % 2 == 0) {
                 ground2.setSpike(true);
                 ground2.newSpike(spike2);
+                spikeLocation = r.nextInt((int)ground2.getWidth()) + ground2.getX() - spike2.getWidth();
+                spike2.reset(spikeLocation, ground2.getY());
             }
             //fence2.changeHeight(ground2.getY());
         }

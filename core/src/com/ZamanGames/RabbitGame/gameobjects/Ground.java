@@ -58,11 +58,6 @@ public class Ground extends Scrollable {
         return false;
     }
 
-    @Override
-    public float getY() {
-        //System.out.println(initY * groundHeight);
-        return initY - height*groundHeight;
-    }
 
     public boolean hasSpike() {
         return hasSpike;
@@ -71,5 +66,10 @@ public class Ground extends Scrollable {
     public void setSpike (boolean state){
         hasSpike = state;
     }
-    //determines number of blocks needed to fill screen
+
+    public float getY() {
+        //System.out.println(initY * groundHeight);
+        return initY - height*groundHeight;
+    }
+
 }

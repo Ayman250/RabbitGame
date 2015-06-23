@@ -34,6 +34,7 @@ public class GameRender {
     private Ground ground1, ground2;
     private Spike spike1, spike2, spike3;
     private ScrollHandler scroller;
+    private ParallaxBackground parallaxBackground;
 
     private TextureRegion hillTop, hillBottom;
 
@@ -115,8 +116,8 @@ public class GameRender {
     }
 
     public void drawSpikes() {
-        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), spikes.getHeight());
-        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
+        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), -spike1.getHeight());
+        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), -spike2.getHeight());
     }
 
     public void drawRabbit() {
@@ -142,12 +143,14 @@ public class GameRender {
 
         batch.begin();
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
+
         //drawFence();
         //drawHillBottoms();
         //drawHillTops();
         //Temporary Location
         playMusic();
         drawGround();
+        drawSpikes();
         drawRabbit();
         batch.end();
     }
@@ -164,6 +167,7 @@ public class GameRender {
         fence2 = scroller.getFence2();
         spike1 = scroller.getSpike1();
         spike2 = scroller.getSpike2();
+        //parallaxBackground = new ParallaxBackground();
     }
 
     public void initAssets() {
