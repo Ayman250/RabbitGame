@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
 import java.util.Random;
@@ -12,7 +13,7 @@ public class Ground extends Scrollable {
     private int groundHeight;
     private float initY;
 
-    private Rectangle hitBox;
+    protected Spike spike;
 
     private boolean hasSpike;
 
@@ -64,17 +65,32 @@ public class Ground extends Scrollable {
         return false;
     }
 
+    //Overrides the collides.
+    //Collides with ground is true if rabbit hitBox intersects ground hitBox && rabbit is not on top of ground
+    @Override
+    public boolean collides(Rabbit rabbit) {
+        if (Intersector.overlaps(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY()) {
+            return true;
+        }
+        return false;
+    }
 
     public boolean hasSpike() {
         return hasSpike;
     }
 
-    public Rectangle getHitBox() {
-        return hitBox;
+
+
+    public Spike getSpike() {
+        return spike;
     }
 
     public void setSpike (boolean state){
         hasSpike = state;
+    }
+
+    public void newSpike (Spike newSpike) {
+        spike = newSpike;
     }
 
     public float getY() {

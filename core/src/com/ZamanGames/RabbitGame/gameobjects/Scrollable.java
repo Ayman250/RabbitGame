@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,7 +13,7 @@ public class Scrollable {
     protected int width;
     protected int height;
     protected boolean isScrolledLeft;
-    protected Spike spike;
+    protected Rectangle hitBox;
 
     public Scrollable(float x, float y, int width, int height, float scrollSpeed) {
         position = new Vector2(x, y);
@@ -20,6 +21,8 @@ public class Scrollable {
         this.width = width;
         this.height = height;
         isScrolledLeft = false;
+
+        hitBox = new Rectangle(x, y, width, height);
     }
 
     public void update(float delta) {
@@ -27,8 +30,11 @@ public class Scrollable {
 
         //If no longer visible FUCKIT
         if (position.x + width <= 0 ) {
-            isScrolledLeft = true;
+            isScrolledLeft
+             = true;
         }
+        hitBox.x = position.x;
+        hitBox.y = position.y;
     }
 
     public void reset(float newX, float newY) {
@@ -40,16 +46,20 @@ public class Scrollable {
         velocity.x = 0;
     }
 
-    public void newSpike (Spike newSpike) {
-        spike = newSpike;
-    }
-
-    public void detectHit() {
-
-    }
 
     public boolean isScrolledLeft() {
         return isScrolledLeft;
+    }
+
+    public boolean collides (Rabbit rabbit) {
+        if (Intersector.overlaps(rabbit.getHitBox(), hitBox)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Rectangle getHitBox() {
+        return hitBox;
     }
 
     public float getTailX() {
@@ -72,7 +82,5 @@ public class Scrollable {
         return height;
     }
 
-    public Spike getSpike() {
-        return spike;
-    }
+
 }

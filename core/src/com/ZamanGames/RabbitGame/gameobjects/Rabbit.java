@@ -16,6 +16,8 @@ public class Rabbit {
 
     private float delta, timePressed;
 
+    private boolean isDead;
+
     private Rectangle hitBox;
 
 
@@ -28,6 +30,8 @@ public class Rabbit {
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 2000);
         hitBox = new Rectangle(x, y, width, height);
+
+        isDead = false;
 
     }
 
@@ -61,10 +65,11 @@ public class Rabbit {
         System.out.println(timePressed);
         if (!inAir())
             if (timePressed > 1.2f) {
-                velocity.add(0, -700 -200* timePressed);
+                velocity.add(0, -700 - 200 * timePressed);
             } else {
                 velocity.add(0, -800);
             }
+        System.out.println("Pressed");
     }
 
     public void changeHeight(float newY) {
@@ -81,6 +86,16 @@ public class Rabbit {
             return false;
         }
     }
+
+    public void dies() {
+        isDead = true;
+        velocity.x = 0;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
     public Rectangle getHitBox() {
         return hitBox;
     }

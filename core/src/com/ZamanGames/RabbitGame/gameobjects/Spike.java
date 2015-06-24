@@ -7,28 +7,26 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Spike extends Scrollable {
 
-    private Rectangle hitBox;
 
     public Spike(float x, float y, int width, int height, float scrollSpeed) {
         super(x, y, width, height, scrollSpeed);
-        hitBox = new Rectangle(x, y, width, height);
+        //to give the spike hitBox a little leeWay width and Height are made a little smaller
+        hitBox = new Rectangle(x, y, width-10, height-5);
     }
 
     @Override
     public void reset(float newX, float newY) {
         super.reset(newX, newY);
         position.y = newY;
+        hitBox.x = position.x + 5;
+        hitBox.y = position.y + 5;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        hitBox.x = position.x;
-        hitBox.y = position.y;
+
 
     }
 
-    public Rectangle getHitBox() {
-        return hitBox;
-    }
 }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -38,6 +39,8 @@ public class GameRender {
 
     private TextureRegion hillTop, hillBottom;
 
+    private Rectangle hitBox;
+
     public GameRender(GameWorld world, int gameHeight, int gameWidth, int groundY) {
         this.world = world;
         this.gameHeight = gameHeight;
@@ -53,6 +56,7 @@ public class GameRender {
 
         initGameObjects();
         initAssets();
+
      }
 
     public void drawHillTops() {
@@ -118,6 +122,8 @@ public class GameRender {
     public void drawSpikes() {
         batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), -spike1.getHeight());
         batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), -spike2.getHeight());
+        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), -spike1.getHeight());
+        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), -spike2.getHeight());
     }
 
     public void drawRabbit() {
@@ -132,7 +138,7 @@ public class GameRender {
     private void drawScore() {
         int length = ("" + world.getScore()).length();
         AssetLoader.gameFont.draw(batch, "" + world.getScore() + " m",
-                gameWidth/2 - (3 * length), gameHeight/20  );
+            gameWidth/2 - (3 * length), gameHeight / 20  - 83);
     }
 
 
