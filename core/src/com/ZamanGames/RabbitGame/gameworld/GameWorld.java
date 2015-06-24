@@ -37,8 +37,8 @@ public class GameWorld {
         scroller.update(delta);
         //adds point every 1/20th of a second
         scoreCounter += delta;
-        if (scoreCounter >= 20) {
-            scoreCounter -= 20;
+        if (scoreCounter >= 1/10f) {
+            scoreCounter -= 1/10f;
             score++;
         }
 

@@ -35,7 +35,7 @@ public class AssetLoader {
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
 
-        gameFont = new BitmapFont(Gdx.files.internal("data/BebasNeue.otf"));
+        gameFont = new BitmapFont(Gdx.files.internal("data/gameFont.fnt"), true);
 
 
         hillTop = new TextureRegion(hill, 0, 0, 48, 48);
@@ -48,10 +48,10 @@ public class AssetLoader {
         dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         water.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
-
-
         bgMusic.setLooping(true);
         bgMusic.setVolume(.5f);
+
+        gameFont.getData().setScale(2f,2f);
 }
 
     public void dispose() {

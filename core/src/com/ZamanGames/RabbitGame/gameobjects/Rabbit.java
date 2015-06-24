@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -15,6 +16,8 @@ public class Rabbit {
 
     private float delta, timePressed;
 
+    private Rectangle hitBox;
+
 
     public Rabbit(float x, float y, int width, int height, int groundY) {
         this.height = height;
@@ -24,6 +27,7 @@ public class Rabbit {
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 2000);
+        hitBox = new Rectangle(x, y, width, height);
 
     }
 
@@ -40,6 +44,8 @@ public class Rabbit {
         if(!inAir()){
             velocity.y = 0;
         }
+        hitBox.x = position.x;
+        hitBox.y = position.y;
 
     }
 
@@ -56,12 +62,9 @@ public class Rabbit {
         if (!inAir())
             if (timePressed > 1.2f) {
                 velocity.add(0, -700 -200* timePressed);
-                System.out.println("if");
             } else {
                 velocity.add(0, -800);
-                System.out.println("else");
             }
-        System.out.println("Pressed");
     }
 
     public void changeHeight(float newY) {
@@ -78,6 +81,10 @@ public class Rabbit {
             return false;
         }
     }
+    public Rectangle getHitBox() {
+        return hitBox;
+    }
+
     public float getX() {
         return position.x;
     }

@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -36,12 +37,17 @@ public class Scrollable {
     }
 
     public void stop() {
-
+        velocity.x = 0;
     }
 
     public void newSpike (Spike newSpike) {
         spike = newSpike;
     }
+
+    public void detectHit() {
+
+    }
+
     public boolean isScrolledLeft() {
         return isScrolledLeft;
     }

@@ -1,5 +1,7 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.badlogic.gdx.math.Rectangle;
+
 import java.util.Random;
 
 /**
@@ -9,6 +11,8 @@ public class Ground extends Scrollable {
 
     private int groundHeight;
     private float initY;
+
+    private Rectangle hitBox;
 
     private boolean hasSpike;
 
@@ -36,6 +40,8 @@ public class Ground extends Scrollable {
         return groundHeight;
     }
 
+
+
     public boolean rabbitOn(Rabbit rabbit) {
         if (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth()) {
             return true;
@@ -61,6 +67,10 @@ public class Ground extends Scrollable {
 
     public boolean hasSpike() {
         return hasSpike;
+    }
+
+    public Rectangle getHitBox() {
+        return hitBox;
     }
 
     public void setSpike (boolean state){

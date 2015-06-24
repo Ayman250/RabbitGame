@@ -131,8 +131,8 @@ public class GameRender {
 
     private void drawScore() {
         int length = ("" + world.getScore()).length();
-        AssetLoader.gameFont.draw(batch, "" + world.getScore(),
-                68 - (3 * length), gameHeight/2 - 83);
+        AssetLoader.gameFont.draw(batch, "" + world.getScore() + " m",
+                gameWidth/2 - (3 * length), gameHeight/20  );
     }
 
 
