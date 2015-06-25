@@ -1,7 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
 import com.ZamanGames.RabbitGame.gameworld.GameWorld;
-import com.badlogic.gdx.math.Intersector;
 
 import java.util.Random;
 
@@ -137,7 +136,7 @@ public class ScrollHandler {
     }
 
     public void stop() {
-        rabbit.dies();
+        rabbit.die();
         ground1.stop();
         ground2.stop();
         spike1.stop();

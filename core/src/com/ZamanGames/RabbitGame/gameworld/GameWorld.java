@@ -68,7 +68,7 @@ public class GameWorld {
         }
         if (scroller.rabbitCollides()) {
             scroller.stop();
-            rabbit.dies();
+            rabbit.die();
             currentState = GameState.GAMEOVER;
         }
 

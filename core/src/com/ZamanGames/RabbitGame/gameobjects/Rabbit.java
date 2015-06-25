@@ -20,7 +20,6 @@ public class Rabbit {
 
     private Rectangle hitBox;
 
-
     public Rabbit(float x, float y, int width, int height, int groundY) {
         this.height = height;
         this.width = width;
@@ -42,10 +41,10 @@ public class Rabbit {
 
         position.add(velocity.cpy().scl(delta));
         if (position.y > this.groundY) {
-          position.y = this.groundY;
+            position.y = this.groundY;
         }
         //If rabbit is on the ground set velocity in y to 0;
-        if(!inAir()){
+        if (!inAir()) {
             velocity.y = 0;
         }
         hitBox.x = position.x;
@@ -76,20 +75,23 @@ public class Rabbit {
         groundY = newY;
     }
 
+    public void die() {
+        isDead = true;
+        velocity.x = 0;
+    }
+
+    public void onRestart(int groundY) {
+        position.
+    }
+
     public boolean inAir() {
         if (position.y < groundY) {
             //System.out.println("true");
             return true;
-        }
-        else {
+        } else {
             //System.out.println("false");
             return false;
         }
-    }
-
-    public void dies() {
-        isDead = true;
-        velocity.x = 0;
     }
 
     public boolean isDead() {
@@ -103,12 +105,15 @@ public class Rabbit {
     public float getX() {
         return position.x;
     }
+
     public float getY() {
         return position.y;
-}
+    }
+
     public float getWidth() {
         return width;
     }
+
     public float getHeight() {
         return height;
     }
