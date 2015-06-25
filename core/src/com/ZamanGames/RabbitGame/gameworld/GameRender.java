@@ -39,8 +39,6 @@ public class GameRender {
 
     private TextureRegion hillTop, hillBottom;
 
-    private Rectangle hitBox;
-
     public GameRender(GameWorld world, int gameHeight, int gameWidth, int groundY) {
         this.world = world;
         this.gameHeight = gameHeight;
@@ -138,7 +136,7 @@ public class GameRender {
     private void drawScore() {
         int length = ("" + world.getScore()).length();
         AssetLoader.gameFont.draw(batch, "" + world.getScore() + " m",
-            gameWidth/2 - (3 * length), gameHeight / 20  - 83);
+            gameWidth/2 - (3 * length), gameHeight / 20);
     }
 
 

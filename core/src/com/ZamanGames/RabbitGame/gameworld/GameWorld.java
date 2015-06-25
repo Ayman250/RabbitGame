@@ -17,7 +17,14 @@ public class GameWorld {
 
     private boolean scoring;
 
+    private GameState currentState;
+
+    public enum GameState {
+        READY, RUNNING, GAMEOVER;
+    }
+
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
+        currentState = GameState.READY;
 
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
@@ -35,6 +42,20 @@ public class GameWorld {
     }
 
     public void update(float delta) {
+        switch (currentState) {
+            case READY:
+                updateReady(delta);
+                break;
+            case RUNNING:
+                updateRunning(delta);
+        }
+    }
+
+    private void updateReady(float delta) {
+
+    }
+
+    public void updateRunning(float delta) {
         rabbit.update(delta);
         scroller.update(delta);
         //adds point every 1/20th of a second
@@ -45,6 +66,12 @@ public class GameWorld {
                 score++;
             }
         }
+        if (scroller.rabbitCollides()) {
+            scroller.stop();
+            rabbit.dies();
+            currentState = GameState.GAMEOVER;
+        }
+
 
     }
 

@@ -98,15 +98,7 @@ public class ScrollHandler {
             //fence2.changeHeight(ground2.getY());
         }
 
-        if (birdCollides()) {
-            rabbit.dies();
-            ground1.stop();
-            ground2.stop();
-            spike1.stop();
-            spike2.stop();
-            world.stopScoring();
 
-        }
 
         ground1.update(delta);
         ground2.update(delta);
@@ -144,8 +136,17 @@ public class ScrollHandler {
 
     }
 
+    public void stop() {
+        rabbit.dies();
+        ground1.stop();
+        ground2.stop();
+        spike1.stop();
+        spike2.stop();
+        world.stopScoring();
+    }
 
-    public boolean birdCollides() {
+
+    public boolean rabbitCollides() {
         if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
             return true;
         }
