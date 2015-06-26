@@ -75,9 +75,13 @@ public class Ground extends Scrollable {
         return false;
     }
 
+    /*Called when game is reset (different from reset which is called when
+    ground passes screen*/
     public void onReset(float x, float scrollSpeed) {
         position.x = x;
         velocity.x = scrollSpeed;
+        groundHeight = 0;
+        setSpike(false);
     }
 
     public boolean hasSpike() {

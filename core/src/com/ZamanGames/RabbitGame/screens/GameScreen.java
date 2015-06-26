@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
         world = new GameWorld((int) gameWidth, (int) gameHeight, midPointY, groundY);
         renderer = new GameRender(world, (int) gameHeight, (int) gameWidth, groundY);
 
-        Gdx.input.setInputProcessor(new InputHandler(world.getRabbit()));
+        Gdx.input.setInputProcessor(new InputHandler(world));
 
         runTime = 0;
 

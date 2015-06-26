@@ -61,14 +61,14 @@ public class Rabbit {
             timePressed = 3.4f;
         }
 
-        System.out.println(timePressed);
+        //System.out.println(timePressed);
         if (!inAir())
             if (timePressed > 1.2f) {
                 velocity.add(0, -700 - 200 * timePressed);
             } else {
                 velocity.add(0, -800);
             }
-        System.out.println("Pressed");
+       //System.out.println("Pressed");
     }
 
     public void changeHeight(float newY) {

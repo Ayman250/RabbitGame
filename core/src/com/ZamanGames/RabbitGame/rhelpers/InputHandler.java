@@ -1,6 +1,7 @@
 package com.ZamanGames.RabbitGame.rhelpers;
 
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
+import com.ZamanGames.RabbitGame.gameworld.GameWorld;
 import com.badlogic.gdx.InputProcessor;
 
 /**
@@ -8,22 +9,33 @@ import com.badlogic.gdx.InputProcessor;
  */
 public class InputHandler implements InputProcessor {
 
-    private Rabbit myRabbit;
+    private Rabbit rabbit;
+    private GameWorld world;
 
-    public InputHandler(Rabbit rabbit) {
-        myRabbit = rabbit;
+    public InputHandler(GameWorld world) {
+        this.world= world;
+        rabbit = world.getRabbit();
     }
 
     @Override
     public boolean keyDown(int keycode) {
 
-        myRabbit.onClick();
+        if (this.world.isReady()) {
+            this.world.start();
+        }
+        rabbit.onClick();
+
+        if (this.world.isGameOver() || this.world.isHighScore()) {
+            //Reset all variables, go to GameState.Ready
+            this.world.restart();
+        }
+        //System.out.println();
         return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        myRabbit.onRelease();
+        rabbit.onRelease();
         return true;
     }
 
@@ -34,13 +46,23 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        myRabbit.onClick();
+
+        if (this.world.isReady()) {
+            this.world.start();
+        }
+        rabbit.onClick();
+
+        if (this.world.isGameOver()) {
+            //Reset all variables, go to GameState.Ready
+            this.world.restart();
+        }
+        //System.out.println();
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        myRabbit.onRelease();
+        rabbit.onRelease();
         return true;
     }
 

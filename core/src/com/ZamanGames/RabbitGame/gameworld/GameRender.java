@@ -13,7 +13,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
+
+import javax.accessibility.AccessibleStateSet;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -134,9 +135,30 @@ public class GameRender {
     }
 
     private void drawScore() {
-        int length = ("" + world.getScore()).length();
-        AssetLoader.gameFont.draw(batch, "" + world.getScore() + " m",
-            gameWidth/2 - (3 * length), gameHeight / 20);
+        if (world.isGameOver() || world.isHighScore()) {
+            if (world.isGameOver()) {
+                AssetLoader.gameFont.draw(batch, "GAME OVER",
+                        gameWidth / 2 - 190, gameHeight / 2 - 40);
+            } else {
+                AssetLoader.gameFont.draw(batch, "HIGH SCORE!",
+                        gameWidth / 2 - 190, gameHeight / 2 - 40);
+
+                String highScore = "" + AssetLoader.getHighScore();
+
+                AssetLoader.gameFont.draw(batch, highScore,
+                        gameWidth / 2 - 190, gameHeight / 2 - 40);
+                return;
+            }
+        }
+        if (world.isReady()) {
+            AssetLoader.gameFont.draw(batch, "TOUCH TO START!",
+                    gameWidth / 2 - 190, gameHeight / 2 - 40);
+
+        } else {
+            int length = ("" + world.getScore()).length();
+            AssetLoader.gameFont.draw(batch, "" + world.getScore() + " m",
+                    gameWidth / 2 - (3 * length), gameHeight / 20);
+        }
     }
 
 
@@ -165,6 +187,7 @@ public class GameRender {
         drawSpikes();
         drawRabbit();
         batch.end();
+
     }
 
     public void initGameObjects() {

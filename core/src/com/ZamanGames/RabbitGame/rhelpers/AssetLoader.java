@@ -1,6 +1,7 @@
 package com.ZamanGames.RabbitGame.rhelpers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,6 +21,8 @@ public class AssetLoader {
 
     public static Music bgMusic;
 
+    public static Preferences prefs;
+
 
 
     public static void load() {
@@ -37,6 +40,11 @@ public class AssetLoader {
 
         gameFont = new BitmapFont(Gdx.files.internal("data/gameFont.fnt"), true);
 
+        // Create (or retrieve existing) preferences file
+        prefs = Gdx.app.getPreferences("Rabbit Runner");
+
+
+
 
         hillTop = new TextureRegion(hill, 0, 0, 48, 48);
         hillTop.flip(false, true);
@@ -52,6 +60,12 @@ public class AssetLoader {
         bgMusic.setVolume(0f);
 
         gameFont.getData().setScale(2f,2f);
+
+        //Provide default high score of 0
+        if (!prefs.contains("highScore")) {
+            prefs.putInteger("highScore", 0);
+        }
+
 }
 
     public void dispose() {
@@ -61,7 +75,22 @@ public class AssetLoader {
         fence.dispose();
         rabbitDown.dispose();
         rabbitJumped.dispose();
+        water.dispose();
+        bgMusic.dispose();
+        gameFont.dispose();
         dirt.dispose();
     }
+
+    // Receives an integer and maps it to the String highScore in prefs
+    public static void setHighScore(int val) {
+        prefs.putInteger("highScore", val);
+        prefs.flush();
+    }
+
+    // Retrieves the current high score
+    public static int getHighScore() {
+        return prefs.getInteger("highScore");
+    }
+
 
 }

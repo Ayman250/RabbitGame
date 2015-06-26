@@ -2,6 +2,7 @@ package com.ZamanGames.RabbitGame.gameworld;
 
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
+import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -20,7 +21,7 @@ public class GameWorld {
     private GameState currentState;
 
     public enum GameState {
-        READY, RUNNING, GAMEOVER;
+        READY, RUNNING, GAMEOVER, HIGHSCORE;
     }
 
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
@@ -48,6 +49,9 @@ public class GameWorld {
                 break;
             case RUNNING:
                 updateRunning(delta);
+                break;
+            default:
+                break;
         }
     }
 
@@ -55,17 +59,6 @@ public class GameWorld {
 
     }
 
-    public void restart() {
-        currentState = GameState.READY;
-        score = 0;
-        rabbit.onRestart(this.groundY);
-        scroller.onRestart();
-        currentState = GameState.READY;
-    }
-
-    public boolean isReady() {
-        return currentState == GameState.READY;
-    }
 
     public void updateRunning(float delta) {
         rabbit.update(delta);
@@ -82,11 +75,48 @@ public class GameWorld {
             scroller.stop();
             rabbit.die();
             currentState = GameState.GAMEOVER;
+
+            if (score > AssetLoader.getHighScore()) {
+                AssetLoader.setHighScore(score);
+                currentState = GameState.HIGHSCORE;
+            }
         }
 
 
     }
 
+    public void start() {
+        currentState = GameState.RUNNING;
+    }
+
+    public void restart() {
+        currentState = GameState.READY;
+        score = 0;
+        scoring = true;
+        rabbit.onRestart(this.groundY);
+        scroller.onRestart();
+        currentState = GameState.READY;
+
+    }
+
+    public boolean isHighScore() {
+        return currentState == GameState.HIGHSCORE;
+    }
+
+    public boolean isReady() {
+        return currentState == GameState.READY;
+    }
+
+    public boolean isGameOver() {
+        return currentState == GameState.GAMEOVER;
+    }
+
+    //Used in case scoring needs to be resumed while game is still running.
+    public void startScoring() {
+        scoring = true;
+    }
+
+    //Used if rabbit dies or game is paused
     public void stopScoring() {
         scoring = false;
     }
