@@ -1,6 +1,7 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
 import com.ZamanGames.RabbitGame.gameworld.GameWorld;
+import com.badlogic.gdx.Screen;
 
 import java.util.Random;
 
@@ -153,6 +154,14 @@ public class ScrollHandler {
             return true;
         }
         return false;
+    }
+
+    public void onRestart() {
+        ground1.onReset(0, SCROLL_SPEED);
+        ground2.onReset(ground1.getTailX()  , SCROLL_SPEED);
+        spike1.onReset(0, SCROLL_SPEED);
+        spike2.onReset(0, SCROLL_SPEED);
+
     }
 
     public Hill getHill1() {

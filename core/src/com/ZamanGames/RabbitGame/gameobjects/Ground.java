@@ -75,6 +75,11 @@ public class Ground extends Scrollable {
         return false;
     }
 
+    public void onReset(float x, float scrollSpeed) {
+        position.x = x;
+        velocity.x = scrollSpeed;
+    }
+
     public boolean hasSpike() {
         return hasSpike;
     }

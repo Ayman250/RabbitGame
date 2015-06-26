@@ -80,8 +80,13 @@ public class Rabbit {
         velocity.x = 0;
     }
 
-    public void onRestart(int groundY) {
-        position.
+    public void onRestart(int y) {
+        position.y = y;
+        velocity.x = 0;
+        velocity.y = 0;
+        acceleration.x = 0;
+        acceleration.y = 2000;
+        isDead = false;
     }
 
     public boolean inAir() {

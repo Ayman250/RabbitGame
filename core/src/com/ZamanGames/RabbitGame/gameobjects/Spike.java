@@ -29,4 +29,10 @@ public class Spike extends Scrollable {
 
     }
 
+    //This onReset method needs to be fixed
+    public void onReset(float x, float scrollSpeed) {
+        position.x = x;
+        velocity.x = scrollSpeed;
+    }
+
 }

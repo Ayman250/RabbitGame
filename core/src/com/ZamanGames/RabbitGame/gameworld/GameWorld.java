@@ -55,6 +55,18 @@ public class GameWorld {
 
     }
 
+    public void restart() {
+        currentState = GameState.READY;
+        score = 0;
+        rabbit.onRestart(this.groundY);
+        scroller.onRestart();
+        currentState = GameState.READY;
+    }
+
+    public boolean isReady() {
+        return currentState == GameState.READY;
+    }
+
     public void updateRunning(float delta) {
         rabbit.update(delta);
         scroller.update(delta);
