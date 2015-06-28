@@ -14,14 +14,14 @@ public class GameWorld {
     private int rabbitWidth, rabbitHeight;
 
     private int gameWidth, gameHeight, groundY, score;
-    private float scoreCounter;
+    private float scoreCounter, runTime = 0;
 
     private boolean scoring;
 
     private GameState currentState;
 
     public enum GameState {
-        READY, RUNNING, GAMEOVER, HIGHSCORE;
+        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE;
     }
 
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
@@ -40,11 +40,15 @@ public class GameWorld {
         scoreCounter = 0;
 
         scoring = true;
+
     }
 
     public void update(float delta) {
+        runTime += delta;
+
         switch (currentState) {
             case READY:
+            case MENU:
                 updateReady(delta);
                 break;
             case RUNNING:
@@ -56,16 +60,20 @@ public class GameWorld {
     }
 
     private void updateReady(float delta) {
-
+        rabbit.updateReady(runTime);
     }
 
 
     public void updateRunning(float delta) {
+        if (delta > .15f) {
+            delta = .15f;
+        }
+
         rabbit.update(delta);
         scroller.update(delta);
         //adds point every 1/20th of a second
         scoreCounter += delta;
-        if(scoring) {
+        if (scoring) {
             if (scoreCounter >= 1 / 10f) {
                 scoreCounter -= 1 / 10f;
                 score++;
@@ -84,6 +92,10 @@ public class GameWorld {
         }
 
 
+    }
+
+    public void ready() {
+        currentState = GameState.READY;
     }
 
     public void start() {
@@ -127,6 +139,10 @@ public class GameWorld {
 
     public boolean isRunning() {
         return currentState == GameState.RUNNING;
+    }
+
+    public boolean isMenu() {
+        return currentState == GameState.MENU;
     }
 
     //Used in case scoring needs to be resumed while game is still running.
