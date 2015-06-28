@@ -30,7 +30,6 @@ public class GameRender {
 
     private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes;
 
-    private Music bgMusic;
 
     private Scrollable hill1, hill2, hill3, fence1, fence2, water1, water2;
     private Ground ground1, ground2;
@@ -145,8 +144,9 @@ public class GameRender {
 
                 String highScore = "" + AssetLoader.getHighScore();
 
+                int length = ("" + AssetLoader.getHighScore()).length();
                 AssetLoader.gameFont.draw(batch, highScore,
-                        gameWidth / 2 - 190, gameHeight / 2 - 40);
+                        gameWidth / 2 - (3 * length), gameHeight / 2 - 40 - 50);
                 return;
             }
         }
@@ -162,13 +162,7 @@ public class GameRender {
     }
 
 
-    public void playMusic() {
-        bgMusic.play();
-    }
 
-    public void pauseMusic() {
-        bgMusic.pause();
-    }
 
     public void render(float runTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -181,7 +175,6 @@ public class GameRender {
         //drawHillBottoms();
         //drawHillTops();
         //Temporary Location
-        playMusic();
         drawScore();
         drawGround();
         drawSpikes();
@@ -216,7 +209,6 @@ public class GameRender {
         dirt = AssetLoader.dirt;
         water = AssetLoader.water;
         spikes = AssetLoader.spikes;
-        bgMusic = AssetLoader.bgMusic;
 
     }
 

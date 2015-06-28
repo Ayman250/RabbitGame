@@ -73,6 +73,7 @@ public class GameWorld {
         }
         if (scroller.rabbitCollides()) {
             scroller.stop();
+            stopMusic();
             rabbit.die();
             currentState = GameState.GAMEOVER;
 
@@ -87,6 +88,7 @@ public class GameWorld {
 
     public void start() {
         currentState = GameState.RUNNING;
+        playMusic();
     }
 
     public void restart() {
@@ -99,6 +101,18 @@ public class GameWorld {
 
     }
 
+    public void playMusic() {
+        AssetLoader.bgMusic.play();
+    }
+
+    public void pauseMusic() {
+        AssetLoader.bgMusic.pause();
+    }
+
+    public void stopMusic() {
+        AssetLoader.bgMusic.stop();
+    }
+
     public boolean isHighScore() {
         return currentState == GameState.HIGHSCORE;
     }
@@ -109,6 +123,10 @@ public class GameWorld {
 
     public boolean isGameOver() {
         return currentState == GameState.GAMEOVER;
+    }
+
+    public boolean isRunning() {
+        return currentState == GameState.RUNNING;
     }
 
     //Used in case scoring needs to be resumed while game is still running.
