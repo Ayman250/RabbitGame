@@ -14,8 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown;
-    public static TextureRegion hillTop, hillBottom;
+    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, hillTop, hillBottom;
 
     public static BitmapFont gameFont;
 
@@ -26,7 +25,6 @@ public class AssetLoader {
 
 
     public static void load() {
-        hill = new Texture(Gdx.files.internal("data/hill.png"));
         background = new Texture(Gdx.files.internal("data/background.png"));
         ground = new Texture(Gdx.files.internal("data/ground.png"));
         fence = new Texture(Gdx.files.internal("data/fence.png"));
@@ -37,6 +35,9 @@ public class AssetLoader {
         spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
         playButtonUp = new Texture(Gdx.files.internal("data/playButtonUp.png"));
         playButtonDown = new Texture(Gdx.files.internal(("data/playButtonDown.png")));
+        hillTop = new Texture(Gdx.files.internal("data/HillTop.png"));
+        hillBottom = new Texture(Gdx.files.internal("data/HillBottom.png"));
+
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
 
@@ -45,21 +46,13 @@ public class AssetLoader {
         // Create (or retrieve existing) preferences file
         prefs = Gdx.app.getPreferences("Rabbit Runner");
 
-
-
-
-        hillTop = new TextureRegion(hill, 0, 0, 48, 48);
-        hillTop.flip(false, true);
-        hillBottom = new TextureRegion(hill, 0, 47, 48, 100);
-        hillBottom.flip(false, true);
-
         fence.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         ground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         water.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         bgMusic.setLooping(true);
-        bgMusic.setVolume(1f);
+        bgMusic.setVolume(0f);
 
         gameFont.getData().setScale(2f,2f);
 

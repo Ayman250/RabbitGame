@@ -58,6 +58,12 @@ public class Ground extends Scrollable {
 
     }
 
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        hitBox.width = getWidth()/2;
+    }
+
     public boolean isOnRight(Ground ground) {
         if (getX() > ground.getX()) {
             return true;

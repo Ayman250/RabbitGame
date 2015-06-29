@@ -62,9 +62,9 @@ public class ScrollHandler {
 
     public void update(float delta) {
 
-        //hill1.update(delta);
-        //hill2.update(delta);
-        //hill3.update(delta);
+        hill1.update(delta);
+        hill2.update(delta);
+        hill3.update(delta);
 
 
         //fence1.update(delta);

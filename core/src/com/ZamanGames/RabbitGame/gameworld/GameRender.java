@@ -1,6 +1,7 @@
 package com.ZamanGames.RabbitGame.gameworld;
 
 import com.ZamanGames.RabbitGame.gameobjects.Ground;
+import com.ZamanGames.RabbitGame.gameobjects.Hill;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.gameobjects.Scrollable;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +38,15 @@ public class GameRender {
     private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
 
 
-    private Scrollable hill1, hill2, hill3, fence1, fence2, water1, water2;
+    private Scrollable fence1, fence2, water1, water2;
+    private Hill hill1, hill2, hill3;
     private Ground ground1, ground2;
     private Spike spike1, spike2, spike3;
     private ScrollHandler scroller;
     private ParallaxBackground parallaxBackground;
+    private TiledDrawable tiledDrawable;
 
-    private TextureRegion hillTop, hillBottom;
+    private Texture hillTop, hillBottom;
 
     private List<Button> menuButtons;
 
@@ -76,30 +80,30 @@ public class GameRender {
     public void drawHillTops() {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillTop, hill1.getX(), hill1.getY()-(hill1.getWidth()*2), hill1.getWidth(), hill1.getWidth()*2);
-        batch.draw(hillTop, hill2.getX(), hill2.getY() - (hill2.getWidth() * 2), hill2.getWidth(), hill2.getWidth() * 2);
-        batch.draw(hillTop, hill3.getX(), hill3.getY() - (hill3.getWidth() * 2), hill3.getWidth(), hill3.getWidth() * 2);
+        batch.draw(hillTop, hill1.getX(), hill1.getY() - (hill1.getWidth()), hill1.getWidth(), hill1.getWidth());
+        batch.draw(hillTop, hill2.getX(), hill2.getY() - (hill2.getWidth()), hill2.getWidth(), hill2.getWidth());
+        batch.draw(hillTop, hill3.getX(), hill3.getY() - (hill3.getWidth()), hill3.getWidth(), hill3.getWidth());
     }
 
     public void drawHillBottoms() {
-        batch.draw(hillBottom, hill1.getX(), hill1.getY(), hill1.getWidth(), hill1.getHeight());
-        batch.draw(hillBottom, hill2.getX(), hill2.getY(), hill2.getWidth(), hill2.getHeight());
-        batch.draw(hillBottom, hill3.getX(), hill3.getY(), hill3.getWidth(), hill3.getHeight());
+        batch.draw(hillBottom, hill1.getX(), hill1.getY(), hill1.getWidth(), hill1.getHeight(), 0, 0, 1, hill1.getNumBlocks());
+        batch.draw(hillBottom, hill2.getX(), hill2.getY(), hill2.getWidth(), hill2.getHeight(), 0, 0, 1, hill2.getNumBlocks());
+        batch.draw(hillBottom, hill3.getX(), hill3.getY(), hill3.getWidth(), hill3.getHeight(), 0, 0, 1, hill3.getNumBlocks());
     }
 
     public void drawGround() {
         switch (ground1.getGroundHeight()){
             case 0:
-                batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                batch.draw(tGround, ground1.getX(), ground1.getY()-12, ground1.getWidth(), ground1.getHeight() + 12, 0, 0, 8, 1);
                 //System.out.println("ground1 1");
                 break;
             case 1:
-                batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                batch.draw(tGround, ground1.getX(), ground1.getY()-12, ground1.getWidth(), ground1.getHeight() + 12, 0, 0, 8, 1);
                 batch.draw(dirt, ground1.getX(), ground1.getY()+ground1.getHeight(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
                 //System.out.println("ground1 2");
                 break;
             case 2:
-                batch.draw(tGround, ground1.getX(), ground1.getY(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
+                batch.draw(tGround, ground1.getX(), ground1.getY()-12, ground1.getWidth(), ground1.getHeight() + 12, 0, 0, 8, 1);
                 batch.draw(dirt, ground1.getX(), ground1.getY()+ground1.getHeight(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
                 batch.draw(dirt, ground1.getX(), ground1.getY()+2*ground1.getHeight(), ground1.getWidth(), ground1.getHeight(), 0, 0, 8, 1);
                 //System.out.println("ground1 3");
@@ -110,16 +114,16 @@ public class GameRender {
 
         switch (ground2.getGroundHeight()){
             case 0:
-                batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                batch.draw(tGround, ground2.getX(), ground2.getY()-12, ground2.getWidth(), ground2.getHeight() + 12, 0, 0, 8, 1);
                 //System.out.println("ground2 1");
                 break;
             case 1:
-                batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                batch.draw(tGround, ground2.getX(), ground2.getY()-12, ground2.getWidth(), ground2.getHeight() + 12, 0, 0, 8, 1);
                 batch.draw(dirt, ground2.getX(), ground2.getY()+ground2.getHeight(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
                 //System.out.println("ground2 2");
                 break;
             case 2:
-                batch.draw(tGround, ground2.getX(), ground2.getY(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
+                batch.draw(tGround, ground2.getX(), ground2.getY()-12, ground2.getWidth(), ground2.getHeight() + 12, 0, 0, 8, 1);
                 batch.draw(dirt, ground2.getX(), ground2.getY()+ground2.getHeight(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
                 batch.draw(dirt, ground2.getX(), ground2.getY()+2*ground2.getHeight(), ground2.getWidth(), ground2.getHeight(), 0, 0, 8, 1);
                 //System.out.println("ground2 3");
@@ -162,7 +166,7 @@ public class GameRender {
                         gameWidth / 2 - 190, gameHeight / 2 - 40);
             } else {
                 AssetLoader.gameFont.draw(batch, "HIGH SCORE!",
-                        gameWidth / 2 - 190, gameHeight / 2 - 40);
+                        gameWidth / 2 - 90, gameHeight / 2 - 40);
 
                 String highScore = "" + AssetLoader.getHighScore();
 
@@ -198,14 +202,14 @@ public class GameRender {
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
 
         //drawFence();
-        //drawHillBottoms();
-        //drawHillTops();
+        drawHillBottoms();
+        drawHillTops();
         //Temporary Location
-        drawRabbit();
         //drawWater();
         drawScore();
         drawGround();
         drawSpikes();
+        drawRabbit();
 
 
         if (world.isMenu()) {
