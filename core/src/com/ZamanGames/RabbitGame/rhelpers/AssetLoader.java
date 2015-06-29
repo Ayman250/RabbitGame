@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes;
+    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown;
     public static TextureRegion hillTop, hillBottom;
 
     public static BitmapFont gameFont;
@@ -35,6 +35,8 @@ public class AssetLoader {
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
         water = new Texture(Gdx.files.internal("data/water.png"));
         spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
+        playButtonUp = new Texture(Gdx.files.internal("data/playButtonUp.png"));
+        playButtonDown = new Texture(Gdx.files.internal(("data/playButtonDown.png")));
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
 

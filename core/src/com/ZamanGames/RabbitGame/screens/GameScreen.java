@@ -29,10 +29,10 @@ public class GameScreen implements Screen {
         int groundY = (int) (gameHeight * 9 / 10);
 
         world = new GameWorld((int) gameWidth, (int) gameHeight, midPointY, groundY);
+
+
+        Gdx.input.setInputProcessor(new InputHandler(world, screenWidth / gameWidth, screenHeight / gameHeight) );
         renderer = new GameRender(world, (int) gameHeight, (int) gameWidth, groundY);
-
-        Gdx.input.setInputProcessor(new InputHandler(world));
-
         runTime = 0;
 
     }
@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
         world.update(delta);
 
         runTime += delta;
-        renderer.render(runTime);
+        renderer.render(delta, runTime);
 
     }
 

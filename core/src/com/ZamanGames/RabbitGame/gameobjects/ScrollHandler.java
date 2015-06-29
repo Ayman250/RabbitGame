@@ -22,6 +22,8 @@ public class ScrollHandler {
 
     private Rabbit rabbit;
 
+    private Water water1, water2;
+
     private int gameWidth;
 
     private float spikeLocation;
@@ -47,6 +49,9 @@ public class ScrollHandler {
         fence1 = new Fence(0, groundY-70, 1300, 70, SCROLL_SPEED, groundY);
         fence2 = new Fence(ground1.getTailX(), groundY-70, gameWidth, 70, SCROLL_SPEED, groundY);
 
+        water1 = new Water(0, groundY, 1300, 70, SCROLL_SPEED);
+        water2 = new Water(water1.getTailX(), gameHeight, 1300, 70, SCROLL_SPEED);
+
         //initialize spikes to be invisble to player
         spike1 = new Spike(0, -200 - 10, 70, 50, SCROLL_SPEED);
         spike2 = new Spike(0, -200 - 10, 70, 50, SCROLL_SPEED);
@@ -62,14 +67,15 @@ public class ScrollHandler {
         //hill3.update(delta);
 
 
-
         //fence1.update(delta);
         //fence2.update(delta);
 
-        if (ground1.rabbitOn(rabbit)){
+        water1.update(delta);
+        water2.update(delta);
+
+        if (ground1.rabbitOn(rabbit)) {
             rabbit.changeHeight(ground1.getY());
-        }
-        else if (ground2.rabbitOn(rabbit)) {
+        } else if (ground2.rabbitOn(rabbit)) {
             rabbit.changeHeight(ground2.getY());
         }
         if (ground1.isScrolledLeft()) {
@@ -81,23 +87,21 @@ public class ScrollHandler {
             if (r.nextInt(10) % 2 == 0) {
                 ground1.setSpike(true);
                 ground1.newSpike(spike1);
-                spikeLocation = r.nextInt((int)ground1.getWidth()) + ground1.getX() - spike1.getWidth();
+                spikeLocation = r.nextInt((int) ground1.getWidth()) + ground1.getX() - spike1.getWidth();
                 spike1.reset(spikeLocation, ground1.getY());
             }
 
-        }
-        else if (ground2.isScrolledLeft()) {
+        } else if (ground2.isScrolledLeft()) {
             ground2.reset(ground1.getTailX(), 0);
 
             if (r.nextInt(10) % 2 == 0) {
                 ground2.setSpike(true);
                 ground2.newSpike(spike2);
-                spikeLocation = r.nextInt((int)ground2.getWidth()) + ground2.getX() - spike2.getWidth();
+                spikeLocation = r.nextInt((int) ground2.getWidth()) + ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
             }
             //fence2.changeHeight(ground2.getY());
         }
-
 
 
         ground1.update(delta);
@@ -106,16 +110,16 @@ public class ScrollHandler {
         spike1.update(delta);
         spike2.update(delta);
 
-       /* if (fence1.isScrolledLeft()) {
-            fence1.reset(gameWidth-2, 0);
+        if (water1.isScrolledLeft()) {
+            water1.reset(gameWidth - 2, 0);
         }
-        else if (fence2.isScrolledLeft()) {
-            fence2.reset(gameWidth-2, 0);
+        else if (water2.isScrolledLeft()) {
+            water2.reset(gameWidth - 2, 0);
         }
         //Determine which ground is on the right side and make sure hills spawn according to that one
 
         //when hill is reset, parameter is passed in to determine how high it will stand now
-        if (ground1.isOnRight(ground2)) {
+       /* if (ground1.isOnRight(ground2)) {
             rightGround = ground1;
         }
         else {
@@ -142,6 +146,8 @@ public class ScrollHandler {
         ground2.stop();
         spike1.stop();
         spike2.stop();
+        water1.stop();
+        water2.stop();
         world.stopScoring();
     }
 
@@ -161,7 +167,8 @@ public class ScrollHandler {
         ground2.onReset(ground1.getTailX()  , SCROLL_SPEED);
         spike1.onReset(0, SCROLL_SPEED);
         spike2.onReset(0, SCROLL_SPEED);
-
+        water1.onReset(0, SCROLL_SPEED);
+        water2.onReset(0, SCROLL_SPEED);
     }
 
     public Hill getHill1() {
@@ -202,5 +209,13 @@ public class ScrollHandler {
 
     public Spike getSpike3() {
         return spike3;
+    }
+
+    public Water getWater1() {
+        return water1;
+    }
+
+    public Water getWater2() {
+        return water2;
     }
 }

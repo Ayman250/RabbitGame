@@ -12,7 +12,7 @@ public class Rabbit {
     private Vector2 velocity;
     private Vector2 acceleration;
 
-    private float height, width, groundY;
+    private float height, width, groundY, initY, initGroundY;
 
     private float delta, timePressed;
 
@@ -32,6 +32,9 @@ public class Rabbit {
 
         isDead = false;
 
+        initY = y;
+        initGroundY = groundY;
+
     }
 
     public void update(float delta) {
@@ -50,6 +53,10 @@ public class Rabbit {
         hitBox.x = position.x;
         hitBox.y = position.y;
 
+    }
+
+    public void updateReady(float runTime) {
+        position.y = 2 * (float) Math.sin(7 * runTime) + initY;
     }
 
     public void onClick() {
@@ -86,6 +93,7 @@ public class Rabbit {
         velocity.y = 0;
         acceleration.x = 0;
         acceleration.y = 2000;
+        groundY = initGroundY;
         isDead = false;
     }
 

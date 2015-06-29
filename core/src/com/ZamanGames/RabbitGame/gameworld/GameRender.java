@@ -6,6 +6,8 @@ import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.gameobjects.Scrollable;
 import com.ZamanGames.RabbitGame.gameobjects.Spike;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
+import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
+import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,6 +15,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.accessibility.AccessibleStateSet;
 
@@ -28,7 +33,7 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes;
+    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
 
 
     private Scrollable hill1, hill2, hill3, fence1, fence2, water1, water2;
@@ -38,6 +43,10 @@ public class GameRender {
     private ParallaxBackground parallaxBackground;
 
     private TextureRegion hillTop, hillBottom;
+
+    private List<Button> menuButtons;
+
+    private Button playButton;
 
     public GameRender(GameWorld world, int gameHeight, int gameWidth, int groundY) {
         this.world = world;
@@ -52,6 +61,13 @@ public class GameRender {
         batch = new SpriteBatch();
         batch.setProjectionMatrix(cam.combined);
 
+        menuButtons = new ArrayList<Button>();
+
+        menuButtons.add(playButton);
+
+        this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor())
+                .getMenuButtons();
+
         initGameObjects();
         initAssets();
 
@@ -61,8 +77,8 @@ public class GameRender {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
         batch.draw(hillTop, hill1.getX(), hill1.getY()-(hill1.getWidth()*2), hill1.getWidth(), hill1.getWidth()*2);
-        batch.draw(hillTop, hill2.getX(), hill2.getY()-(hill2.getWidth()*2), hill2.getWidth(), hill2.getWidth()*2);
-        batch.draw(hillTop, hill3.getX(), hill3.getY()-(hill3.getWidth()*2), hill3.getWidth(), hill3.getWidth()*2);
+        batch.draw(hillTop, hill2.getX(), hill2.getY() - (hill2.getWidth() * 2), hill2.getWidth(), hill2.getWidth() * 2);
+        batch.draw(hillTop, hill3.getX(), hill3.getY() - (hill3.getWidth() * 2), hill3.getWidth(), hill3.getWidth() * 2);
     }
 
     public void drawHillBottoms() {
@@ -109,6 +125,12 @@ public class GameRender {
                 //System.out.println("ground2 3");
                 break;
         }
+    }
+
+    public void drawWater() {
+        batch.draw(water, water1.getX(), water1.getY(), water1.getWidth(), water1.getHeight(), 0, 0, 8, 1);
+        batch.draw(water, water2.getX(), water2.getY(), water2.getWidth(), water2.getHeight(), 0, 0, 8, 1);
+
     }
 
     public void drawFence() {
@@ -161,10 +183,14 @@ public class GameRender {
         }
     }
 
+    private void drawMenuUI() {
+        for (Button button : menuButtons) {
+            button.draw(batch);
+        }
+    }
 
-
-
-    public void render(float runTime) {
+    //might use runTime later for animations
+    public void render(float delta, float runTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -175,10 +201,17 @@ public class GameRender {
         //drawHillBottoms();
         //drawHillTops();
         //Temporary Location
+        drawRabbit();
+        //drawWater();
         drawScore();
         drawGround();
         drawSpikes();
-        drawRabbit();
+
+
+        if (world.isMenu()) {
+            drawMenuUI();
+        }
+
         batch.end();
 
     }
@@ -195,6 +228,8 @@ public class GameRender {
         fence2 = scroller.getFence2();
         spike1 = scroller.getSpike1();
         spike2 = scroller.getSpike2();
+        water1 = scroller.getWater1();
+        water2 = scroller.getWater2();
         //parallaxBackground = new ParallaxBackground();
     }
 
@@ -209,6 +244,8 @@ public class GameRender {
         dirt = AssetLoader.dirt;
         water = AssetLoader.water;
         spikes = AssetLoader.spikes;
+        tPlayButtonUp = AssetLoader.playButtonUp;
+        tPlayButtonDown = AssetLoader.playButtonDown;
 
     }
 
