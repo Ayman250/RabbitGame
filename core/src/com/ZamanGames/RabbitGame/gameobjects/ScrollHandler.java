@@ -9,7 +9,7 @@ import java.util.Random;
  */
 public class ScrollHandler {
 
-    private Hill hill1, hill2, hill3;
+    private Hill hill1, hill2, hill3, hill4;
     private Ground ground1, ground2, rightGround;
     private Fence fence1, fence2;
     private Spike spike1, spike2, spike3;
@@ -41,6 +41,7 @@ public class ScrollHandler {
         hill1 = new Hill(gameWidth, 720 - 222, 90, 140, SCROLL_SPEED, groundY);
         hill2 = new Hill(hill1.getTailX() + HILL_GAP, 720 - 202, 90, 120, SCROLL_SPEED, groundY);
         hill3 = new Hill(hill2.getTailX() + HILL_GAP, 720 - 222, 90, 140, SCROLL_SPEED, groundY);
+        hill4 = new Hill(hill3.getTailX() + HILL_GAP, 720 - 202, 90, 120, SCROLL_SPEED, groundY);
 
         ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
         ground2 = new Ground(ground1.getTailX(), groundY, gameWidth + 20, 80, SCROLL_SPEED, groundY);
@@ -84,7 +85,6 @@ public class ScrollHandler {
             //50% chance of there being a spiek on the ground
             //Same code logic for spike2
             if (r.nextInt(10) % 2 == 0) {
-                ground1.setSpike(true);
                 ground1.newSpike(spike1);
                 spikeLocation = r.nextInt((int) ground1.getWidth()) + ground1.getX() - spike1.getWidth();
                 spike1.reset(spikeLocation, ground1.getY());
@@ -94,7 +94,6 @@ public class ScrollHandler {
             ground2.reset(ground1.getTailX(), 0);
 
             if (r.nextInt(10) % 2 == 0) {
-                ground2.setSpike(true);
                 ground2.newSpike(spike2);
                 spikeLocation = r.nextInt((int) ground2.getWidth()) + ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
@@ -118,7 +117,7 @@ public class ScrollHandler {
         //Determine which ground is on the right side and make sure hills spawn according to that one
 
         //when hill is reset, parameter is passed in to determine how high it will stand now
-       /* if (ground1.isOnRight(ground2)) {
+        if (ground1.isOnRight(ground2)) {
             rightGround = ground1;
         }
         else {
@@ -134,7 +133,7 @@ public class ScrollHandler {
         }
         else if (hill3.isScrolledLeft()) {
                 hill3.reset(hill2.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
-        }*/
+        }
         //Second parameter for reset unnecessary except for hills... So 0 is passed in as filler
 
     }
@@ -158,12 +157,19 @@ public class ScrollHandler {
         else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
             return true;
         }
+        else if (hill1.collides(rabbit) || hill1.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
+            return true;
+        }
         return false;
     }
 
     public void onRestart() {
         ground1.onReset(0, SCROLL_SPEED);
         ground2.onReset(ground1.getTailX()  , SCROLL_SPEED);
+        hill1.onReset(gameWidth, 720 -220, 140, SCROLL_SPEED);
+        hill2.onReset(hill1.getTailX() + HILL_GAP, 720 - 202, 120, SCROLL_SPEED);
+        hill3.onReset(hill2.getTailX() + HILL_GAP, 720 - 220, 140, SCROLL_SPEED);
+        hill4.onReset(hill3.getTailX() + HILL_GAP, 720 - 202, 120, SCROLL_SPEED);
         spike1.onReset(0, SCROLL_SPEED);
         spike2.onReset(0, SCROLL_SPEED);
         water1.onReset(0, SCROLL_SPEED);
@@ -180,6 +186,10 @@ public class ScrollHandler {
 
     public Hill getHill3() {
         return hill3;
+    }
+
+    public Hill getHill4() {
+        return hill4;
     }
 
     public Ground getGround1() {

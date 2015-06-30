@@ -38,7 +38,7 @@ public class GameRender {
 
 
     private Scrollable fence1, fence2, water1, water2;
-    private Hill hill1, hill2, hill3;
+    private Hill hill1, hill2, hill3, hill4;
     private Ground ground1, ground2;
     private Spike spike1, spike2, spike3;
     private ScrollHandler scroller;
@@ -91,9 +91,9 @@ public class GameRender {
     public void drawHillBottoms() {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillBottom, hill1.getX(), hill1.getY() + (hill1.getHeight()), hill1.getWidth(), 20);
-        batch.draw(hillBottom, hill2.getX(), hill2.getY() + (hill2.getHeight()), hill2.getWidth(), 20);
-        batch.draw(hillBottom, hill3.getX(), hill3.getY() + (hill3.getHeight()), hill3.getWidth(), 20);
+        batch.draw(hillBottom, hill1.getX(), hill1.getY() + (hill1.getHeight()), hill1.getWidth(), 12);
+        batch.draw(hillBottom, hill2.getX(), hill2.getY() + (hill2.getHeight()), hill2.getWidth(), 12);
+        batch.draw(hillBottom, hill3.getX(), hill3.getY() + (hill3.getHeight()), hill3.getWidth(), 12);
     }
 
     public void drawGround() {
@@ -168,7 +168,7 @@ public class GameRender {
         if (world.isGameOver() || world.isHighScore()) {
             if (world.isGameOver()) {
                 AssetLoader.gameFont.draw(batch, "GAME OVER",
-                        gameWidth / 2 - 190, gameHeight / 2 - 40);
+                        gameWidth / 2 - 100, gameHeight / 2 - 40);
             } else {
                 AssetLoader.gameFont.draw(batch, "HIGH SCORE!",
                         gameWidth / 2 - 90, gameHeight / 2 - 40);
@@ -188,7 +188,7 @@ public class GameRender {
         } else {
             int length = ("" + world.getScore()).length();
             AssetLoader.gameFont.draw(batch, "" + world.getScore() + " m",
-                    gameWidth / 2 - (3 * length), gameHeight / 20);
+                    gameWidth / 2 - (3 * length)*5, gameHeight / 20);
         }
     }
 
@@ -234,6 +234,7 @@ public class GameRender {
         hill1 = scroller.getHill1();
         hill2 = scroller.getHill2();
         hill3 = scroller.getHill3();
+        hill4 = scroller.getHill4();
         ground1 = scroller.getGround1();
         ground2 = scroller.getGround2();
         fence1 = scroller.getFence1();

@@ -52,10 +52,8 @@ public class Scrollable {
     }
 
     public boolean collides (Rabbit rabbit) {
-        if (Intersector.overlaps(rabbit.getHitBox(), hitBox)) {
-            return true;
-        }
-        return false;
+        return (Intersector.overlaps(rabbit.getHitBox(), hitBox));
+
     }
 
     public Rectangle getHitBox() {

@@ -24,6 +24,16 @@ public class Hill extends Scrollable {
 
     }
 
+    public void onReset(float x, float y, int height, float scrollSpeed) {
+        position.x = x;
+        position.y = y;
+        velocity.x = scrollSpeed;
+        this.height = height;
+        hitBox.x = x;
+        hitBox.y = y;
+
+    }
+
     @Override
     public void reset(float newX, float newY) {
         super.reset(newX, newY);

@@ -44,10 +44,8 @@ public class Ground extends Scrollable {
 
 
     public boolean rabbitOn(Rabbit rabbit) {
-        if (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth()) {
-            return true;
-        }
-        return false;
+        return (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth());
+
     }
 
     public boolean isOn(float xPosition) {
@@ -75,10 +73,7 @@ public class Ground extends Scrollable {
     //Collides with ground is true if rabbit hitBox intersects ground hitBox && rabbit is not on top of ground
     @Override
     public boolean collides(Rabbit rabbit) {
-        if (Intersector.overlaps(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY()) {
-            return true;
-        }
-        return false;
+        return Intersector.overlaps(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY();
     }
 
     /*Called when game is reset (different from reset which is called when
