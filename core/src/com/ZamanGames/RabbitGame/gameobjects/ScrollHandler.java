@@ -25,7 +25,7 @@ public class ScrollHandler {
 
     private int gameWidth;
 
-    private float spikeLocation;
+    private float spikeLocation, firstHillLocation, secondhillLocation;
 
     public GameWorld world;
 
@@ -86,15 +86,23 @@ public class ScrollHandler {
             //50% chance of there being a spiek on the ground
             //Same code logic for spike2
             if (r.nextInt(10) % 2 == 0) {
+                ground1.firstNewHill(hill1);
+                ground1.secondNewHill(hill2);
                 ground1.newSpike(spike1);
-                spikeLocation = r.nextInt((int) ground1.getWidth()) + ground1.getX() - spike1.getWidth();
+                firstHillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
+                secondhillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
+                spikeLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - spike1.getWidth();
                 spike1.reset(spikeLocation, ground1.getY());
+                hill1.reset(firstHillLocation, ground1.getY());
+                hill2.reset(secondhillLocation, ground1.getY());
             }
 
         } else if (ground2.isScrolledLeft()) {
             ground2.reset(ground1.getTailX(), 0);
 
             if (r.nextInt(10) % 2 == 0) {
+                ground2.firstNewHill(hill3);
+                ground2.secondNewHill(hill4);
                 ground2.newSpike(spike2);
                 spikeLocation = r.nextInt((int) ground2.getWidth()) + ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
@@ -118,24 +126,6 @@ public class ScrollHandler {
         //Determine which ground is on the right side and make sure hills spawn according to that one
 
         //when hill is reset, parameter is passed in to determine how high it will stand now
-        if (ground1.isOnRight(ground2)) {
-            rightGround = ground1;
-        }
-        else {
-            rightGround = ground2;
-        }
-
-        if (hill1.isScrolledLeft()) {
-                hill1.reset(hill3.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
-            }
-
-        else if (hill2.isScrolledLeft()) {
-                hill2.reset(hill1.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
-        }
-        else if (hill3.isScrolledLeft()) {
-                hill3.reset(hill2.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
-        }
-        //Second parameter for reset unnecessary except for hills... So 0 is passed in as filler
 
     }
 
