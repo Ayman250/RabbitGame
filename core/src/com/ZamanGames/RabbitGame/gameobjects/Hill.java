@@ -10,13 +10,11 @@ public class Hill extends Scrollable {
 
     private float groundY;
 
-    private int numBlocks;
 
     public Hill(float x, float y, int width, int height, float scrollSpeed, float groundY) {
         super(x, y, width, height, scrollSpeed);
         r = new Random();
         this.groundY = groundY;
-        numBlocks = height/70;
     }
 
     @Override
@@ -35,7 +33,4 @@ public class Hill extends Scrollable {
         //System.out.println(newY);
        }
 
-    public int getNumBlocks() {
-        return numBlocks;
-    }
 }

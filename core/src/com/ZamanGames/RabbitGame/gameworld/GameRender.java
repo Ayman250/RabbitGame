@@ -10,7 +10,6 @@ import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,8 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.accessibility.AccessibleStateSet;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -37,6 +34,8 @@ public class GameRender {
 
     private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
 
+    private TextureRegion hillTop, hill, hillBottom;
+
 
     private Scrollable fence1, fence2, water1, water2;
     private Hill hill1, hill2, hill3;
@@ -45,8 +44,6 @@ public class GameRender {
     private ScrollHandler scroller;
     private ParallaxBackground parallaxBackground;
     private TiledDrawable tiledDrawable;
-
-    private Texture hillTop, hillBottom;
 
     private List<Button> menuButtons;
 
@@ -80,22 +77,30 @@ public class GameRender {
     public void drawHillTops() {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillTop, hill1.getX(), hill1.getY() - (hill1.getWidth()), hill1.getWidth(), hill1.getWidth());
-        batch.draw(hillTop, hill2.getX(), hill2.getY() - (hill2.getWidth()), hill2.getWidth(), hill2.getWidth());
-        batch.draw(hillTop, hill3.getX(), hill3.getY() - (hill3.getWidth()), hill3.getWidth(), hill3.getWidth());
+        batch.draw(hillTop, hill1.getX(), hill1.getY() - (20), hill1.getWidth(), 20);
+        batch.draw(hillTop, hill2.getX(), hill2.getY() - (20), hill2.getWidth(), 20);
+        batch.draw(hillTop, hill3.getX(), hill3.getY() - (20), hill3.getWidth(), 20);
+    }
+
+    public void drawHills() {
+        batch.draw(hill, hill1.getX(), hill1.getY(), hill1.getWidth(), hill1.getHeight());
+        batch.draw(hill, hill2.getX(), hill2.getY(), hill2.getWidth(), hill2.getHeight());
+        batch.draw(hill, hill3.getX(), hill3.getY(), hill3.getWidth(), hill3.getHeight());
     }
 
     public void drawHillBottoms() {
-        batch.draw(hillBottom, hill1.getX(), hill1.getY(), hill1.getWidth(), hill1.getHeight(), 0, 0, 1, hill1.getNumBlocks());
-        batch.draw(hillBottom, hill2.getX(), hill2.getY(), hill2.getWidth(), hill2.getHeight(), 0, 0, 1, hill2.getNumBlocks());
-        batch.draw(hillBottom, hill3.getX(), hill3.getY(), hill3.getWidth(), hill3.getHeight(), 0, 0, 1, hill3.getNumBlocks());
+        //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
+        //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
+        batch.draw(hillBottom, hill1.getX(), hill1.getY() + (hill1.getHeight()), hill1.getWidth(), 20);
+        batch.draw(hillBottom, hill2.getX(), hill2.getY() + (hill2.getHeight()), hill2.getWidth(), 20);
+        batch.draw(hillBottom, hill3.getX(), hill3.getY() + (hill3.getHeight()), hill3.getWidth(), 20);
     }
 
     public void drawGround() {
         switch (ground1.getGroundHeight()){
             case 0:
-                batch.draw(tGround, ground1.getX(), ground1.getY()-12, ground1.getWidth(), ground1.getHeight() + 12, 0, 0, 8, 1);
-                //System.out.println("ground1 1");
+                batch.draw(tGround, ground1.getX(), ground1.getY() - 12, ground1.getWidth(), ground1.getHeight() + 12, 0, 0, 8, 1);
+                //System.out.println(ground1.getY());
                 break;
             case 1:
                 batch.draw(tGround, ground1.getX(), ground1.getY()-12, ground1.getWidth(), ground1.getHeight() + 12, 0, 0, 8, 1);
@@ -202,12 +207,15 @@ public class GameRender {
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
 
         //drawFence();
-        drawHillBottoms();
-        drawHillTops();
+
+        //drawHillTops();
         //Temporary Location
         //drawWater();
         drawScore();
         drawGround();
+        drawHillTops();
+        drawHills();
+        drawHillBottoms();
         drawSpikes();
         drawRabbit();
 
@@ -239,6 +247,7 @@ public class GameRender {
 
     public void initAssets() {
         hillTop = AssetLoader.hillTop;
+        hill = AssetLoader.hill;
         hillBottom = AssetLoader.hillBottom;
         background = AssetLoader.background;
         tGround  = AssetLoader.ground;

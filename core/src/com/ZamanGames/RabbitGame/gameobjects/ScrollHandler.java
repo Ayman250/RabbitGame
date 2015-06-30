@@ -1,7 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
 import com.ZamanGames.RabbitGame.gameworld.GameWorld;
-import com.badlogic.gdx.Screen;
 
 import java.util.Random;
 
@@ -16,7 +15,7 @@ public class ScrollHandler {
     private Spike spike1, spike2, spike3;
 
     public static int SCROLL_SPEED;
-    public static int PIPE_GAP;
+    public static int HILL_GAP;
 
     private Random r;
 
@@ -37,11 +36,11 @@ public class ScrollHandler {
         rabbit = this.world.getRabbit();
 
         SCROLL_SPEED = -gameWidth/2;
-        PIPE_GAP = gameWidth/2;
+        HILL_GAP = gameWidth/2;
 
-        hill1 = new Hill(gameWidth, groundY - 60+10, gameWidth / 15, 60, SCROLL_SPEED, groundY);
-        hill2 = new Hill(hill1.getTailX() + PIPE_GAP, groundY - 100 + 10, gameWidth/ 15, 100, SCROLL_SPEED, groundY);
-        hill3 = new Hill(hill2.getTailX() + PIPE_GAP, groundY - 40 + 10, gameWidth / 15, 40, SCROLL_SPEED, groundY);
+        hill1 = new Hill(gameWidth, 720 - 222, 90, 140, SCROLL_SPEED, groundY);
+        hill2 = new Hill(hill1.getTailX() + HILL_GAP, 720 - 202, 90, 120, SCROLL_SPEED, groundY);
+        hill3 = new Hill(hill2.getTailX() + HILL_GAP, 720 - 222, 90, 140, SCROLL_SPEED, groundY);
 
         ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
         ground2 = new Ground(ground1.getTailX(), groundY, gameWidth + 20, 80, SCROLL_SPEED, groundY);
@@ -127,14 +126,14 @@ public class ScrollHandler {
         }
 
         if (hill1.isScrolledLeft()) {
-                hill1.reset(hill3.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
+                hill1.reset(hill3.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
             }
 
         else if (hill2.isScrolledLeft()) {
-                hill2.reset(hill1.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
+                hill2.reset(hill1.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
         }
         else if (hill3.isScrolledLeft()) {
-                hill3.reset(hill2.getTailX() + PIPE_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
+                hill3.reset(hill2.getTailX() + HILL_GAP, rightGround.getGroundHeight() * rightGround.getHeight());
         }*/
         //Second parameter for reset unnecessary except for hills... So 0 is passed in as filler
 

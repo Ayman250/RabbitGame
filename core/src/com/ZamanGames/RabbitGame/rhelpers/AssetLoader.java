@@ -3,7 +3,6 @@ package com.ZamanGames.RabbitGame.rhelpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,7 +13,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture hill, background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, hillTop, hillBottom;
+    public static Texture background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, tHill;
+
+    public static TextureRegion hill, hillTop, hillBottom;
 
     public static BitmapFont gameFont;
 
@@ -35,9 +36,14 @@ public class AssetLoader {
         spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
         playButtonUp = new Texture(Gdx.files.internal("data/playButtonUp.png"));
         playButtonDown = new Texture(Gdx.files.internal(("data/playButtonDown.png")));
-        hillTop = new Texture(Gdx.files.internal("data/HillTop.png"));
-        hillBottom = new Texture(Gdx.files.internal("data/HillBottom.png"));
+        tHill = new Texture(Gdx.files.internal("data/hill.png"));
 
+        hillTop = new TextureRegion(tHill, 0, 0, 212, 45);
+        hill = new TextureRegion(tHill, 0, 45, 212, 130);
+        hillBottom = new TextureRegion(tHill, 0, 175, 212, 42);
+
+        hillTop.flip(false, true);
+        hillBottom.flip(false, true);
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
 
@@ -64,7 +70,7 @@ public class AssetLoader {
 }
 
     public void dispose() {
-        hill.dispose();
+        //hill.dispose();
         background.dispose();
         ground.dispose();
         fence.dispose();

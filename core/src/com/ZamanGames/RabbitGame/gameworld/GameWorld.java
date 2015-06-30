@@ -44,6 +44,7 @@ public class GameWorld {
     }
 
     public void update(float delta) {
+
         runTime += delta;
 
         switch (currentState) {
