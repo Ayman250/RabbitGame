@@ -38,10 +38,11 @@ public class ScrollHandler {
         SCROLL_SPEED = -gameWidth/2;
         HILL_GAP = gameWidth/2;
 
-        hill1 = new Hill(gameWidth, 720 - 222, 90, 140, SCROLL_SPEED, groundY);
-        hill2 = new Hill(hill1.getTailX() + HILL_GAP, 720 - 202, 90, 120, SCROLL_SPEED, groundY);
-        hill3 = new Hill(hill2.getTailX() + HILL_GAP, 720 - 222, 90, 140, SCROLL_SPEED, groundY);
-        hill4 = new Hill(hill3.getTailX() + HILL_GAP, 720 - 202, 90, 120, SCROLL_SPEED, groundY);
+        //Set invisible at first
+        hill1 = new Hill(gameWidth, -720 - 222, 90, 140, SCROLL_SPEED, groundY);
+        hill2 = new Hill(hill1.getTailX() + HILL_GAP, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
+        hill3 = new Hill(hill2.getTailX() + HILL_GAP, -720 - 222, 90, 140, SCROLL_SPEED, groundY);
+        hill4 = new Hill(hill3.getTailX() + HILL_GAP, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
 
         ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
         ground2 = new Ground(ground1.getTailX(), groundY, gameWidth + 20, 80, SCROLL_SPEED, groundY);
@@ -53,8 +54,8 @@ public class ScrollHandler {
         water2 = new Water(water1.getTailX(), gameHeight, 1300, 70, SCROLL_SPEED);
 
         //initialize spikes to be invisble to player
-        spike1 = new Spike(0, -200 - 10, 70, 50, SCROLL_SPEED);
-        spike2 = new Spike(0, -200 - 10, 70, 50, SCROLL_SPEED);
+        spike1 = new Spike(0, -200 - 10, 70, 30, SCROLL_SPEED);
+        spike2 = new Spike(0, -200 - 10, 70, 30, SCROLL_SPEED);
 
         r = new Random();
 
@@ -151,7 +152,7 @@ public class ScrollHandler {
 
 
     public boolean rabbitCollides() {
-        if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
+        /*if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
             return true;
         }
         else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
@@ -159,7 +160,7 @@ public class ScrollHandler {
         }
         else if (hill1.collides(rabbit) || hill1.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
             return true;
-        }
+        }*/
         return false;
     }
 

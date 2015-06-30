@@ -15,6 +15,8 @@ public class Ground extends Scrollable {
 
     protected Spike spike;
 
+    protected Hill hill1, hill2;
+
     private boolean hasSpike;
 
     private Random r;
@@ -82,21 +84,14 @@ public class Ground extends Scrollable {
         position.x = x;
         velocity.x = scrollSpeed;
         groundHeight = 0;
-        setSpike(false);
     }
 
-    public boolean hasSpike() {
-        return hasSpike;
+    public void firstNewHill(Hill newHill) {
+        hill1 = newHill;
     }
 
-
-
-    public Spike getSpike() {
-        return spike;
-    }
-
-    public void setSpike (boolean state){
-        hasSpike = state;
+    public void secondNewHill(Hill newHill) {
+        hill2 = newHill;
     }
 
     public void newSpike (Spike newSpike) {
