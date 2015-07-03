@@ -86,26 +86,40 @@ public class ScrollHandler {
             //50% chance of there being a spiek on the ground
             //Same code logic for spike2
             if (r.nextInt(10) % 2 == 0) {
-                ground1.firstNewHill(hill1);
-                ground1.secondNewHill(hill2);
                 ground1.newSpike(spike1);
-                firstHillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
-                secondhillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
                 spikeLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - spike1.getWidth();
                 spike1.reset(spikeLocation, ground1.getY());
-                hill1.reset(firstHillLocation, ground1.getY());
-                hill2.reset(secondhillLocation, ground1.getY());
+            }
+
+            if (r.nextInt(10) % 2 == 0) {
+                ground1.firstNewHill(hill1);
+                ground1.secondNewHill(hill2);
+                firstHillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
+                secondhillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
+                hill1.reset(firstHillLocation, ground1.getY() + ground1.getGroundHeight());
+                hill2.reset(secondhillLocation, ground1.getY() + ground1.getGroundHeight());
             }
 
         } else if (ground2.isScrolledLeft()) {
             ground2.reset(ground1.getTailX(), 0);
 
             if (r.nextInt(10) % 2 == 0) {
-                ground2.firstNewHill(hill3);
-                ground2.secondNewHill(hill4);
                 ground2.newSpike(spike2);
                 spikeLocation = r.nextInt((int) ground2.getWidth()) + ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
+            }
+
+            if (r.nextInt(10) % 2 == 0) {
+                ground2.firstNewHill(hill3);
+                ground2.secondNewHill(hill4);
+                firstHillLocation = r.nextInt(ground2.getWidth()) + ground2.getX() - hill3.getWidth();
+                secondhillLocation = r.nextInt(ground2.getWidth()) + ground2.getX() - hill4.getWidth();
+                hill3.reset(firstHillLocation, ground2.getY() + ground2.getGroundHeight());
+                hill4.reset(secondhillLocation, ground2.getY() + ground2.getGroundHeight());
+            }
+
+            if (r.nextInt(10) % 2 == 0) {
+
             }
             //fence2.changeHeight(ground2.getY());
         }

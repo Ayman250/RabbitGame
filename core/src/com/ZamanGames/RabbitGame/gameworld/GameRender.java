@@ -91,9 +91,9 @@ public class GameRender {
     public void drawHillBottoms() {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillBottom, hill1.getX(), hill1.getY() + (hill1.getHeight()), hill1.getWidth(), 12);
-        batch.draw(hillBottom, hill2.getX(), hill2.getY() + (hill2.getHeight()), hill2.getWidth(), 12);
-        batch.draw(hillBottom, hill3.getX(), hill3.getY() + (hill3.getHeight()), hill3.getWidth(), 12);
+        batch.draw(hillBottom, hill1.getX(), hill1.getY() + hill1.getHeight(), hill1.getWidth(), 12);
+        batch.draw(hillBottom, hill2.getX(), hill2.getY() + hill2.getHeight(), hill2.getWidth(), 12);
+        batch.draw(hillBottom, hill3.getX(), hill3.getY() + hill3.getHeight(), hill3.getWidth(), 12);
     }
 
     public void drawGround() {
