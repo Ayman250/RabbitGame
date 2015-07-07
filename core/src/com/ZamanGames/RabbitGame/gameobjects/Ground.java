@@ -23,6 +23,8 @@ public class Ground extends Scrollable {
 
     public Ground(float x, float y, int width, int height, float scrollSpeed, float groundY) {
         super(x, y, width, height, scrollSpeed);
+        this.height = height;
+        hitBox.width = getWidth()/2;
         r = new Random();
         initY = y;
         groundHeight = 0;
@@ -33,6 +35,7 @@ public class Ground extends Scrollable {
     @Override
     public void reset(float newX, float newY) {
         super.reset(newX, newY);
+        hitBox.y = getY() + height;
         groundHeight = r.nextInt(3);
         hasSpike = false;
         //System.out.println(groundHeight);
@@ -61,7 +64,6 @@ public class Ground extends Scrollable {
     @Override
     public void update(float delta) {
         super.update(delta);
-        hitBox.width = getWidth()/2;
     }
 
     public boolean isOnRight(Ground ground) {

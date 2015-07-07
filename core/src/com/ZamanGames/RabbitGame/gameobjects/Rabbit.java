@@ -21,14 +21,14 @@ public class Rabbit {
     private Rectangle hitBox;
 
     public Rabbit(float x, float y, int width, int height, int groundY) {
-        this.height = height;
+        this.height = -height;
         this.width = width;
         this.groundY = groundY;
 
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 2000);
-        hitBox = new Rectangle(x, y, width, height);
+        hitBox = new Rectangle(x, y, width, -height);
 
         isDead = false;
 
@@ -98,13 +98,9 @@ public class Rabbit {
     }
 
     public boolean inAir() {
-        if (position.y < groundY) {
-            //System.out.println("true");
-            return true;
-        } else {
-            //System.out.println("false");
-            return false;
-        }
+        //System.out.println("true");
+        //System.out.println("false");
+        return position.y < groundY;
     }
 
     public boolean isDead() {

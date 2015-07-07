@@ -23,7 +23,9 @@ public class ScrollHandler {
 
     private Water water1, water2;
 
-    private int gameWidth;
+    private int gameWidth, gameHeight;
+
+    private float groundY;
 
     private float spikeLocation, firstHillLocation, secondhillLocation;
 
@@ -32,6 +34,8 @@ public class ScrollHandler {
     public ScrollHandler(GameWorld world, int gameWidth, int gameHeight, float groundY) {
         this.world = world;
         this.gameWidth = gameWidth;
+        this.gameHeight = gameHeight;
+        this.groundY = groundY;
 
         rabbit = this.world.getRabbit();
 
@@ -39,16 +43,15 @@ public class ScrollHandler {
         HILL_GAP = gameWidth/2;
 
         //Set invisible at first
-        hill1 = new Hill(gameWidth, -720 - 222, 90, 140, SCROLL_SPEED, groundY);
-        hill2 = new Hill(hill1.getTailX() + HILL_GAP, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
-        hill3 = new Hill(hill2.getTailX() + HILL_GAP, -720 - 222, 90, 140, SCROLL_SPEED, groundY);
-        hill4 = new Hill(hill3.getTailX() + HILL_GAP, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
-
         ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
         ground2 = new Ground(ground1.getTailX(), groundY, gameWidth + 20, 80, SCROLL_SPEED, groundY);
 
-        fence1 = new Fence(0, groundY-70, 1300, 70, SCROLL_SPEED, groundY);
-        fence2 = new Fence(ground1.getTailX(), groundY-70, gameWidth, 70, SCROLL_SPEED, groundY);
+        hill1 = new Hill(-1000, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
+        hill2 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
+        hill3 = new Hill(ground2.getTailX() - 75, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
+        hill4 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
+
+
 
         water1 = new Water(0, groundY, 1300, 70, SCROLL_SPEED);
         water2 = new Water(water1.getTailX(), gameHeight, 1300, 70, SCROLL_SPEED);
@@ -68,9 +71,6 @@ public class ScrollHandler {
         hill3.update(delta);
 
 
-        //fence1.update(delta);
-        //fence2.update(delta);
-
         water1.update(delta);
         water2.update(delta);
 
@@ -83,7 +83,7 @@ public class ScrollHandler {
             //After reset hasSpike is changed to false so it is not rendered
             ground1.reset(ground2.getTailX(), 0);
             //fence1.changeHeight(ground1.getY());
-            //50% chance of there being a spiek on the ground
+            //50% chance of there being a spike on the ground
             //Same code logic for spike2
             if (r.nextInt(10) % 2 == 0) {
                 ground1.newSpike(spike1);
@@ -96,8 +96,8 @@ public class ScrollHandler {
                 ground1.secondNewHill(hill2);
                 firstHillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
                 secondhillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
-                hill1.reset(firstHillLocation, ground1.getY() + ground1.getGroundHeight());
-                hill2.reset(secondhillLocation, ground1.getY() + ground1.getGroundHeight());
+                hill1.reset(firstHillLocation, ground1.getY() - ground1.getGroundHeight() - 10);
+                hill2.reset(secondhillLocation, ground1.getY() - ground1.getGroundHeight() - 10);
             }
 
         } else if (ground2.isScrolledLeft()) {
@@ -105,7 +105,7 @@ public class ScrollHandler {
 
             if (r.nextInt(10) % 2 == 0) {
                 ground2.newSpike(spike2);
-                spikeLocation = r.nextInt((int) ground2.getWidth()) + ground2.getX() - spike2.getWidth();
+                spikeLocation = r.nextInt( ground2.getWidth()) - ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
             }
 
@@ -114,8 +114,8 @@ public class ScrollHandler {
                 ground2.secondNewHill(hill4);
                 firstHillLocation = r.nextInt(ground2.getWidth()) + ground2.getX() - hill3.getWidth();
                 secondhillLocation = r.nextInt(ground2.getWidth()) + ground2.getX() - hill4.getWidth();
-                hill3.reset(firstHillLocation, ground2.getY() + ground2.getGroundHeight());
-                hill4.reset(secondhillLocation, ground2.getY() + ground2.getGroundHeight());
+                hill3.reset(firstHillLocation, ground2.getY() + ground2.getGroundHeight() - 10);
+                hill4.reset(secondhillLocation, ground2.getY() + ground2.getGroundHeight() - 10);
             }
 
             if (r.nextInt(10) % 2 == 0) {
@@ -156,25 +156,25 @@ public class ScrollHandler {
 
 
     public boolean rabbitCollides() {
-        /*if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
+        if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
             return true;
         }
         else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
             return true;
         }
-        else if (hill1.collides(rabbit) || hill1.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
+        else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
             return true;
-        }*/
+        }
         return false;
     }
 
     public void onRestart() {
         ground1.onReset(0, SCROLL_SPEED);
         ground2.onReset(ground1.getTailX()  , SCROLL_SPEED);
-        hill1.onReset(gameWidth, 720 -220, 140, SCROLL_SPEED);
-        hill2.onReset(hill1.getTailX() + HILL_GAP, 720 - 202, 120, SCROLL_SPEED);
-        hill3.onReset(hill2.getTailX() + HILL_GAP, 720 - 220, 140, SCROLL_SPEED);
-        hill4.onReset(hill3.getTailX() + HILL_GAP, 720 - 202, 120, SCROLL_SPEED);
+        hill1.onReset(ground2.getTailX() - 75, ground1.getY() - 10, 140, SCROLL_SPEED);
+        hill2.onReset(hill1.getTailX() + HILL_GAP, groundY, 120, SCROLL_SPEED);
+        hill3.onReset(hill2.getTailX() + HILL_GAP, groundY, 140, SCROLL_SPEED);
+        hill4.onReset(hill3.getTailX() + HILL_GAP, groundY, 120, SCROLL_SPEED);
         spike1.onReset(0, SCROLL_SPEED);
         spike2.onReset(0, SCROLL_SPEED);
         water1.onReset(0, SCROLL_SPEED);
@@ -203,14 +203,6 @@ public class ScrollHandler {
 
     public Ground getGround2() {
         return ground2;
-    }
-
-    public Fence getFence1() {
-        return fence1;
-    }
-
-    public Fence getFence2() {
-        return fence2;
     }
 
     public Spike getSpike1() {

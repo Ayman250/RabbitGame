@@ -10,11 +10,14 @@ import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
 import java.util.ArrayList;
@@ -32,12 +35,11 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private Texture rTexture, background, tGround, tFence, rabbitJumped, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
+    private Texture rTexture, background, tGround, rabbitJumped, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
 
     private TextureRegion hillTop, hill, hillBottom;
 
-
-    private Scrollable fence1, fence2, water1, water2;
+    private Scrollable water1, water2;
     private Hill hill1, hill2, hill3, hill4;
     private Ground ground1, ground2;
     private Spike spike1, spike2, spike3;
@@ -48,6 +50,8 @@ public class GameRender {
     private List<Button> menuButtons;
 
     private Button playButton;
+
+    private ShapeRenderer shapeRenderer;
 
     public GameRender(GameWorld world, int gameHeight, int gameWidth, int groundY) {
         this.world = world;
@@ -72,28 +76,34 @@ public class GameRender {
         initGameObjects();
         initAssets();
 
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(cam.combined);
+
      }
 
     public void drawHillTops() {
-        //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
+        //convoluted monkey ass faggot way of drawing hills
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillTop, hill1.getX(), hill1.getY() - (20), hill1.getWidth(), 20);
-        batch.draw(hillTop, hill2.getX(), hill2.getY() - (20), hill2.getWidth(), 20);
-        batch.draw(hillTop, hill3.getX(), hill3.getY() - (20), hill3.getWidth(), 20);
+        batch.draw(hillTop, hill1.getX(), hill1.getY() + hill1.getHeight() - (20), hill1.getWidth(), 20);
+        batch.draw(hillTop, hill2.getX(), hill2.getY() + hill2.getHeight() - (20), hill2.getWidth(), 20);
+        batch.draw(hillTop, hill3.getX(), hill3.getY() + hill3.getHeight() - (20), hill3.getWidth(), 20);
     }
 
     public void drawHills() {
+        //Please try to remember how this retarded way of drawing hills works!
+        //
         batch.draw(hill, hill1.getX(), hill1.getY(), hill1.getWidth(), hill1.getHeight());
         batch.draw(hill, hill2.getX(), hill2.getY(), hill2.getWidth(), hill2.getHeight());
         batch.draw(hill, hill3.getX(), hill3.getY(), hill3.getWidth(), hill3.getHeight());
+        System.out.println(hill1.getHeight() + "   " + hill1.getY());
     }
 
     public void drawHillBottoms() {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillBottom, hill1.getX(), hill1.getY() + hill1.getHeight(), hill1.getWidth(), 12);
-        batch.draw(hillBottom, hill2.getX(), hill2.getY() + hill2.getHeight(), hill2.getWidth(), 12);
-        batch.draw(hillBottom, hill3.getX(), hill3.getY() + hill3.getHeight(), hill3.getWidth(), 12);
+        batch.draw(hillBottom, hill1.getX(), hill1.getY(), hill1.getWidth(), 12);
+        batch.draw(hillBottom, hill2.getX(), hill2.getY(), hill2.getWidth(), 12);
+        batch.draw(hillBottom, hill3.getX(), hill3.getY(), hill3.getWidth(), 12);
     }
 
     public void drawGround() {
@@ -142,25 +152,19 @@ public class GameRender {
 
     }
 
-    public void drawFence() {
-        batch.draw(tFence, fence1.getX(), fence1.getY(), fence1.getWidth(), fence1.getHeight(), 0, 0, 8, 1);
-        batch.draw(tFence, fence2.getX(), fence2.getY(), fence2.getWidth(), fence2.getHeight(), 0, 0, 8, 1);
-
-    }
-
     public void drawSpikes() {
-        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), -spike1.getHeight());
-        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), -spike2.getHeight());
-        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), -spike1.getHeight());
-        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), -spike2.getHeight());
+        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), spike1.getHeight());
+        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
+        batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), spike1.getHeight());
+        batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
     }
 
     public void drawRabbit() {
         if (rabbit.inAir()){
-            batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
+            batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
         else{
-            batch.draw(rabbitDown, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), -rabbit.getHeight());
+            batch.draw(rabbitDown, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
     }
 
@@ -204,26 +208,28 @@ public class GameRender {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLUE);
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
-
-        //drawFence();
-
-        //drawHillTops();
+        shapeRenderer.rect(rabbit.getHitBox().getX(), rabbit.getHitBox().getY(), rabbit.getHitBox().getWidth(), rabbit.getHitBox().getHeight());
+        shapeRenderer.setColor(Color.RED);
+        shapeRenderer.rect(ground1.getHitBox().getX(), ground1.getHitBox().getY(), ground1.getHitBox().getWidth(), ground1.getHitBox().getHeight());
+        shapeRenderer.rect(ground2.getHitBox().getX(), ground2.getHitBox().getY(), ground2.getHitBox().getWidth(), ground2.getHitBox().getHeight());
+        drawHillTops();
         //Temporary Location
         //drawWater();
         drawScore();
         drawGround();
-        drawHillTops();
         drawHills();
+        drawHillTops();
         drawHillBottoms();
         drawSpikes();
         drawRabbit();
 
-
         if (world.isMenu()) {
             drawMenuUI();
         }
-
+        shapeRenderer.end();
         batch.end();
 
     }
@@ -237,8 +243,6 @@ public class GameRender {
         hill4 = scroller.getHill4();
         ground1 = scroller.getGround1();
         ground2 = scroller.getGround2();
-        fence1 = scroller.getFence1();
-        fence2 = scroller.getFence2();
         spike1 = scroller.getSpike1();
         spike2 = scroller.getSpike2();
         water1 = scroller.getWater1();
@@ -252,7 +256,6 @@ public class GameRender {
         hillBottom = AssetLoader.hillBottom;
         background = AssetLoader.background;
         tGround  = AssetLoader.ground;
-        tFence = AssetLoader.fence;
         rabbitJumped = AssetLoader.rabbitJumped;
         rabbitDown = AssetLoader.rabbitDown;
         dirt = AssetLoader.dirt;

@@ -19,7 +19,9 @@ public class Scrollable {
         position = new Vector2(x, y);
         velocity = new Vector2(scrollSpeed, 0);
         this.width = width;
-        this.height = height;
+        //So that rendering is made more simple and uniform
+        //Except ground because I don't want to recode half the game
+        this.height = - height;
         isScrolledLeft = false;
 
         hitBox = new Rectangle(x, y, width, height);
@@ -34,7 +36,6 @@ public class Scrollable {
              = true;
         }
         hitBox.x = position.x;
-        hitBox.y = position.y;
     }
 
     public void reset(float newX, float newY) {

@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture background, ground, fence, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, tHill;
+    public static Texture background, ground, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, tHill;
 
     public static TextureRegion hill, hillTop, hillBottom;
 
@@ -28,7 +28,6 @@ public class AssetLoader {
     public static void load() {
         background = new Texture(Gdx.files.internal("data/background.png"));
         ground = new Texture(Gdx.files.internal("data/ground.png"));
-        fence = new Texture(Gdx.files.internal("data/fence.png"));
         rabbitDown = new Texture(Gdx.files.internal("data/PixelRabbit.png"));
         rabbitJumped = new Texture(Gdx.files.internal("data/RabbitUp.png"));
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
@@ -52,7 +51,6 @@ public class AssetLoader {
         // Create (or retrieve existing) preferences file
         prefs = Gdx.app.getPreferences("Rabbit Runner");
 
-        fence.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         ground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         water.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -73,7 +71,6 @@ public class AssetLoader {
         //hill.dispose();
         background.dispose();
         ground.dispose();
-        fence.dispose();
         rabbitDown.dispose();
         rabbitJumped.dispose();
         water.dispose();

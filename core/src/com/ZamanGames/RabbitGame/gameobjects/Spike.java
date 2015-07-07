@@ -11,15 +11,15 @@ public class Spike extends Scrollable {
     public Spike(float x, float y, int width, int height, float scrollSpeed) {
         super(x, y, width, height, scrollSpeed);
         //to give the spike hitBox a little leeWay width and Height are made a little smaller
-        hitBox = new Rectangle(x, y, width-10, -height-5);
+        hitBox = new Rectangle(x, y, width-10, -height);
     }
 
     @Override
     public void reset(float newX, float newY) {
         super.reset(newX, newY);
         position.y = newY;
-        hitBox.x = position.x + 5;
-        hitBox.y = position.y + 5;
+        hitBox.x = position.x;
+        hitBox.y = position.y;
     }
 
     @Override
