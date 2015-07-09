@@ -23,6 +23,9 @@ public class Hill extends Scrollable {
     @Override
     public void update(float delta) {
         super.update(delta);
+        hitBox.y = position.y;
+
+
 
     }
 
@@ -31,9 +34,7 @@ public class Hill extends Scrollable {
         position.y = y;
         velocity.x = scrollSpeed;
         this.height = -height;
-        hitBox.x = x;
-        hitBox.y = y;
-
+        hitBox.height = this.height;
     }
 
     @Override
@@ -41,6 +42,7 @@ public class Hill extends Scrollable {
         super.reset(newX, newY);
         height = -(r.nextInt(100) + 100);
         position.y = newY;
+        hitBox.height = height;
         //System.out.println(newY);
        }
 

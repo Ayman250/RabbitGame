@@ -10,6 +10,9 @@ import java.util.Random;
  */
 public class Ground extends Scrollable {
 
+    //Hitbox for ground is handled slightly differently. Because of back-code, ground.y cannot be set to gameHeight
+    //Hitbox.y for ground however will be set to gameHeight and ground.height will be set accordingly.
+
     private int groundHeight;
     private float initY;
 
@@ -25,6 +28,9 @@ public class Ground extends Scrollable {
         super(x, y, width, height, scrollSpeed);
         this.height = height;
         hitBox.width = getWidth()/2;
+        hitBox.y = 720;
+        //Height for ground is not negative so it must be set to such specifically for the Hitbox which is handled differenyl
+        hitBox.height = -height;
         r = new Random();
         initY = y;
         groundHeight = 0;
@@ -34,9 +40,10 @@ public class Ground extends Scrollable {
 
     @Override
     public void reset(float newX, float newY) {
-        super.reset(newX, newY);
-        hitBox.y = getY() + height;
         groundHeight = r.nextInt(3);
+        super.reset(newX, newY);
+        //upon reset, set the heihgt of the hitbox to the height of the ground plus the dirt underneath it.
+        hitBox.height = -(getHeight() * (1+groundHeight));
         hasSpike = false;
         //System.out.println(groundHeight);
 
@@ -78,6 +85,7 @@ public class Ground extends Scrollable {
     @Override
     public boolean collides(Rabbit rabbit) {
         return Intersector.overlaps(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY();
+
     }
 
     /*Called when game is reset (different from reset which is called when

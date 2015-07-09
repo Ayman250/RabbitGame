@@ -36,6 +36,7 @@ public class Scrollable {
              = true;
         }
         hitBox.x = position.x;
+
     }
 
     public void reset(float newX, float newY) {
