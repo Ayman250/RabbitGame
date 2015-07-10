@@ -48,7 +48,7 @@ public class ScrollHandler {
 
         hill1 = new Hill(-1000, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
         hill2 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
-        hill3 = new Hill(ground2.getTailX() - 75, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
+        hill3 = new Hill(ground2.getTailX() - 400, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
         hill4 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
 
 
@@ -103,9 +103,9 @@ public class ScrollHandler {
         } else if (ground2.isScrolledLeft()) {
             ground2.reset(ground1.getTailX(), 0);
 
+            spikeLocation = r.nextInt( ground2.getWidth()) - ground2.getX() - spike2.getWidth();
             if (r.nextInt(10) % 2 == 0) {
                 ground2.newSpike(spike2);
-                spikeLocation = r.nextInt( ground2.getWidth()) - ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
             }
 
@@ -173,10 +173,10 @@ public class ScrollHandler {
     public void onRestart() {
         ground1.onReset(0, SCROLL_SPEED);
         ground2.onReset(ground1.getTailX()  , SCROLL_SPEED);
-        hill1.onReset(ground2.getTailX() - 75, ground1.getY() - 10, 140, SCROLL_SPEED);
-        hill2.onReset(hill1.getTailX() + HILL_GAP, groundY, 120, SCROLL_SPEED);
-        hill3.onReset(hill2.getTailX() + HILL_GAP, groundY, 140, SCROLL_SPEED);
-        hill4.onReset(hill3.getTailX() + HILL_GAP, groundY, 120, SCROLL_SPEED);
+        hill1.onReset(ground2.getTailX() - 150, -1000, 140, SCROLL_SPEED);
+        hill2.onReset(hill1.getTailX() + HILL_GAP, -1000, 120, SCROLL_SPEED);
+        hill3.onReset(ground2.getTailX() - 400, ground1.getY(), 140, SCROLL_SPEED);
+        hill4.onReset(hill3.getTailX() + HILL_GAP, -1000, 120, SCROLL_SPEED);
         spike1.onReset(0, SCROLL_SPEED);
         spike2.onReset(0, SCROLL_SPEED);
         water1.onReset(0, SCROLL_SPEED);

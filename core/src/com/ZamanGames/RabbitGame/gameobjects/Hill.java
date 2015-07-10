@@ -35,6 +35,7 @@ public class Hill extends Scrollable {
         velocity.x = scrollSpeed;
         this.height = -height;
         hitBox.height = this.height;
+
     }
 
     @Override

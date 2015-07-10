@@ -15,13 +15,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture background, ground, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, tHill, runningTexture;
+    public static Texture background, ground, dirt, water, spikes, playButtonUp, playButtonDown, tHill;
 
     public static TextureAtlas runningAtlas;
 
-    public static TextureRegion hill, hillTop, hillBottom;
+    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped;
 
-    public static Animation rabbitAnimation;
+    public static Animation runningAnimation;
 
     public static BitmapFont gameFont;
 
@@ -32,10 +32,11 @@ public class AssetLoader {
 
 
     public static void load() {
+        runningAtlas = new TextureAtlas(Gdx.files.internal("data/RabbitAnimation.txt"));
+
         background = new Texture(Gdx.files.internal("data/background.png"));
         ground = new Texture(Gdx.files.internal("data/ground.png"));
-        rabbitDown = new Texture(Gdx.files.internal("data/PixelRabbit.png"));
-        rabbitJumped = new Texture(Gdx.files.internal("data/RabbitUp.png"));
+        rabbitJumped = new TextureRegion(runningAtlas.findRegion("Frame01"));
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
         water = new Texture(Gdx.files.internal("data/water.png"));
         spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
@@ -47,13 +48,14 @@ public class AssetLoader {
         hill = new TextureRegion(tHill, 0, 45, 212, 130);
         hillBottom = new TextureRegion(tHill, 0, 175, 212, 42);
 
-        runningAtlas = new TextureAtlas(Gdx.files.internal("RabbitAnimation.txt"));
+
 
         TextureRegion[] runFrames = {runningAtlas.findRegion("Frame01"), runningAtlas.findRegion("Frame02"), runningAtlas.findRegion("Frame03"),
                 runningAtlas.findRegion("Frame04"), runningAtlas.findRegion("Frame05"), runningAtlas.findRegion("Frame06"),
                 runningAtlas.findRegion("Frame07"), runningAtlas.findRegion("Frame08"), runningAtlas.findRegion("Frame09"),  };
 
-        rabbitAnimation = new Animation(.5f, runFrames);
+        runningAnimation = new Animation(.05f, runFrames);
+        runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         hillTop.flip(false, true);
         hillBottom.flip(false, true);
@@ -85,8 +87,6 @@ public class AssetLoader {
         //hill.dispose();
         background.dispose();
         ground.dispose();
-        rabbitDown.dispose();
-        rabbitJumped.dispose();
         water.dispose();
         bgMusic.dispose();
         gameFont.dispose();

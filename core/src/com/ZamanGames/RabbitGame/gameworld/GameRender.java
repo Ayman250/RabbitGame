@@ -10,14 +10,13 @@ import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
 import java.util.ArrayList;
@@ -35,9 +34,11 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private Texture rTexture, background, tGround, rabbitJumped, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
+    private Texture rTexture, background, tGround, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
 
-    private TextureRegion hillTop, hill, hillBottom;
+    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped;
+
+    private Animation runningAnimation;
 
     private Scrollable water1, water2;
     private Hill hill1, hill2, hill3, hill4;
@@ -155,12 +156,12 @@ public class GameRender {
         batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
     }
 
-    public void drawRabbit() {
+    public void drawRabbit(float runTime) {
         if (rabbit.inAir()){
             batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
         else{
-            batch.draw(rabbitDown, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
+            batch.draw(runningAnimation.getKeyFrame(runTime), rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
     }
 
@@ -226,7 +227,7 @@ public class GameRender {
         drawHillTops();
         drawHillBottoms();
         drawSpikes();
-        drawRabbit();
+        drawRabbit(runTime);
 
         if (world.isMenu()) {
             drawMenuUI();
@@ -259,12 +260,12 @@ public class GameRender {
         background = AssetLoader.background;
         tGround  = AssetLoader.ground;
         rabbitJumped = AssetLoader.rabbitJumped;
-        rabbitDown = AssetLoader.rabbitDown;
         dirt = AssetLoader.dirt;
         water = AssetLoader.water;
         spikes = AssetLoader.spikes;
         tPlayButtonUp = AssetLoader.playButtonUp;
         tPlayButtonDown = AssetLoader.playButtonDown;
+        runningAnimation = AssetLoader.runningAnimation;
 
     }
 
