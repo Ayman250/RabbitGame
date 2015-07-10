@@ -85,37 +85,54 @@ public class ScrollHandler {
             //fence1.changeHeight(ground1.getY());
             //50% chance of there being a spike on the ground
             //Same code logic for spike2
-            if (r.nextInt(10) % 2 == 0) {
+            if (r.nextInt(10) > 1) {
                 ground1.newSpike(spike1);
                 spikeLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - spike1.getWidth();
                 spike1.reset(spikeLocation, ground1.getY());
             }
 
-            if (r.nextInt(10) % 2 == 0) {
+            if (r.nextInt(10) > 1) {
                 ground1.firstNewHill(hill1);
-                ground1.secondNewHill(hill2);
                 firstHillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
-                secondhillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill1.getWidth();
-                hill1.reset(firstHillLocation, ground1.getY() - ground1.getGroundHeight() - 10);
-                hill2.reset(secondhillLocation, ground1.getY() - ground1.getGroundHeight() - 10);
+                if (Math.abs(firstHillLocation - spikeLocation) > 400) {
+                    hill1.reset(firstHillLocation, ground1.getY() - ground1.getGroundHeight() - 10);
+                }
+
+            }
+
+            if (r.nextInt(10) > 1) {
+                ground1.secondNewHill(hill2);
+                secondhillLocation = r.nextInt(ground1.getWidth()) + ground1.getX() - hill2.getWidth();
+                if (Math.abs(secondhillLocation - firstHillLocation) > 400 && Math.abs(secondhillLocation - spikeLocation) > 200) {
+                    hill2.reset(secondhillLocation, ground1.getY() - ground1.getGroundHeight() - 10);
+                }
             }
 
         } else if (ground2.isScrolledLeft()) {
             ground2.reset(ground1.getTailX(), 0);
+            //Upon determination of spike/hill location the distance between nearest object will be determined.
+            //If too close it will not be spawned
 
-            spikeLocation = r.nextInt( ground2.getWidth()) - ground2.getX() - spike2.getWidth();
-            if (r.nextInt(10) % 2 == 0) {
+            if (r.nextInt(10) > 1) {
                 ground2.newSpike(spike2);
+                spikeLocation = r.nextInt( ground2.getWidth()) - ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
             }
 
-            if (r.nextInt(10) % 2 == 0) {
+            if (r.nextInt(10) > 1) {
                 ground2.firstNewHill(hill3);
-                ground2.secondNewHill(hill4);
                 firstHillLocation = r.nextInt(ground2.getWidth()) + ground2.getX() - hill3.getWidth();
+                if (Math.abs(firstHillLocation - spikeLocation) > 400) {
+                    hill3.reset(firstHillLocation, ground2.getY() + ground2.getGroundHeight() - 10);
+                }
+            }
+
+            if (r.nextInt(10) > 1) {
+                ground2.secondNewHill(hill4);
                 secondhillLocation = r.nextInt(ground2.getWidth()) + ground2.getX() - hill4.getWidth();
-                hill3.reset(firstHillLocation, ground2.getY() + ground2.getGroundHeight() - 10);
-                hill4.reset(secondhillLocation, ground2.getY() + ground2.getGroundHeight() - 10);
+                if (Math.abs(secondhillLocation - firstHillLocation) > 400 && Math.abs(secondhillLocation - spikeLocation) > 200) {
+                    hill4.reset(secondhillLocation, ground2.getY() + ground2.getGroundHeight() - 10);
+                }
             }
 
             if (r.nextInt(10) % 2 == 0) {
@@ -158,15 +175,15 @@ public class ScrollHandler {
     public boolean rabbitCollides() {
 //        System.out.println(rabbit.getHitBox().getY() + "  Rabbit");
 //        System.out.println(ground1.getHitBox().getY() + "  Ground");
-        if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
-            return true;
-        }
-        else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
-            return true;
-        }
-        else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
-            return true;
-        }
+//        if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
+//            return true;
+//        }
+//        else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
+//            return true;
+//        }
+//        else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
+//            return true;
+//        }
         return false;
     }
 
