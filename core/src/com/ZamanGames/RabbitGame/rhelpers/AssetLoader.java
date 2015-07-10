@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -13,9 +15,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture background, ground, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, tHill;
+    public static Texture background, ground, rabbitDown, rabbitJumped, dirt, water, spikes, playButtonUp, playButtonDown, tHill, runningTexture;
+
+    public static TextureAtlas runningAtlas;
 
     public static TextureRegion hill, hillTop, hillBottom;
+
+    public static Animation rabbitAnimation;
 
     public static BitmapFont gameFont;
 
@@ -40,6 +46,14 @@ public class AssetLoader {
         hillTop = new TextureRegion(tHill, 0, 0, 212, 45);
         hill = new TextureRegion(tHill, 0, 45, 212, 130);
         hillBottom = new TextureRegion(tHill, 0, 175, 212, 42);
+
+        runningAtlas = new TextureAtlas(Gdx.files.internal("RabbitAnimation.txt"));
+
+        TextureRegion[] runFrames = {runningAtlas.findRegion("Frame01"), runningAtlas.findRegion("Frame02"), runningAtlas.findRegion("Frame03"),
+                runningAtlas.findRegion("Frame04"), runningAtlas.findRegion("Frame05"), runningAtlas.findRegion("Frame06"),
+                runningAtlas.findRegion("Frame07"), runningAtlas.findRegion("Frame08"), runningAtlas.findRegion("Frame09"),  };
+
+        rabbitAnimation = new Animation(.5f, runFrames);
 
         hillTop.flip(false, true);
         hillBottom.flip(false, true);

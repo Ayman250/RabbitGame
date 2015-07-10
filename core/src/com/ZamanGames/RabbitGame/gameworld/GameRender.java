@@ -205,18 +205,18 @@ public class GameRender {
 
         batch.begin();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLUE);
+//        shapeRenderer.setColor(Color.BLUE);
         batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
-        shapeRenderer.rect(rabbit.getHitBox().getX(), rabbit.getHitBox().getY(), rabbit.getHitBox().getWidth(), rabbit.getHitBox().getHeight());
-        shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(ground1.getHitBox().getX(), ground1.getHitBox().getY(), ground1.getHitBox().getWidth(), ground1.getHitBox().getHeight());
-        shapeRenderer.rect(ground2.getHitBox().getX(), ground2.getHitBox().getY(), ground2.getHitBox().getWidth(), ground2.getHitBox().getHeight());
-        shapeRenderer.setColor(Color.PINK);
-        shapeRenderer.rect(hill1.getHitBox().getX(), hill1.getHitBox().getY(), hill1.getHitBox().getWidth(), hill1.getHitBox().getHeight());
-        shapeRenderer.rect(hill2.getHitBox().getX(), hill2.getHitBox().getY(), hill2.getHitBox().getWidth(), hill2.getHitBox().getHeight());
-        shapeRenderer.setColor(Color.YELLOW);
-        shapeRenderer.rect(hill3.getHitBox().getX(), hill3.getHitBox().getY(), hill3.getHitBox().getWidth(), hill3.getHitBox().getHeight());
-        shapeRenderer.rect(hill4.getHitBox().getX(), hill4.getHitBox().getY(), hill4.getHitBox().getWidth(), hill4.getHitBox().getHeight());
+//        shapeRenderer.rect(rabbit.getHitBox().getX(), rabbit.getHitBox().getY(), rabbit.getHitBox().getWidth(), rabbit.getHitBox().getHeight());
+//        shapeRenderer.setColor(Color.RED);
+//        shapeRenderer.rect(ground1.getHitBox().getX(), ground1.getHitBox().getY(), ground1.getHitBox().getWidth(), ground1.getHitBox().getHeight());
+//        shapeRenderer.rect(ground2.getHitBox().getX(), ground2.getHitBox().getY(), ground2.getHitBox().getWidth(), ground2.getHitBox().getHeight());
+//        shapeRenderer.setColor(Color.PINK);
+//        shapeRenderer.rect(hill1.getHitBox().getX(), hill1.getHitBox().getY(), hill1.getHitBox().getWidth(), hill1.getHitBox().getHeight());
+//        shapeRenderer.rect(hill2.getHitBox().getX(), hill2.getHitBox().getY(), hill2.getHitBox().getWidth(), hill2.getHitBox().getHeight());
+//        shapeRenderer.setColor(Color.YELLOW);
+//        shapeRenderer.rect(hill3.getHitBox().getX(), hill3.getHitBox().getY(), hill3.getHitBox().getWidth(), hill3.getHitBox().getHeight());
+//        shapeRenderer.rect(hill4.getHitBox().getX(), hill4.getHitBox().getY(), hill4.getHitBox().getWidth(), hill4.getHitBox().getHeight());
         drawHillTops();
         //Temporary Location
         //drawWater();

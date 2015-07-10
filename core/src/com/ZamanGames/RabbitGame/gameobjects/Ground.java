@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.ZamanGames.RabbitGame.rhelpers.Extras;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -84,7 +85,8 @@ public class Ground extends Scrollable {
     //Collides with ground is true if rabbit hitBox intersects ground hitBox && rabbit is not on top of ground
     @Override
     public boolean collides(Rabbit rabbit) {
-        return Intersector.overlaps(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY();
+//      return Intersector.overlaps(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY();
+        return Extras.hit(rabbit.getHitBox(), hitBox) && rabbit.getY() - 10 > getY();
 
     }
 

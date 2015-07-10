@@ -1,5 +1,6 @@
 package com.ZamanGames.RabbitGame.gameobjects;
 
+import com.ZamanGames.RabbitGame.rhelpers.Extras;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -54,7 +55,9 @@ public class Scrollable {
     }
 
     public boolean collides (Rabbit rabbit) {
-        return (Intersector.overlaps(rabbit.getHitBox(), hitBox));
+        //return (Intersector.overlaps(rabbit.getHitBox(), hitBox));
+        //Made own Overlaps Method called Hits
+        return Extras.hit(rabbit.getHitBox(), hitBox);
 
     }
 

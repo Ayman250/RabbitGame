@@ -80,7 +80,7 @@ public class GameWorld {
                 score++;
             }
         }
-
+      
         if (scroller.rabbitCollides()) {
             scroller.stop();
             stopMusic();

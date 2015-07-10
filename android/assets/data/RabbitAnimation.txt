@@ -1,0 +1,67 @@
+RabbitAnimation.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Frame01
+  rotate: false
+  xy: 2, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame02
+  rotate: false
+  xy: 38, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame03
+  rotate: false
+  xy: 74, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame04
+  rotate: false
+  xy: 110, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame05
+  rotate: false
+  xy: 146, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame06
+  rotate: false
+  xy: 182, 2
+  size: 34, 45
+  orig: 34, 46
+  offset: 0, 1
+  index: -1
+Frame07
+  rotate: false
+  xy: 218, 2
+  size: 34, 45
+  orig: 34, 46
+  offset: 0, 1
+  index: -1
+Frame08
+  rotate: false
+  xy: 254, 2
+  size: 34, 45
+  orig: 34, 46
+  offset: 0, 1
+  index: -1
+Frame09
+  rotate: false
+  xy: 290, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1

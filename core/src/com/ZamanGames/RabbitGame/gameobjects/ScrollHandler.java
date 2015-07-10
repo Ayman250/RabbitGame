@@ -156,8 +156,8 @@ public class ScrollHandler {
 
 
     public boolean rabbitCollides() {
-        System.out.println(rabbit.getHitBox().getX() + "  Rabbit");
-        System.out.println(ground1.getHitBox().getX() + "  Ground");
+//        System.out.println(rabbit.getHitBox().getY() + "  Rabbit");
+//        System.out.println(ground1.getHitBox().getY() + "  Ground");
         if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
             return true;
         }
