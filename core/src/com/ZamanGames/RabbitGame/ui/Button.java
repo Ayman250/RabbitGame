@@ -2,6 +2,7 @@ package com.ZamanGames.RabbitGame.ui;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
 /**
@@ -11,13 +12,13 @@ public class Button {
 
     private float x, y, width, height;
 
-    private Texture buttonUp, buttonDown;
+    private TextureRegion buttonUp, buttonDown;
 
     private Rectangle bounds;
 
     private boolean isPressed = false;
 
-    public Button(float x, float y, float width, float height, Texture buttonUp, Texture buttonDown) {
+    public Button(float x, float y, float width, float height, TextureRegion buttonUp, TextureRegion buttonDown) {
         this.x = x;
         this.y = y;
         this.width = width;

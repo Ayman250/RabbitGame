@@ -11,7 +11,7 @@ public class MenuHandler {
     private Button playButton;
 
     public MenuHandler(GameWorld world) {
-        playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getWidth() / 2, world.getGameHeight() / 2 + 100, 210, 70,
+        playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight() / 2 + 100, 210, 70,
                 AssetLoader.playButtonUp, AssetLoader.playButtonDown);
     }
     public Button getPlayButton() {

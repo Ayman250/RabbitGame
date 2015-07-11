@@ -34,9 +34,11 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private Texture rTexture, background, tGround, rabbitDown, dirt, water, spikes, tPlayButtonUp, tPlayButtonDown;
+    private float dustTimer;
 
-    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped;
+    private Texture tGround, dirt, tPlayButtonUp, tPlayButtonDown;
+
+    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped, spikes, background, dust;
 
     private Animation runningAnimation;
 
@@ -80,6 +82,8 @@ public class GameRender {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
 
+        dustTimer = 0;
+
      }
 
     public void drawHillTops() {
@@ -101,9 +105,9 @@ public class GameRender {
     public void drawHillBottoms() {
         //draw((x coordinates of top and bottom match, y is shifted by the width (last parameter) so that it sits nicely on top of hill
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillBottom, hill1.getX(), hill1.getY(), hill1.getWidth(), 12);
-        batch.draw(hillBottom, hill2.getX(), hill2.getY(), hill2.getWidth(), 12);
-        batch.draw(hillBottom, hill3.getX(), hill3.getY(), hill3.getWidth(), 12);
+        batch.draw(hillBottom, hill1.getX(), hill1.getY()-1, hill1.getWidth(), 12);
+        batch.draw(hillBottom, hill2.getX(), hill2.getY()-1, hill2.getWidth(), 12);
+        batch.draw(hillBottom, hill3.getX(), hill3.getY()-1, hill3.getWidth(), 12);
     }
 
     public void drawGround() {
@@ -143,11 +147,11 @@ public class GameRender {
         }
     }
 
-    public void drawWater() {
-        batch.draw(water, water1.getX(), water1.getY(), water1.getWidth(), water1.getHeight(), 0, 0, 8, 1);
-        batch.draw(water, water2.getX(), water2.getY(), water2.getWidth(), water2.getHeight(), 0, 0, 8, 1);
-
-    }
+//    public void drawWater() {
+//        batch.draw(water, water1.getX(), water1.getY(), water1.getWidth(), water1.getHeight(), 0, 0, 8, 1);
+//        batch.draw(water, water2.getX(), water2.getY(), water2.getWidth(), water2.getHeight(), 0, 0, 8, 1);
+//
+//    }
 
     public void drawSpikes() {
         batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), spike1.getHeight());
@@ -156,12 +160,18 @@ public class GameRender {
         batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
     }
 
-    public void drawRabbit(float runTime) {
+    public void drawRabbit(float delta, float runTime) {
         if (rabbit.inAir()){
             batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
         else{
             batch.draw(runningAnimation.getKeyFrame(runTime), rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
+            dustTimer += delta;
+            if (dustTimer > .45f) {
+                dustTimer -= .45;
+                System.out.println(dustTimer);
+                batch.draw(dust, rabbit.getX() - 45, rabbit.getY() + 12, 72, -32);
+            }
         }
     }
 
@@ -227,7 +237,7 @@ public class GameRender {
         drawHillTops();
         drawHillBottoms();
         drawSpikes();
-        drawRabbit(runTime);
+        drawRabbit(delta, runTime);
 
         if (world.isMenu()) {
             drawMenuUI();
@@ -261,11 +271,9 @@ public class GameRender {
         tGround  = AssetLoader.ground;
         rabbitJumped = AssetLoader.rabbitJumped;
         dirt = AssetLoader.dirt;
-        water = AssetLoader.water;
         spikes = AssetLoader.spikes;
-        tPlayButtonUp = AssetLoader.playButtonUp;
-        tPlayButtonDown = AssetLoader.playButtonDown;
         runningAnimation = AssetLoader.runningAnimation;
+        dust = AssetLoader.dust;
 
     }
 

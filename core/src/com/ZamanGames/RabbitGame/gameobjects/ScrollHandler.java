@@ -173,17 +173,17 @@ public class ScrollHandler {
 
 
     public boolean rabbitCollides() {
-//        System.out.println(rabbit.getHitBox().getY() + "  Rabbit");
-//        System.out.println(ground1.getHitBox().getY() + "  Ground");
-//        if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
-//            return true;
-//        }
-//        else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
-//            return true;
-//        }
-//        else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
-//            return true;
-//        }
+        System.out.println(rabbit.getHitBox().getY() + "  Rabbit");
+        System.out.println(ground1.getHitBox().getY() + "  Ground");
+        if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
+            return true;
+        }
+        else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
+            return true;
+        }
+        else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
+            return true;
+        }
         return false;
     }
 

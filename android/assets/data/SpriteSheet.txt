@@ -1,4 +1,4 @@
-RabbitAnimation.png
+SpriteSheet.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -63,5 +63,54 @@ Frame09
   xy: 290, 2
   size: 34, 46
   orig: 34, 46
+  offset: 0, 0
+  index: -1
+Spikes
+  rotate: false
+  xy: 326, 2
+  size: 197, 87
+  orig: 197, 87
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 91
+  size: 1068, 556
+  orig: 1068, 556
+  offset: 0, 0
+  index: -1
+dust
+  rotate: false
+  xy: 2, 649
+  size: 196, 115
+  orig: 196, 115
+  offset: 0, 0
+  index: -1
+hill
+  rotate: false
+  xy: 200, 649
+  size: 212, 130
+  orig: 212, 130
+  offset: 0, 0
+  index: -1
+hillBottom
+  rotate: false
+  xy: 414, 649
+  size: 212, 43
+  orig: 212, 43
+  offset: 0, 0
+  index: -1
+hillTop
+  rotate: false
+  xy: 628, 649
+  size: 212, 45
+  orig: 212, 45
+  offset: 0, 0
+  index: -1
+hillTop
+  rotate: false
+  xy: 842, 649
+  size: 212, 218
+  orig: 212, 218
   offset: 0, 0
   index: -1

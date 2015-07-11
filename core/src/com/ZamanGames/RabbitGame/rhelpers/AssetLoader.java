@@ -15,11 +15,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture background, ground, dirt, water, spikes, playButtonUp, playButtonDown, tHill;
+    public static Texture ground, dirt;
 
-    public static TextureAtlas runningAtlas;
+    public static TextureAtlas spriteSheet;
 
-    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped;
+    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust;
 
     public static Animation runningAnimation;
 
@@ -32,27 +32,28 @@ public class AssetLoader {
 
 
     public static void load() {
-        runningAtlas = new TextureAtlas(Gdx.files.internal("data/RabbitAnimation.txt"));
+        spriteSheet = new TextureAtlas(Gdx.files.internal("data/SpriteSheet.txt"));
 
-        background = new Texture(Gdx.files.internal("data/background.png"));
         ground = new Texture(Gdx.files.internal("data/ground.png"));
-        rabbitJumped = new TextureRegion(runningAtlas.findRegion("Frame01"));
+
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
-        water = new Texture(Gdx.files.internal("data/water.png"));
-        spikes = new Texture(Gdx.files.internal("data/Spikes.png"));
-        playButtonUp = new Texture(Gdx.files.internal("data/playButtonUp.png"));
-        playButtonDown = new Texture(Gdx.files.internal(("data/playButtonDown.png")));
-        tHill = new Texture(Gdx.files.internal("data/hill.png"));
 
-        hillTop = new TextureRegion(tHill, 0, 0, 212, 45);
-        hill = new TextureRegion(tHill, 0, 45, 212, 130);
-        hillBottom = new TextureRegion(tHill, 0, 175, 212, 42);
+        rabbitJumped = new TextureRegion(spriteSheet.findRegion("Frame01"));
 
+        //temp PlayButtons
 
+        playButtonUp = spriteSheet.findRegion("Spikes");
+        playButtonDown = spriteSheet.findRegion("Spikes");
+        background = spriteSheet.findRegion("background");
+        spikes = spriteSheet.findRegion("Spikes");
+        hillTop = spriteSheet.findRegion("hillTop");
+        hill = spriteSheet.findRegion("hill");
+        hillBottom = spriteSheet.findRegion("hillBottom");
+        dust = spriteSheet.findRegion("dust");
 
-        TextureRegion[] runFrames = {runningAtlas.findRegion("Frame01"), runningAtlas.findRegion("Frame02"), runningAtlas.findRegion("Frame03"),
-                runningAtlas.findRegion("Frame04"), runningAtlas.findRegion("Frame05"), runningAtlas.findRegion("Frame06"),
-                runningAtlas.findRegion("Frame07"), runningAtlas.findRegion("Frame08"), runningAtlas.findRegion("Frame09"),  };
+        TextureRegion[] runFrames = {spriteSheet.findRegion("Frame01"), spriteSheet.findRegion("Frame02"), spriteSheet.findRegion("Frame03"),
+                spriteSheet.findRegion("Frame04"), spriteSheet.findRegion("Frame05"), spriteSheet.findRegion("Frame06"),
+                spriteSheet.findRegion("Frame07"), spriteSheet.findRegion("Frame08"), spriteSheet.findRegion("Frame09"),  };
 
         runningAnimation = new Animation(.05f, runFrames);
         runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
@@ -69,10 +70,9 @@ public class AssetLoader {
 
         ground.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
-        water.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         bgMusic.setLooping(true);
-        bgMusic.setVolume(0f);
+        bgMusic.setVolume(1f);
 
         gameFont.getData().setScale(2f,2f);
 
@@ -84,13 +84,10 @@ public class AssetLoader {
 }
 
     public void dispose() {
-        //hill.dispose();
-        background.dispose();
         ground.dispose();
-        water.dispose();
+        dirt.dispose();
         bgMusic.dispose();
         gameFont.dispose();
-        dirt.dispose();
     }
 
     // Receives an integer and maps it to the String highScore in prefs
