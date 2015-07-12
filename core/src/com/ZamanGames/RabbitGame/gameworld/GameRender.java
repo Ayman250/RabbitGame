@@ -34,7 +34,7 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
-    private float dustTimer;
+//    private float dustTimer, dustTimeLeft;
 
     private Texture tGround, dirt, tPlayButtonUp, tPlayButtonDown;
 
@@ -82,7 +82,8 @@ public class GameRender {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
 
-        dustTimer = 0;
+//        dustTimer = 0;
+//        dustTimeLeft = 0;
 
      }
 
@@ -161,17 +162,24 @@ public class GameRender {
     }
 
     public void drawRabbit(float delta, float runTime) {
-        if (rabbit.inAir()){
+        if (rabbit.inAir() || world.isReady()){
             batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
         else{
             batch.draw(runningAnimation.getKeyFrame(runTime), rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
-            dustTimer += delta;
-            if (dustTimer > .45f) {
-                dustTimer -= .45;
-                System.out.println(dustTimer);
-                batch.draw(dust, rabbit.getX() - 45, rabbit.getY() + 12, 72, -32);
-            }
+//            dustTimer += delta;
+//            if (dustTimer > 1f) {
+//                dustTimer -= 1f;
+//                dustTimeLeft = .3f;
+//            }
+//            if (dustTimeLeft > 0) {
+//                dustTimeLeft -= delta;
+//                batch.draw(dust, rabbit.getX() - 45, rabbit.getY() + 12, 72, -32);
+//            }
+//            if (dustTimeLeft < 0) {
+//                dustTimeLeft = 0;
+//            }
+
         }
     }
 

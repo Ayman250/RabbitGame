@@ -15,7 +15,7 @@ public class Hill extends Scrollable {
 
     public Hill(float x, float y, int width, int height, float scrollSpeed, float groundY) {
         super(x, y, width, height, scrollSpeed);
-        hitBox = new Rectangle(x, y, width, -height);
+        hitBox = new Rectangle(x, y, width, -(height - 5));
         r = new Random();
         this.groundY = groundY;
     }
@@ -28,6 +28,12 @@ public class Hill extends Scrollable {
 
 
     }
+
+    public boolean rabbitOn(Rabbit rabbit) {
+        return (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth());
+
+    }
+
 
     public void onReset(float x, float y, int height, float scrollSpeed) {
         position.x = x;

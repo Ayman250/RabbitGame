@@ -74,11 +74,21 @@ public class ScrollHandler {
         water1.update(delta);
         water2.update(delta);
 
-        if (ground1.rabbitOn(rabbit)) {
+
+        if (hill1.rabbitOn(rabbit)) {
+            rabbit.changeHeight(hill1.getY() + hill1.getHeight());
+        } else if (hill2.rabbitOn(rabbit)) {
+            rabbit.changeHeight(hill2.getY() + hill2.getHeight());
+        } else if (hill3.rabbitOn(rabbit)) {
+            rabbit.changeHeight(hill3.getY() + hill3.getHeight());
+        } else if (hill4.rabbitOn(rabbit)) {
+            rabbit.changeHeight(hill4.getY() + hill4.getHeight());
+        } else if (ground1.rabbitOn(rabbit)) {
             rabbit.changeHeight(ground1.getY());
         } else if (ground2.rabbitOn(rabbit)) {
             rabbit.changeHeight(ground2.getY());
         }
+
         if (ground1.isScrolledLeft()) {
             //After reset hasSpike is changed to false so it is not rendered
             ground1.reset(ground2.getTailX(), 0);
@@ -173,8 +183,6 @@ public class ScrollHandler {
 
 
     public boolean rabbitCollides() {
-        System.out.println(rabbit.getHitBox().getY() + "  Rabbit");
-        System.out.println(ground1.getHitBox().getY() + "  Ground");
         if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
             return true;
         }

@@ -55,7 +55,7 @@ public class AssetLoader {
                 spriteSheet.findRegion("Frame04"), spriteSheet.findRegion("Frame05"), spriteSheet.findRegion("Frame06"),
                 spriteSheet.findRegion("Frame07"), spriteSheet.findRegion("Frame08"), spriteSheet.findRegion("Frame09"),  };
 
-        runningAnimation = new Animation(.05f, runFrames);
+        runningAnimation = new Animation(.03f, runFrames);
         runningAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         hillTop.flip(false, true);
