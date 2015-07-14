@@ -75,17 +75,20 @@ public class ScrollHandler {
         water2.update(delta);
 
 
-        if (hill1.rabbitOn(rabbit)) {
-            rabbit.changeHeight(hill1.getY() + hill1.getHeight());
-        } else if (hill2.rabbitOn(rabbit)) {
-            rabbit.changeHeight(hill2.getY() + hill2.getHeight());
-        } else if (hill3.rabbitOn(rabbit)) {
-            rabbit.changeHeight(hill3.getY() + hill3.getHeight());
-        } else if (hill4.rabbitOn(rabbit)) {
-            rabbit.changeHeight(hill4.getY() + hill4.getHeight());
-        } else if (ground1.rabbitOn(rabbit)) {
+        if (hill1.rabbitOn(rabbit) && hill1.getY() > 0) {
+            rabbit.changeHeight(hill1.getY() + hill1.getHeight() - 7);
+        } else if (hill2.rabbitOn(rabbit) && hill2.getY() > 0) {
+            rabbit.changeHeight(hill2.getY() + hill2.getHeight() - 7);
+        } else if (hill3.rabbitOn(rabbit) && hill3.getY() > 0) {
+            rabbit.changeHeight(hill3.getY() + hill3.getHeight() - 7);
+//            System.out.println("onHill3");
+        } else if (hill4.rabbitOn(rabbit) && hill4.getY() > 0) {
+            rabbit.changeHeight(hill4.getY() + hill4.getHeight() + 7);
+        } else if (ground1.rabbitOn(rabbit) ) {
             rabbit.changeHeight(ground1.getY());
+//            System.out.println("Ground1");
         } else if (ground2.rabbitOn(rabbit)) {
+//            System.out.println("Ground2");
             rabbit.changeHeight(ground2.getY());
         }
 
@@ -184,12 +187,15 @@ public class ScrollHandler {
 
     public boolean rabbitCollides() {
         if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
+            System.out.println("Hit spike");
             return true;
         }
         else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
+             System.out.println("Hit ground");
             return true;
         }
         else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
+             System.out.println("Hit hill");
             return true;
         }
         return false;

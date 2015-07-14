@@ -18,6 +18,8 @@ public class Hill extends Scrollable {
         hitBox = new Rectangle(x, y, width, -(height - 5));
         r = new Random();
         this.groundY = groundY;
+        //This is so that rabbit can slide of hill earlier
+        hitBox.width -= 20;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class Hill extends Scrollable {
     }
 
     public boolean rabbitOn(Rabbit rabbit) {
-        return (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth());
+        return (rabbit.getX() + (rabbit.getWidth()) >= getX() && getX() + getWidth() > rabbit.getX() + 50);
 
     }
 

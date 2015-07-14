@@ -57,7 +57,7 @@ public class Ground extends Scrollable {
 
 
     public boolean rabbitOn(Rabbit rabbit) {
-        return (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + width / 2 < getX() + getWidth());
+        return (rabbit.getX() + (rabbit.getWidth() - 10) >= getX() && rabbit.getX() + rabbit.getWidth() / 2 < getX() + getWidth());
 
     }
 
@@ -72,13 +72,6 @@ public class Ground extends Scrollable {
     @Override
     public void update(float delta) {
         super.update(delta);
-    }
-
-    public boolean isOnRight(Ground ground) {
-        if (getX() > ground.getX()) {
-            return true;
-        }
-        return false;
     }
 
     //Overrides the collides.

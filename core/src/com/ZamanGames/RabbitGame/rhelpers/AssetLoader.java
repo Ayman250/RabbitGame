@@ -72,7 +72,7 @@ public class AssetLoader {
         dirt.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
         bgMusic.setLooping(true);
-        bgMusic.setVolume(1f);
+        bgMusic.setVolume(0f);
 
         gameFont.getData().setScale(2f,2f);
 

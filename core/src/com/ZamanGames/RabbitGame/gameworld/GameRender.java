@@ -10,6 +10,7 @@ import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -223,9 +224,8 @@ public class GameRender {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 //        shapeRenderer.setColor(Color.BLUE);
-        batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
 //        shapeRenderer.rect(rabbit.getHitBox().getX(), rabbit.getHitBox().getY(), rabbit.getHitBox().getWidth(), rabbit.getHitBox().getHeight());
 //        shapeRenderer.setColor(Color.RED);
 //        shapeRenderer.rect(ground1.getHitBox().getX(), ground1.getHitBox().getY(), ground1.getHitBox().getWidth(), ground1.getHitBox().getHeight());
@@ -236,6 +236,10 @@ public class GameRender {
 //        shapeRenderer.setColor(Color.YELLOW);
 //        shapeRenderer.rect(hill3.getHitBox().getX(), hill3.getHitBox().getY(), hill3.getHitBox().getWidth(), hill3.getHitBox().getHeight());
 //        shapeRenderer.rect(hill4.getHitBox().getX(), hill4.getHitBox().getY(), hill4.getHitBox().getWidth(), hill4.getHitBox().getHeight());
+//        shapeRenderer.setColor(Color.PURPLE);
+//        shapeRenderer.rect(spike1.getHitBox().getX(), spike1.getHitBox().getY(), spike1.getHitBox().getWidth(), spike1.getHitBox().getHeight());
+//        shapeRenderer.rect(spike2.getHitBox().getX(), spike2.getHitBox().getY(), spike2.getHitBox().getWidth(), spike2.getHitBox().getHeight());
+        batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
         drawHillTops();
         //Temporary Location
         //drawWater();
@@ -246,6 +250,7 @@ public class GameRender {
         drawHillBottoms();
         drawSpikes();
         drawRabbit(delta, runTime);
+
 
         if (world.isMenu()) {
             drawMenuUI();
