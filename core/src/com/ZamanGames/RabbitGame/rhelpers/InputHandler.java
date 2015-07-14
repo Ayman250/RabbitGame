@@ -35,6 +35,7 @@ public class InputHandler implements InputProcessor {
         playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight() / 2 + 100, 210, -70,
                 AssetLoader.playButtonUp, AssetLoader.playButtonDown);
         menuButtons.add(playButton);
+
     }
 
 

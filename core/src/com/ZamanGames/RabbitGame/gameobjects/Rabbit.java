@@ -16,7 +16,7 @@ public class Rabbit {
 
     private float delta, timePressed;
 
-    private boolean isDead;
+    private boolean isDead, screenHeld;
 
     private Rectangle hitBox;
 
@@ -34,6 +34,8 @@ public class Rabbit {
 
         initY = y;
         initGroundY = groundY;
+
+        screenHeld = false;
 
     }
 
@@ -57,6 +59,13 @@ public class Rabbit {
 
     public void updateReady(float runTime) {
         position.y = 2 * (float) Math.sin(7 * runTime) + initY;
+        jump();
+    }
+
+    public void jump() {
+        if (screenHeld) {
+
+        }
     }
 
     public void onClick() {
