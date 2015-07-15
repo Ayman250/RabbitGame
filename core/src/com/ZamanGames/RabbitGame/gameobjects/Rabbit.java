@@ -14,9 +14,9 @@ public class Rabbit {
 
     private float height, width, groundY, initY, initGroundY;
 
-    private float delta, timePressed;
+    private float delta, timeLeft;
 
-    private boolean isDead, screenHeld;
+    private boolean isDead, screenHeld, upAllowed;
 
     private Rectangle hitBox;
 
@@ -36,13 +36,13 @@ public class Rabbit {
         initGroundY = groundY;
 
         screenHeld = false;
-
+        //determines if screen holding will cause upwards acceleration of rabbit
+        upAllowed = true;
     }
 
     public void update(float delta) {
         velocity.add(acceleration.cpy().scl(delta));
         this.delta = delta;
-        timePressed += delta;
 
         position.add(velocity.cpy().scl(delta));
         if (position.y > this.groundY) {
@@ -51,39 +51,56 @@ public class Rabbit {
         //If rabbit is on the ground set velocity in y to 0;
         if (!inAir()) {
             velocity.y = 0;
+            upAllowed = true;
         }
         hitBox.x = position.x;
         hitBox.y = position.y;
+
+        if (screenHeld) {
+            jump();
+        }
 
     }
 
     public void updateReady(float runTime) {
         position.y = 2 * (float) Math.sin(7 * runTime) + initY;
-        jump();
     }
 
     public void jump() {
-        if (screenHeld) {
+        //if the rabbit lands reset upAllowed to false so game knows to activate jump mechanics when pressed
 
+        if (upAllowed && timeLeft > 0) {
+            velocity.add(0, -delta*2000);
+            timeLeft -=delta;
+           System.out.println(timeLeft);
         }
     }
 
     public void onClick() {
-        timePressed = 1f;
+        if (!inAir()) {
+            velocity.add(0, -600);
+            timeLeft = .4f;
+
+        }
+        screenHeld = true;
     }
 
     public void onRelease() {
-        if (timePressed > 3) {
-            timePressed = 3.4f;
+        screenHeld = false;
+        if (inAir()) {
+            upAllowed = false;
         }
+//        if (timeLeft > 3) {
+//            timeLeft = 3.4f;
+//        }
 
-        //System.out.println(timePressed);
-        if (!inAir())
-            if (timePressed > 1.2f) {
-                velocity.add(0, -700 - 200 * timePressed);
-            } else {
-                velocity.add(0, -800);
-            }
+        //System.out.println(timeLeft);
+//        if (!inAir())
+//            if (timeLeft > 1.2f) {
+//                velocity.add(0, -700 - 200 * timeLeft);
+//            } else {
+//                velocity.add(0, -800);
+//            }
        //System.out.println("Pressed");
     }
 
@@ -104,11 +121,11 @@ public class Rabbit {
         acceleration.y = 2000;
         groundY = initGroundY;
         isDead = false;
+        screenHeld = true;
+        upAllowed = true;
     }
 
     public boolean inAir() {
-        //System.out.println("true");
-        //System.out.println("false");
         return position.y < groundY;
     }
 
