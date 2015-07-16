@@ -15,13 +15,15 @@ public class ScrollHandler {
     private Spike spike1, spike2, spike3;
 
     public static int SCROLL_SPEED;
-    public static int HILL_GAP;
+    public static int HILL_GAP, TREE_GAP;
 
     private Random r;
 
     private Rabbit rabbit;
 
     private Water water1, water2;
+
+    private Scrollable tree1, tree2, tree3, tree4;
 
     private int gameWidth, gameHeight;
 
@@ -39,8 +41,9 @@ public class ScrollHandler {
 
         rabbit = this.world.getRabbit();
 
-        SCROLL_SPEED = -gameWidth/2;
-        HILL_GAP = gameWidth/2;
+        SCROLL_SPEED = -gameWidth / 2;
+        HILL_GAP = gameWidth / 2;
+        TREE_GAP = gameWidth / 4;
 
         //Set invisible at first
         ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
@@ -52,13 +55,17 @@ public class ScrollHandler {
         hill4 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
 
 
-
         water1 = new Water(0, groundY, 1300, 70, SCROLL_SPEED);
         water2 = new Water(water1.getTailX(), gameHeight, 1300, 70, SCROLL_SPEED);
 
         //initialize spikes to be invisble to player
         spike1 = new Spike(0, -200 - 10, 70, 30, SCROLL_SPEED);
         spike2 = new Spike(0, -200 - 10, 70, 30, SCROLL_SPEED);
+
+        tree1 = new Scrollable(50, groundY, 100, 150, SCROLL_SPEED/2);
+        tree2 = new Scrollable(tree1.getTailX() + TREE_GAP, groundY, 100, 150, SCROLL_SPEED/2);
+        tree3 = new Scrollable(tree2.getTailX() + TREE_GAP, groundY, 100, 150, SCROLL_SPEED/2);
+        tree4 = new Scrollable(tree3.getTailX() + TREE_GAP, groundY, 100, 150, SCROLL_SPEED/2);
 
         r = new Random();
 
@@ -74,6 +81,17 @@ public class ScrollHandler {
         water1.update(delta);
         water2.update(delta);
 
+        ground1.update(delta);
+        ground2.update(delta);
+
+        spike1.update(delta);
+        spike2.update(delta);
+
+        tree1.update(delta);
+        tree2.update(delta);
+        tree3.update(delta);
+        tree4.update(delta);
+
 
         if (hill1.rabbitOn(rabbit) && hill1.getY() > 0) {
             rabbit.changeHeight(hill1.getY() + hill1.getHeight() - 7);
@@ -84,13 +102,14 @@ public class ScrollHandler {
 //            System.out.println("onHill3");
         } else if (hill4.rabbitOn(rabbit) && hill4.getY() > 0) {
             rabbit.changeHeight(hill4.getY() + hill4.getHeight() + 7);
-        } else if (ground1.rabbitOn(rabbit) ) {
+        } else if (ground1.rabbitOn(rabbit)) {
             rabbit.changeHeight(ground1.getY());
 //            System.out.println("Ground1");
         } else if (ground2.rabbitOn(rabbit)) {
 //            System.out.println("Ground2");
             rabbit.changeHeight(ground2.getY());
         }
+
 
         if (ground1.isScrolledLeft()) {
             //After reset hasSpike is changed to false so it is not rendered
@@ -128,7 +147,7 @@ public class ScrollHandler {
 
             if (r.nextInt(10) > 1) {
                 ground2.newSpike(spike2);
-                spikeLocation = r.nextInt( ground2.getWidth()) - ground2.getX() - spike2.getWidth();
+                spikeLocation = r.nextInt(ground2.getWidth()) - ground2.getX() - spike2.getWidth();
                 spike2.reset(spikeLocation, ground2.getY());
             }
 
@@ -155,16 +174,9 @@ public class ScrollHandler {
         }
 
 
-        ground1.update(delta);
-        ground2.update(delta);
-
-        spike1.update(delta);
-        spike2.update(delta);
-
         if (water1.isScrolledLeft()) {
             water1.reset(gameWidth - 2, 0);
-        }
-        else if (water2.isScrolledLeft()) {
+        } else if (water2.isScrolledLeft()) {
             water2.reset(gameWidth - 2, 0);
         }
         //Determine which ground is on the right side and make sure hills spawn according to that one
@@ -182,6 +194,11 @@ public class ScrollHandler {
         water1.stop();
         water2.stop();
         world.stopScoring();
+        tree1.stop();
+        tree2.stop();
+        tree3.stop();
+        tree4.stop();
+
     }
 
 
@@ -189,13 +206,11 @@ public class ScrollHandler {
         if (spike1.collides(rabbit) || spike2.collides(rabbit)) {
             System.out.println("Hit spike");
             return true;
-        }
-        else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
-             System.out.println("Hit ground");
+        } else if (ground1.collides(rabbit) || ground2.collides(rabbit)) {
+            System.out.println("Hit ground");
             return true;
-        }
-        else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
-             System.out.println("Hit hill");
+        } else if (hill1.collides(rabbit) || hill2.collides(rabbit) || hill3.collides(rabbit) || hill4.collides(rabbit)) {
+            System.out.println("Hit hill");
             return true;
         }
         return false;
@@ -203,7 +218,7 @@ public class ScrollHandler {
 
     public void onRestart() {
         ground1.onReset(0, SCROLL_SPEED);
-        ground2.onReset(ground1.getTailX()  , SCROLL_SPEED);
+        ground2.onReset(ground1.getTailX(), SCROLL_SPEED);
         hill1.onReset(ground2.getTailX() - 150, -1000, 140, SCROLL_SPEED);
         hill2.onReset(hill1.getTailX() + HILL_GAP, -1000, 120, SCROLL_SPEED);
         hill3.onReset(ground2.getTailX() - 400, ground1.getY(), 140, SCROLL_SPEED);
@@ -256,5 +271,21 @@ public class ScrollHandler {
 
     public Water getWater2() {
         return water2;
+    }
+
+    public Scrollable getTree1() {
+        return tree1;
+    }
+
+    public Scrollable getTree2() {
+        return tree2;
+    }
+
+    public Scrollable getTree3() {
+        return tree3;
+    }
+
+    public Scrollable getTree4() {
+        return tree4;
     }
 }

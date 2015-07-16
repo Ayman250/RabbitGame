@@ -2,115 +2,129 @@ SpriteSheet.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-Frame01
+hillBottom
   rotate: false
   xy: 2, 2
-  size: 34, 46
-  orig: 34, 46
-  offset: 0, 0
-  index: -1
-Frame02
-  rotate: false
-  xy: 38, 2
-  size: 34, 46
-  orig: 34, 46
-  offset: 0, 0
-  index: -1
-Frame03
-  rotate: false
-  xy: 74, 2
-  size: 34, 46
-  orig: 34, 46
-  offset: 0, 0
-  index: -1
-Frame04
-  rotate: false
-  xy: 110, 2
-  size: 34, 46
-  orig: 34, 46
-  offset: 0, 0
-  index: -1
-Frame05
-  rotate: false
-  xy: 146, 2
-  size: 34, 46
-  orig: 34, 46
+  size: 212, 43
+  orig: 212, 43
   offset: 0, 0
   index: -1
 Frame06
   rotate: false
-  xy: 182, 2
-  size: 34, 45
-  orig: 34, 46
-  offset: 0, 1
-  index: -1
-Frame07
-  rotate: false
-  xy: 218, 2
+  xy: 216, 2
   size: 34, 45
   orig: 34, 46
   offset: 0, 1
   index: -1
 Frame08
   rotate: false
-  xy: 254, 2
+  xy: 252, 2
   size: 34, 45
   orig: 34, 46
   offset: 0, 1
   index: -1
-Frame09
+Frame07
   rotate: false
-  xy: 290, 2
-  size: 34, 46
+  xy: 288, 2
+  size: 34, 45
   orig: 34, 46
-  offset: 0, 0
+  offset: 0, 1
   index: -1
-Spikes
+cloud1
   rotate: false
-  xy: 326, 2
-  size: 197, 87
-  orig: 197, 87
-  offset: 0, 0
-  index: -1
-background
-  rotate: false
-  xy: 2, 91
-  size: 1068, 556
-  orig: 1068, 556
-  offset: 0, 0
-  index: -1
-dust
-  rotate: false
-  xy: 2, 649
-  size: 196, 115
-  orig: 196, 115
-  offset: 0, 0
-  index: -1
-hill
-  rotate: false
-  xy: 200, 649
-  size: 212, 130
-  orig: 212, 130
-  offset: 0, 0
-  index: -1
-hillBottom
-  rotate: false
-  xy: 414, 649
-  size: 212, 43
-  orig: 212, 43
-  offset: 0, 0
+  xy: 324, 2
+  size: 94, 45
+  orig: 150, 60
+  offset: 24, 7
   index: -1
 hillTop
   rotate: false
-  xy: 628, 649
+  xy: 420, 2
   size: 212, 45
   orig: 212, 45
   offset: 0, 0
   index: -1
-hillTop
+Frame09
   rotate: false
-  xy: 842, 649
-  size: 212, 218
-  orig: 212, 218
+  xy: 634, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame01
+  rotate: false
+  xy: 670, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame02
+  rotate: false
+  xy: 706, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame05
+  rotate: false
+  xy: 742, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame03
+  rotate: false
+  xy: 778, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+Frame04
+  rotate: false
+  xy: 814, 2
+  size: 34, 46
+  orig: 34, 46
+  offset: 0, 0
+  index: -1
+cloud2
+  rotate: false
+  xy: 850, 2
+  size: 146, 56
+  orig: 150, 60
+  offset: 2, 2
+  index: -1
+Spikes
+  rotate: false
+  xy: 998, 2
+  size: 197, 87
+  orig: 197, 87
+  offset: 0, 0
+  index: -1
+hill
+  rotate: false
+  xy: 2, 91
+  size: 212, 130
+  orig: 212, 130
+  offset: 0, 0
+  index: -1
+TreeShort
+  rotate: false
+  xy: 216, 91
+  size: 94, 288
+  orig: 94, 288
+  offset: 0, 0
+  index: -1
+TreeTall
+  rotate: false
+  xy: 312, 91
+  size: 94, 294
+  orig: 94, 294
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 408, 91
+  size: 768, 768
+  orig: 768, 768
   offset: 0, 0
   index: -1

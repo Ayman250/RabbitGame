@@ -39,17 +39,17 @@ public class GameRender {
 
     private Texture tGround, dirt, tPlayButtonUp, tPlayButtonDown;
 
-    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped, spikes, background, dust;
+    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped, spikes, dust, background, tree;
 
     private Animation runningAnimation;
 
-    private Scrollable water1, water2;
+    private Scrollable water1, water2, tree1, tree2, tree3, tree4;
     private Hill hill1, hill2, hill3, hill4;
     private Ground ground1, ground2;
     private Spike spike1, spike2, spike3;
     private ScrollHandler scroller;
     private ParallaxBackground parallaxBackground;
-    private TiledDrawable tiledDrawable;
+
 
     private List<Button> menuButtons;
 
@@ -155,6 +155,13 @@ public class GameRender {
 //
 //    }
 
+    public void drawTrees() {
+        batch.draw(tree, tree1.getX(), tree1.getY(), tree1.getWidth(), tree1.getHeight());
+        batch.draw(tree, tree2.getX(), tree2.getY(), tree2.getWidth(), tree2.getHeight());
+        batch.draw(tree, tree3.getX(), tree3.getY(), tree3.getWidth(), tree3.getHeight());
+        batch.draw(tree, tree4.getX(), tree4.getY(), tree4.getWidth(), tree4.getHeight());
+    }
+
     public void drawSpikes() {
         batch.draw(spikes, spike1.getX(), spike1.getY(), spike1.getWidth(), spike1.getHeight());
         batch.draw(spikes, spike2.getX(), spike2.getY(), spike2.getWidth(), spike2.getHeight());
@@ -218,6 +225,10 @@ public class GameRender {
         }
     }
 
+    private void drawBackground() {
+        batch.draw(background, 0, gameHeight, gameWidth, -gameHeight);
+    }
+
     //might use runTime later for animations
     public void render(float delta, float runTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -239,13 +250,15 @@ public class GameRender {
 //        shapeRenderer.setColor(Color.PURPLE);
 //        shapeRenderer.rect(spike1.getHitBox().getX(), spike1.getHitBox().getY(), spike1.getHitBox().getWidth(), spike1.getHitBox().getHeight());
 //        shapeRenderer.rect(spike2.getHitBox().getX(), spike2.getHitBox().getY(), spike2.getHitBox().getWidth(), spike2.getHitBox().getHeight());
-        batch.draw(background, 0, this.gameHeight, this.gameWidth, -this.gameHeight);
-        drawHillTops();
         //Temporary Location
         //drawWater();
+
+        drawBackground();
+        drawTrees();
         drawScore();
         drawGround();
         drawHills();
+        drawHillTops();
         drawHillTops();
         drawHillBottoms();
         drawSpikes();
@@ -273,6 +286,10 @@ public class GameRender {
         spike2 = scroller.getSpike2();
         water1 = scroller.getWater1();
         water2 = scroller.getWater2();
+        tree1 = scroller.getTree1();
+        tree2 = scroller.getTree2();
+        tree3 = scroller.getTree3();
+        tree4 = scroller.getTree4();
         //parallaxBackground = new ParallaxBackground();
     }
 
@@ -287,6 +304,7 @@ public class GameRender {
         spikes = AssetLoader.spikes;
         runningAnimation = AssetLoader.runningAnimation;
         dust = AssetLoader.dust;
+        tree = AssetLoader.tree;
 
     }
 

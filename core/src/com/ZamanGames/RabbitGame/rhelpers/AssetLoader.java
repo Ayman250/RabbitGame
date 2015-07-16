@@ -19,7 +19,7 @@ public class AssetLoader {
 
     public static TextureAtlas spriteSheet;
 
-    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust;
+    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust, cloud1, cloud2, tree;
 
     public static Animation runningAnimation;
 
@@ -42,14 +42,16 @@ public class AssetLoader {
 
         //temp PlayButtons
 
-        playButtonUp = spriteSheet.findRegion("Spikes");
-        playButtonDown = spriteSheet.findRegion("Spikes");
-        background = spriteSheet.findRegion("background");
-        spikes = spriteSheet.findRegion("Spikes");
-        hillTop = spriteSheet.findRegion("hillTop");
-        hill = spriteSheet.findRegion("hill");
-        hillBottom = spriteSheet.findRegion("hillBottom");
-        dust = spriteSheet.findRegion("dust");
+        playButtonUp = new TextureRegion(spriteSheet.findRegion("Spikes"));
+        playButtonDown = new TextureRegion(spriteSheet.findRegion("Spikes"));
+        background = new TextureRegion(spriteSheet.findRegion("background"));
+        spikes = new TextureRegion(spriteSheet.findRegion("Spikes"));
+        hillTop = new TextureRegion(spriteSheet.findRegion("hillTop"));
+        hill = new TextureRegion(spriteSheet.findRegion("hill"));
+        hillBottom = new TextureRegion(spriteSheet.findRegion("hillBottom"));
+        cloud1 = new TextureRegion(spriteSheet.findRegion("cloud1"));
+        cloud2 = new TextureRegion(spriteSheet.findRegion("cloud2"));
+        tree = new TextureRegion(spriteSheet.findRegion("TreeTall"));
 
         TextureRegion[] runFrames = {spriteSheet.findRegion("Frame01"), spriteSheet.findRegion("Frame02"), spriteSheet.findRegion("Frame03"),
                 spriteSheet.findRegion("Frame04"), spriteSheet.findRegion("Frame05"), spriteSheet.findRegion("Frame06"),
@@ -60,6 +62,9 @@ public class AssetLoader {
 
         hillTop.flip(false, true);
         hillBottom.flip(false, true);
+
+        background.flip(false, true);
+
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
 
