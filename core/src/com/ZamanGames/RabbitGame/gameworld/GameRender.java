@@ -1,11 +1,13 @@
 package com.ZamanGames.RabbitGame.gameworld;
 
+import com.ZamanGames.RabbitGame.gameobjects.Cloud;
 import com.ZamanGames.RabbitGame.gameobjects.Ground;
 import com.ZamanGames.RabbitGame.gameobjects.Hill;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.gameobjects.Scrollable;
 import com.ZamanGames.RabbitGame.gameobjects.Spike;
+import com.ZamanGames.RabbitGame.gameobjects.Tree;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
@@ -22,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -35,15 +38,19 @@ public class GameRender {
 
     private int gameHeight, gameWidth, groundY;
 
+    private Random r;
+
 //    private float dustTimer, dustTimeLeft;
 
     private Texture tGround, dirt, tPlayButtonUp, tPlayButtonDown;
 
-    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped, spikes, dust, background, tree;
+    private TextureRegion hillTop, hill, hillBottom,  rabbitJumped, spikes, dust, background, treeTall, treeShort, treeToDraw, cloudToDraw;
 
     private Animation runningAnimation;
 
-    private Scrollable water1, water2, tree1, tree2, tree3, tree4;
+    private Scrollable water1, water2;
+    private Cloud cloud1, cloud2, cloud3, cloud4;
+    private Tree tree1, tree2, tree3, tree4;
     private Hill hill1, hill2, hill3, hill4;
     private Ground ground1, ground2;
     private Spike spike1, spike2, spike3;
@@ -83,6 +90,8 @@ public class GameRender {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
 
+        r = new Random();
+
 //        dustTimer = 0;
 //        dustTimeLeft = 0;
 
@@ -94,6 +103,7 @@ public class GameRender {
         batch.draw(hillTop, hill1.getX(), hill1.getY() + hill1.getHeight() - (20), hill1.getWidth(), 20);
         batch.draw(hillTop, hill2.getX(), hill2.getY() + hill2.getHeight() - (20), hill2.getWidth(), 20);
         batch.draw(hillTop, hill3.getX(), hill3.getY() + hill3.getHeight() - (20), hill3.getWidth(), 20);
+        batch.draw(hillTop, hill4.getX(), hill4.getY() + hill4.getHeight() - (20), hill4.getWidth(), 20);
     }
 
     public void drawHills() {
@@ -102,6 +112,7 @@ public class GameRender {
         batch.draw(hill, hill1.getX(), hill1.getY(), hill1.getWidth(), hill1.getHeight());
         batch.draw(hill, hill2.getX(), hill2.getY(), hill2.getWidth(), hill2.getHeight());
         batch.draw(hill, hill3.getX(), hill3.getY(), hill3.getWidth(), hill3.getHeight());
+        batch.draw(hill, hill4.getX(), hill4.getY(), hill4.getWidth(), hill4.getHeight());
     }
 
     public void drawHillBottoms() {
@@ -110,6 +121,7 @@ public class GameRender {
         batch.draw(hillBottom, hill1.getX(), hill1.getY()-1, hill1.getWidth(), 12);
         batch.draw(hillBottom, hill2.getX(), hill2.getY()-1, hill2.getWidth(), 12);
         batch.draw(hillBottom, hill3.getX(), hill3.getY()-1, hill3.getWidth(), 12);
+        batch.draw(hillBottom, hill4.getX(), hill4.getY()-1, hill4.getWidth(), 12);
     }
 
     public void drawGround() {
@@ -156,10 +168,59 @@ public class GameRender {
 //    }
 
     public void drawTrees() {
-        batch.draw(tree, tree1.getX(), tree1.getY(), tree1.getWidth(), tree1.getHeight());
-        batch.draw(tree, tree2.getX(), tree2.getY(), tree2.getWidth(), tree2.getHeight());
-        batch.draw(tree, tree3.getX(), tree3.getY(), tree3.getWidth(), tree3.getHeight());
-        batch.draw(tree, tree4.getX(), tree4.getY(), tree4.getWidth(), tree4.getHeight());
+        //Randomly determines which tree should be drawn 50/50 chance
+        if (tree1.isTall()) {
+            treeToDraw = treeTall;
+        } else{
+            treeToDraw = treeShort;
+        }
+        batch.draw(treeToDraw, tree1.getX(), tree1.getY(), tree1.getWidth(), tree1.getHeight());
+        if (tree2.isTall()) {
+            treeToDraw = treeTall;
+        } else{
+            treeToDraw = treeShort;
+        }
+        batch.draw(treeToDraw, tree2.getX(), tree2.getY(), tree2.getWidth(), tree2.getHeight());
+        if (tree3.isTall()) {
+            treeToDraw = treeTall;
+        } else{
+            treeToDraw = treeShort;
+        }
+        batch.draw(treeToDraw, tree3.getX(), tree3.getY(), tree3.getWidth(), tree3.getHeight());
+        if (tree4.isTall()) {
+            treeToDraw = treeTall;
+        } else{
+            treeToDraw = treeShort;
+        }
+        batch.draw(treeToDraw, tree4.getX(), tree4.getY(), tree4.getWidth(), tree4.getHeight());
+    }
+
+    private void drawClouds() {
+        if (cloud1.is1()) {
+            cloudToDraw = AssetLoader.cloud1;
+        } else {
+            cloudToDraw = AssetLoader.cloud2;
+        }
+        batch.draw(cloudToDraw, cloud1.getX(), cloud1.getY(), cloud1.getWidth(), cloud1.getHeight());
+        if (cloud2.is1()) {
+            cloudToDraw = AssetLoader.cloud1;
+        } else {
+            cloudToDraw = AssetLoader.cloud2;
+        }
+        batch.draw(cloudToDraw, cloud2.getX(), cloud2.getY(), cloud2.getWidth(), cloud2.getHeight());
+        if (cloud3.is1()) {
+            cloudToDraw = AssetLoader.cloud1;
+        } else {
+            cloudToDraw = AssetLoader.cloud2;
+        }
+        batch.draw(cloudToDraw, cloud3.getX(), cloud3.getY(), cloud3.getWidth(), cloud3.getHeight());
+        if (cloud4.is1()) {
+            cloudToDraw = AssetLoader.cloud1;
+        } else {
+            cloudToDraw = AssetLoader.cloud2;
+        }
+        batch.draw(cloudToDraw, cloud4.getX(), cloud4.getY(), cloud4.getWidth(), cloud4.getHeight());
+
     }
 
     public void drawSpikes() {
@@ -254,7 +315,7 @@ public class GameRender {
         //drawWater();
 
         drawBackground();
-        drawTrees();
+        drawClouds();
         drawScore();
         drawGround();
         drawHills();
@@ -290,6 +351,10 @@ public class GameRender {
         tree2 = scroller.getTree2();
         tree3 = scroller.getTree3();
         tree4 = scroller.getTree4();
+        cloud1 = scroller.getCloud1();
+        cloud2 = scroller.getCloud2();
+        cloud3 = scroller.getCloud3();
+        cloud4 = scroller.getCloud4();
         //parallaxBackground = new ParallaxBackground();
     }
 
@@ -304,8 +369,8 @@ public class GameRender {
         spikes = AssetLoader.spikes;
         runningAnimation = AssetLoader.runningAnimation;
         dust = AssetLoader.dust;
-        tree = AssetLoader.tree;
-
+        treeTall = AssetLoader.treeTall;
+        treeShort = AssetLoader.treeShort;
     }
 
 }

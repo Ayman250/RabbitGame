@@ -15,7 +15,7 @@ public class ScrollHandler {
     private Spike spike1, spike2, spike3;
 
     public static int SCROLL_SPEED;
-    public static int HILL_GAP, TREE_GAP;
+    public static int HILL_GAP, TREE_GAP, CLOUD_GAP;
 
     private Random r;
 
@@ -23,7 +23,9 @@ public class ScrollHandler {
 
     private Water water1, water2;
 
-    private Scrollable tree1, tree2, tree3, tree4;
+    private Tree tree1, tree2, tree3, tree4;
+
+    private Cloud cloud1, cloud2, cloud3, cloud4;
 
     private int gameWidth, gameHeight;
 
@@ -44,6 +46,7 @@ public class ScrollHandler {
         SCROLL_SPEED = -gameWidth / 2;
         HILL_GAP = gameWidth / 2;
         TREE_GAP = gameWidth / 4;
+        CLOUD_GAP = gameWidth / 4;
 
         //Set invisible at first
         ground1 = new Ground(0, groundY, 1300, 80, SCROLL_SPEED, groundY);
@@ -62,10 +65,17 @@ public class ScrollHandler {
         spike1 = new Spike(0, -200 - 10, 70, 30, SCROLL_SPEED);
         spike2 = new Spike(0, -200 - 10, 70, 30, SCROLL_SPEED);
 
-        tree1 = new Scrollable(50, groundY, 100, 150, SCROLL_SPEED/2);
-        tree2 = new Scrollable(tree1.getTailX() + TREE_GAP, groundY, 100, 150, SCROLL_SPEED/2);
-        tree3 = new Scrollable(tree2.getTailX() + TREE_GAP, groundY, 100, 150, SCROLL_SPEED/2);
-        tree4 = new Scrollable(tree3.getTailX() + TREE_GAP, groundY, 100, 150, SCROLL_SPEED/2);
+        tree1 = new Tree(50, groundY, 100, 150, SCROLL_SPEED/2, false);
+        tree2 = new Tree(tree1.getTailX() + TREE_GAP, groundY - 12, 100, 150, SCROLL_SPEED/2, true);
+        tree3 = new Tree(tree2.getTailX() + TREE_GAP, groundY - 12, 100, 150, SCROLL_SPEED/2, false);
+        tree4 = new Tree(tree3.getTailX() + TREE_GAP, groundY - 12, 100, 150, SCROLL_SPEED/2, false);
+
+        cloud1 = new Cloud(50, 100, 150, 75, SCROLL_SPEED/3, true);
+        cloud2 = new Cloud(cloud1.getTailX() + CLOUD_GAP, 150, 150, 75, SCROLL_SPEED/3, false);
+        cloud3 = new Cloud(cloud2.getTailX() + CLOUD_GAP, 100, 150, 75, SCROLL_SPEED/3, true);
+        cloud4 = new Cloud(cloud3.getTailX() + CLOUD_GAP, 120, 150, 75, SCROLL_SPEED/3, false);
+
+
 
         r = new Random();
 
@@ -92,6 +102,10 @@ public class ScrollHandler {
         tree3.update(delta);
         tree4.update(delta);
 
+        cloud1.update(delta);
+        cloud2.update(delta);
+        cloud3.update(delta);
+        cloud4.update(delta);
 
         if (hill1.rabbitOn(rabbit) && hill1.getY() > 0) {
             rabbit.changeHeight(hill1.getY() + hill1.getHeight() - 7);
@@ -173,6 +187,16 @@ public class ScrollHandler {
             //fence2.changeHeight(ground2.getY());
         }
 
+        if (cloud1.isScrolledLeft) {
+            cloud1.reset(gameWidth, r.nextInt(120) + 60, r.nextBoolean());
+        } else if (cloud2.isScrolledLeft) {
+            cloud2.reset(gameWidth, r.nextInt(120) + 60, r.nextBoolean());
+        }else if (cloud3.isScrolledLeft) {
+            cloud3.reset(gameWidth, r.nextInt(120) + 60, r.nextBoolean());
+        }else if (cloud4.isScrolledLeft) {
+            cloud4.reset(gameWidth, r.nextInt(120) + 60, r.nextBoolean());
+        }
+
 
         if (water1.isScrolledLeft()) {
             water1.reset(gameWidth - 2, 0);
@@ -227,6 +251,15 @@ public class ScrollHandler {
         spike2.onReset(0, SCROLL_SPEED);
         water1.onReset(0, SCROLL_SPEED);
         water2.onReset(0, SCROLL_SPEED);
+        tree1.onRestart(50, r.nextBoolean());
+        tree2.onRestart(tree1.getTailX() + HILL_GAP, r.nextBoolean());
+        tree3.onRestart(tree2.getTailX() + HILL_GAP, r.nextBoolean());
+        tree4.onRestart(tree3.getTailX() + HILL_GAP, r.nextBoolean());
+        cloud1.onRestart(50, r.nextInt(100) + 80, r.nextBoolean());
+        cloud2.onRestart(cloud1.getTailX() + CLOUD_GAP, r.nextInt(100) + 80, r.nextBoolean());
+        cloud3.onRestart(cloud2.getTailX() + CLOUD_GAP, r.nextInt(100) + 80, r.nextBoolean());
+        //So clouds don't double up on Restart.
+        cloud4.onRestart(cloud3.getTailX() + CLOUD_GAP, -1000, r.nextBoolean());
     }
 
     public Hill getHill1() {
@@ -273,19 +306,35 @@ public class ScrollHandler {
         return water2;
     }
 
-    public Scrollable getTree1() {
+    public Tree getTree1() {
         return tree1;
     }
 
-    public Scrollable getTree2() {
+    public Tree getTree2() {
         return tree2;
     }
 
-    public Scrollable getTree3() {
+    public Tree getTree3() {
         return tree3;
     }
 
-    public Scrollable getTree4() {
+    public Tree getTree4() {
         return tree4;
+    }
+
+    public Cloud getCloud1() {
+        return cloud1;
+    }
+
+    public Cloud getCloud2() {
+        return cloud2;
+    }
+
+    public Cloud getCloud3() {
+        return cloud3;
+    }
+
+    public Cloud getCloud4() {
+        return cloud4;
     }
 }

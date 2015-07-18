@@ -19,7 +19,7 @@ public class AssetLoader {
 
     public static TextureAtlas spriteSheet;
 
-    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust, cloud1, cloud2, tree;
+    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust, cloud1, cloud2, treeTall, treeShort;
 
     public static Animation runningAnimation;
 
@@ -51,7 +51,10 @@ public class AssetLoader {
         hillBottom = new TextureRegion(spriteSheet.findRegion("hillBottom"));
         cloud1 = new TextureRegion(spriteSheet.findRegion("cloud1"));
         cloud2 = new TextureRegion(spriteSheet.findRegion("cloud2"));
-        tree = new TextureRegion(spriteSheet.findRegion("TreeTall"));
+        treeTall = new TextureRegion(spriteSheet.findRegion("TreeTall"));
+        treeShort = new TextureRegion(spriteSheet.findRegion("TreeShort"));
+        cloud1 = new TextureRegion(spriteSheet.findRegion("cloud1"));
+        cloud2 = new TextureRegion(spriteSheet.findRegion("cloud2"));
 
         TextureRegion[] runFrames = {spriteSheet.findRegion("Frame01"), spriteSheet.findRegion("Frame02"), spriteSheet.findRegion("Frame03"),
                 spriteSheet.findRegion("Frame04"), spriteSheet.findRegion("Frame05"), spriteSheet.findRegion("Frame06"),
