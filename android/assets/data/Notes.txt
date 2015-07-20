@@ -9,5 +9,4 @@ CheckList:
     -Fix Cloud Assets
     -Fix Fonts
     -Carrot?
-    -
-    .publish
+    -publish
