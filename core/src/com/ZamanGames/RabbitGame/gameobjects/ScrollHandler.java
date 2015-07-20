@@ -53,9 +53,9 @@ public class ScrollHandler {
         ground2 = new Ground(ground1.getTailX(), groundY, gameWidth + 20, 80, SCROLL_SPEED, groundY);
 
         hill1 = new Hill(-1000, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
-        hill2 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
+        hill2 = new Hill(-1000, -720 - 202, 90, 140, SCROLL_SPEED, groundY);
         hill3 = new Hill(ground2.getTailX() - 400, ground1.getY() - 10, 90, 140, SCROLL_SPEED, groundY);
-        hill4 = new Hill(-1000, -720 - 202, 90, 120, SCROLL_SPEED, groundY);
+        hill4 = new Hill(-1000, -720 - 202, 90, 140, SCROLL_SPEED, groundY);
 
 
         water1 = new Water(0, groundY, 1300, 70, SCROLL_SPEED);

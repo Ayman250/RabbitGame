@@ -31,7 +31,7 @@ import java.util.Random;
  */
 public class GameRender {
     private GameWorld world;
-    private OrthographicCamera cam;
+    private OrthographicCamera cam, menuCam;
     private Rabbit rabbit;
 
     private SpriteBatch batch;
@@ -57,7 +57,6 @@ public class GameRender {
     private ScrollHandler scroller;
     private ParallaxBackground parallaxBackground;
 
-
     private List<Button> menuButtons;
 
     private Button playButton;
@@ -72,6 +71,8 @@ public class GameRender {
 
         cam = new OrthographicCamera();
         cam.setToOrtho(true, this.gameWidth, this.gameHeight);
+        menuCam = new OrthographicCamera();
+        menuCam.setToOrtho(true, this.gameWidth, this.gameHeight);
         //cam.setToOrtho(true, 1080, 1920);
 
         batch = new SpriteBatch();
@@ -88,7 +89,7 @@ public class GameRender {
         initAssets();
 
         shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(cam.combined);
+        shapeRenderer.setProjectionMatrix(menuCam.combined);
 
         r = new Random();
 
@@ -281,9 +282,11 @@ public class GameRender {
     }
 
     private void drawMenuUI() {
+
         for (Button button : menuButtons) {
             button.draw(batch);
         }
+
     }
 
     private void drawBackground() {
@@ -316,20 +319,29 @@ public class GameRender {
 
         drawBackground();
         drawClouds();
-        drawScore();
+
         drawGround();
         drawHills();
         drawHillTops();
         drawHillTops();
         drawHillBottoms();
         drawSpikes();
+        drawScore();
         drawRabbit(delta, runTime);
+
 
 
         if (world.isMenu()) {
             drawMenuUI();
         }
-        shapeRenderer.end();
+//        shapeRenderer.end();
+        ;
+
+        if (world.isGameOver() || world.isHighScore() || world.isMenu()) {
+            batch.draw(AssetLoader.uiBackground, 0, 0, 1280, 720);
+
+        }
+
         batch.end();
 
     }

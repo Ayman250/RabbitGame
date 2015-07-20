@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 
-    public static Texture ground, dirt;
+    public static Texture ground, dirt, uiBackground;
 
     public static TextureAtlas spriteSheet;
 
@@ -39,6 +39,8 @@ public class AssetLoader {
         dirt = new Texture(Gdx.files.internal("data/ground_dirt.png"));
 
         rabbitJumped = new TextureRegion(spriteSheet.findRegion("Frame01"));
+
+        uiBackground = new Texture(Gdx.files.internal("data/UIBackground.png"));
 
         //temp PlayButtons
 
