@@ -10,3 +10,5 @@ CheckList:
     -Fix Fonts
     -Carrot?
     -publish
+    -EDIT
+    
