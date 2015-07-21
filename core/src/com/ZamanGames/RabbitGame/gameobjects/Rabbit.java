@@ -14,6 +14,8 @@ public class Rabbit {
 
     private float height, width, groundY, initY, initGroundY;
 
+    private float initXVelocity, initYVelocity;
+
     private float delta, timeLeft;
 
     private boolean isDead, screenHeld, upAllowed;
@@ -72,7 +74,6 @@ public class Rabbit {
         if (upAllowed && timeLeft > 0) {
             velocity.add(0, -delta*2000);
             timeLeft -=delta;
-           System.out.println(timeLeft);
         }
     }
 
@@ -94,6 +95,19 @@ public class Rabbit {
 
     public void changeHeight(float newY) {
         groundY = newY;
+    }
+
+    public void pause() {
+        initYVelocity = velocity.y;
+        initXVelocity = velocity.x;
+        velocity.x = 0;
+        velocity.y = 0;
+    }
+
+    public void resume() {
+
+        velocity.x = initXVelocity;
+        velocity.y = initYVelocity;
     }
 
     public void die() {

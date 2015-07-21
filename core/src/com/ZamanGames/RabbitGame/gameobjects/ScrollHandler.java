@@ -209,6 +209,10 @@ public class ScrollHandler {
 
     }
 
+    public void updateClouds(float delta) {
+
+    }
+
     public void stop() {
         rabbit.die();
         ground1.stop();
@@ -217,12 +221,38 @@ public class ScrollHandler {
         spike2.stop();
         water1.stop();
         water2.stop();
-        world.stopScoring();
         tree1.stop();
         tree2.stop();
         tree3.stop();
         tree4.stop();
+        world.stopScoring();
+    }
 
+    public void pause() {
+        ground1.stop();
+        ground2.stop();
+        rabbit.pause();
+        spike1.stop();
+        spike2.stop();
+        water1.stop();
+        water2.stop();
+        tree1.stop();
+        tree2.stop();
+        tree3.stop();
+        tree4.stop();
+    }
+
+    public void resume() {
+        ground1.resume();
+        ground2.resume();
+        spike1.resume();
+        spike2.resume();
+        water1.resume();
+        water2.resume();
+        tree1.resume();
+        tree2.resume();
+        tree3.resume();
+        tree4.resume();
     }
 
 

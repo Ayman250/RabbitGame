@@ -19,7 +19,8 @@ public class AssetLoader {
 
     public static TextureAtlas spriteSheet;
 
-    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust, cloud1, cloud2, treeTall, treeShort;
+    public static TextureRegion hill, hillTop, hillBottom, rabbitJumped, background, water, spikes, playButtonDown, playButtonUp, dust, cloud1, cloud2, treeTall, treeShort, settingsGear,
+    audioOff, audioOn, settings, shoppingCart, pause, restart, playButton, hiScores, done;
 
     public static Animation runningAnimation;
 
@@ -53,10 +54,18 @@ public class AssetLoader {
         hillBottom = new TextureRegion(spriteSheet.findRegion("hillBottom"));
         cloud1 = new TextureRegion(spriteSheet.findRegion("cloud1"));
         cloud2 = new TextureRegion(spriteSheet.findRegion("cloud2"));
-        treeTall = new TextureRegion(spriteSheet.findRegion("TreeTall"));
-        treeShort = new TextureRegion(spriteSheet.findRegion("TreeShort"));
         cloud1 = new TextureRegion(spriteSheet.findRegion("cloud1"));
         cloud2 = new TextureRegion(spriteSheet.findRegion("cloud2"));
+        settingsGear = new TextureRegion(spriteSheet.findRegion("settings"));
+        audioOff = new TextureRegion(spriteSheet.findRegion("audioOff"));
+        audioOn = new TextureRegion(spriteSheet.findRegion("audioOn"));
+        settings = new TextureRegion(spriteSheet.findRegion("settings"));
+        shoppingCart = new TextureRegion(spriteSheet.findRegion("shoppingCart"));
+        pause = new TextureRegion(spriteSheet.findRegion("pause"));
+        restart = new TextureRegion(spriteSheet.findRegion("restart"));
+        playButton = new TextureRegion(spriteSheet.findRegion("right"));
+        hiScores = new TextureRegion(spriteSheet.findRegion("leaderboardsComplex"));
+        done = new TextureRegion(spriteSheet.findRegion("checkmark"));
 
         TextureRegion[] runFrames = {spriteSheet.findRegion("Frame01"), spriteSheet.findRegion("Frame02"), spriteSheet.findRegion("Frame03"),
                 spriteSheet.findRegion("Frame04"), spriteSheet.findRegion("Frame05"), spriteSheet.findRegion("Frame06"),

@@ -58,8 +58,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-        world.pauseMusic();
-        System.out.println("Pause");
+        world.pause();
     }
 
     @Override

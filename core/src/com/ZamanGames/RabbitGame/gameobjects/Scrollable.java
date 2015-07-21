@@ -11,8 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Scrollable {
     protected Vector2 position;
     protected Vector2 velocity;
-    protected int width;
-    protected int height;
+    protected int width, height;
+    protected float initXVelocity;
     protected boolean isScrolledLeft;
     protected Rectangle hitBox;
 
@@ -37,6 +37,7 @@ public class Scrollable {
              = true;
         }
         hitBox.x = position.x;
+        initXVelocity = velocity.x;
 
     }
 
@@ -46,9 +47,14 @@ public class Scrollable {
     }
 
     public void stop() {
+        System.out.println(initXVelocity);
         velocity.x = 0;
     }
 
+    public void resume() {
+        System.out.println(initXVelocity);
+        velocity.x = initXVelocity;
+    }
 
     public boolean isScrolledLeft() {
         return isScrolledLeft;
@@ -56,7 +62,7 @@ public class Scrollable {
 
     public boolean collides (Rabbit rabbit) {
         //return (Intersector.overlaps(rabbit.getHitBox(), hitBox));
-        //Made own Overlaps Method called Hits
+        //Made my own Overlaps Method called Hits
         return Extras.hit(rabbit.getHitBox(), hitBox);
 
     }

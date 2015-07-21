@@ -3,6 +3,7 @@ package com.ZamanGames.RabbitGame.gameworld;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
+import com.badlogic.gdx.Game;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -21,7 +22,7 @@ public class GameWorld {
     private GameState currentState;
 
     public enum GameState {
-        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE;
+        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED;
     }
 
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
@@ -55,6 +56,8 @@ public class GameWorld {
             case RUNNING:
                 updateRunning(delta);
                 break;
+            case PAUSED:
+                updatePaused(delta);
             default:
                 break;
         }
@@ -80,7 +83,7 @@ public class GameWorld {
                 score++;
             }
         }
-      
+
         if (scroller.rabbitCollides()) {
             scroller.stop();
             stopMusic();
@@ -94,6 +97,14 @@ public class GameWorld {
         }
 
 
+    }
+
+    public void updateMenu(float delta) {
+
+    }
+
+    public void updatePaused(float delta) {
+        scroller.stop();
     }
 
     public void ready() {
@@ -113,6 +124,24 @@ public class GameWorld {
         scroller.onRestart();
         currentState = GameState.READY;
 
+    }
+
+    public void pause() {
+        scroller.pause();
+        rabbit.pause();
+        stopScoring();
+        currentState = GameState.PAUSED;
+    }
+
+    public void resume() {
+        currentState = GameState.RUNNING;
+        scroller.resume();
+        rabbit.resume();
+        resumeScoring();
+    }
+
+    public void menu() {
+        currentState = GameState.MENU;
     }
 
     public void playMusic() {
@@ -147,6 +176,10 @@ public class GameWorld {
         return currentState == GameState.MENU;
     }
 
+    public boolean isPaused() {
+        return currentState == GameState.PAUSED;
+    }
+
     //Used in case scoring needs to be resumed while game is still running.
     public void startScoring() {
         scoring = true;
@@ -155,6 +188,10 @@ public class GameWorld {
     //Used if rabbit dies or game is paused
     public void stopScoring() {
         scoring = false;
+    }
+
+    public void resumeScoring () {
+        scoring = true;
     }
 
     public Rabbit getRabbit() {

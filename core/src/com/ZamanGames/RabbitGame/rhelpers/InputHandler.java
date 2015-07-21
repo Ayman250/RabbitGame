@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by Ayman on 6/6/2015.
  */
+//Servs As menu Handler as well
 public class InputHandler implements InputProcessor {
 
     private Rabbit rabbit;
@@ -20,7 +21,7 @@ public class InputHandler implements InputProcessor {
 
     private float scaleFactorX, scaleFactorY;
 
-    private Button playButton;
+    private Button playButton, settingsButton, auddioOnButton, audioOffButton, checkButton, hiScoreButton, pauseButton;
 
     public InputHandler(GameWorld world, float scaleFactorX, float scaleFactorY) {
         this.world = world;
@@ -31,10 +32,23 @@ public class InputHandler implements InputProcessor {
         this.scaleFactorX = scaleFactorX;
         this.scaleFactorY = scaleFactorY;
 
+        settingsButton = new Button(world.getGameWidth() / 2 - AssetLoader.settingsGear.getRegionWidth() / 2 - 40, world.getGameHeight() - 300, 80, 80, AssetLoader.settingsGear, AssetLoader.settingsGear);
+        hiScoreButton = new Button(world.getGameWidth() / 2 - AssetLoader.hiScores.getRegionWidth() / 2 + 40, world.getGameHeight() - 200, 128, -128, AssetLoader.hiScores, AssetLoader.hiScores);
+
+        playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight()/2 - 100, 200, 200,
+                AssetLoader.playButton, AssetLoader.playButton);
+        auddioOnButton = new Button(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2, world.getGameHeight() / 2 + 20, 210, -70, AssetLoader.audioOn, AssetLoader.audioOn);
+        audioOffButton = new Button(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2, world.getGameHeight() / 2 + 20, 210, -70, AssetLoader.audioOff, AssetLoader.audioOff);
+        checkButton = new Button(world.getGameWidth() - 80, world.getGameHeight() + 80, 80, 80, AssetLoader.done, AssetLoader.done);
+        pauseButton = new Button(50, 30, 80, 80, AssetLoader.pause, AssetLoader.pause);
+
         menuButtons = new ArrayList<Button>();
-        playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight() / 2 + 100, 210, -70,
-                AssetLoader.playButtonUp, AssetLoader.playButtonDown);
         menuButtons.add(playButton);
+        menuButtons.add(auddioOnButton);
+        menuButtons.add(checkButton);
+        menuButtons.add(hiScoreButton);
+
+
 
     }
 
@@ -76,14 +90,35 @@ public class InputHandler implements InputProcessor {
         if (world.isMenu()) {
             playButton.isTouchDown(screenX, screenY);
         } else if (this.world.isReady()) {
-            this.world.start();
+            if(!settingsButton.isTouchDown(screenX, screenY)) {
+                this.world.start();
+            }
         }
-        rabbit.onClick();
+
+
+        if (world.isRunning()) {
+            if(pauseButton.isClicked(screenX, screenY)){
+                world.pause();
+                System.out.print("paused");
+            }
+            rabbit.onClick();
+        } else  if (world.isPaused()) {
+            if (settingsButton.isClicked(screenX, screenY)) {
+                world.menu();
+            } else {
+                world.resume();
+            }
+
+            System.out.println("resumed");
+        }
+
 
         if (this.world.isGameOver()) {
             //Reset all variables, go to GameState.Ready
             this.world.restart();
         }
+
+
         //System.out.println();
         return true;
     }
@@ -132,4 +167,27 @@ public class InputHandler implements InputProcessor {
         return menuButtons;
     }
 
+    public Button getSettingsButton() {
+        return settingsButton;
+    }
+
+    public Button getHiScoreButton() {
+        return hiScoreButton;
+    }
+
+    public Button getPauseButton() {
+        return pauseButton;
+    }
+
+    public Button getPlayButton() {
+        return playButton;
+    }
+
+    public Button getAuddioOnButton() {
+        return auddioOnButton;
+    }
+
+    public Button getCheckButton() {
+        return checkButton;
+    }
 }

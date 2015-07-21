@@ -12,7 +12,6 @@ import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,9 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -59,7 +56,7 @@ public class GameRender {
 
     private List<Button> menuButtons;
 
-    private Button playButton;
+    private Button playButton, settingsButton, auddioOnButton, audioOffButton, checkButton, hiScoreButton, pauseButton;
 
     private ShapeRenderer shapeRenderer;
 
@@ -78,12 +75,17 @@ public class GameRender {
         batch = new SpriteBatch();
         batch.setProjectionMatrix(cam.combined);
 
-        menuButtons = new ArrayList<Button>();
-
-        menuButtons.add(playButton);
-
         this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor())
                 .getMenuButtons();
+        this.settingsButton = ((InputHandler) Gdx.input.getInputProcessor())
+            .getSettingsButton();
+        this.hiScoreButton = ((InputHandler) Gdx.input.getInputProcessor())
+                .getHiScoreButton();
+        this.pauseButton = ((InputHandler) Gdx.input.getInputProcessor())
+                .getPauseButton();
+        this.playButton =
+                ((InputHandler) Gdx.input.getInputProcessor())
+                        .getPlayButton();
 
         initGameObjects();
         initAssets();
@@ -232,7 +234,7 @@ public class GameRender {
     }
 
     public void drawRabbit(float delta, float runTime) {
-        if (rabbit.inAir() || world.isReady()){
+        if (rabbit.inAir() || world.isReady() || world.isPaused()){
             batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
         else{
@@ -337,9 +339,24 @@ public class GameRender {
 //        shapeRenderer.end();
         ;
 
-        if (world.isGameOver() || world.isHighScore() || world.isMenu()) {
+        if ( world.isMenu() || world.isPaused()) {
             batch.draw(AssetLoader.uiBackground, 0, 0, 1280, 720);
 
+        }
+
+        if (world.isPaused()) {
+            AssetLoader.gameFont.draw(batch, "Touch To Resume",
+                    gameWidth / 2 - 150, gameHeight / 2 - 40);
+            settingsButton.draw(batch);
+            hiScoreButton.draw(batch);
+        }
+
+        if (world.isReady()) {
+            settingsButton.draw(batch);
+            hiScoreButton.draw(batch);
+        }
+        if (world.isRunning()) {
+            pauseButton.draw(batch);
         }
 
         batch.end();
