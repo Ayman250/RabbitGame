@@ -101,10 +101,10 @@ public class GameRender {
     public void drawHillTops() {
         //convoluted monkey ass faggot way of drawing hills
         //width of hilltop should match width of hill and the height should be experiments with (2*width seems to work well)
-        batch.draw(hillTop, hill1.getX(), hill1.getY() + hill1.getHeight() - (20), hill1.getWidth(), 20);
-        batch.draw(hillTop, hill2.getX(), hill2.getY() + hill2.getHeight() - (20), hill2.getWidth(), 20);
-        batch.draw(hillTop, hill3.getX(), hill3.getY() + hill3.getHeight() - (20), hill3.getWidth(), 20);
-        batch.draw(hillTop, hill4.getX(), hill4.getY() + hill4.getHeight() - (20), hill4.getWidth(), 20);
+        batch.draw(hillTop, hill1.getX(), hill1.getY() + hill1.getHeight() - (19), hill1.getWidth(), 20);
+        batch.draw(hillTop, hill2.getX(), hill2.getY() + hill2.getHeight() - (19), hill2.getWidth(), 20);
+        batch.draw(hillTop, hill3.getX(), hill3.getY() + hill3.getHeight() - (19), hill3.getWidth(), 20);
+        batch.draw(hillTop, hill4.getX(), hill4.getY() + hill4.getHeight() - (19), hill4.getWidth(), 20);
     }
 
     public void drawHills() {
@@ -337,10 +337,10 @@ public class GameRender {
 //        shapeRenderer.end();
         ;
 
-        if ( world.isMenu() || world.isPaused()) {
-            batch.draw(AssetLoader.uiBackground, 0, 0, 1280, 720);
-
-        }
+//        if ( world.isMenu() || world.isPaused()) {
+//            batch.draw(AssetLoader.uiBackground, 0, 0, 1280, 720);
+//
+//        }
 
         if (world.isPaused()) {
             AssetLoader.gameFont.draw(batch, "Touch To Resume",

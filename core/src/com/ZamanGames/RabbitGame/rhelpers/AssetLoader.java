@@ -76,11 +76,12 @@ public class AssetLoader {
 
         hillTop.flip(false, true);
         hillBottom.flip(false, true);
-
+        hiScores.flip(false, true);
         background.flip(false, true);
-
+        done.flip(false, true);
 
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
+
 
         gameFont = new BitmapFont(Gdx.files.internal("data/gameFont.fnt"), true);
 

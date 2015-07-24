@@ -22,7 +22,7 @@ public class InputHandler implements InputProcessor {
 
     private float scaleFactorX, scaleFactorY;
 
-    private Button playButton, settingsButton, checkButton, hiScoreButton, pauseButton;
+    private Button playButton, settingsButton, doneButton, hiScoreButton, pauseButton;
 
     private MusicButton audioButton;
 
@@ -35,19 +35,22 @@ public class InputHandler implements InputProcessor {
         this.scaleFactorX = scaleFactorX;
         this.scaleFactorY = scaleFactorY;
 
-        settingsButton = new Button(world.getGameWidth() / 2 - AssetLoader.settingsGear.getRegionWidth() / 2 - 40, world.getGameHeight() - 300, 80, 80, AssetLoader.settingsGear, AssetLoader.settingsGear);
-        hiScoreButton = new Button(world.getGameWidth() / 2 - AssetLoader.hiScores.getRegionWidth() / 2 + 40, world.getGameHeight() - 200, 128, -128, AssetLoader.hiScores, AssetLoader.hiScores);
-
-        playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight()/2 - 100, 200, 200,
+        settingsButton = new Button(world.getGameWidth() / 2 - AssetLoader.settingsGear.getRegionWidth() / 2 - 40, world.getGameHeight() - 300, 80, 80,
+                AssetLoader.settingsGear, AssetLoader.settingsGear);
+        hiScoreButton = new Button(world.getGameWidth() / 2 - AssetLoader.hiScores.getRegionWidth() / 2 + 40, world.getGameHeight() - 328, 128, 128,
+                AssetLoader.hiScores, AssetLoader.hiScores);
+        playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight()/2 - 150, 200, 200,
                 AssetLoader.playButton, AssetLoader.playButton);
-        audioButton = new MusicButton(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2 - 100, world.getGameHeight() - 200, 210, -70, AssetLoader.audioOn, AssetLoader.audioOn);
-        checkButton = new Button(world.getGameWidth() - 80, world.getGameHeight() + 80, 80, 80, AssetLoader.done, AssetLoader.done);
+        doneButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight()/2 - 150, 200, 200,
+                AssetLoader.done, AssetLoader.done);
         pauseButton = new Button(50, 30, 80, 80, AssetLoader.pause, AssetLoader.pause);
 
+        audioButton = new MusicButton(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2 - 100, world.getGameHeight() - 328, 128, 128,
+                AssetLoader.audioOn, AssetLoader.audioOn);
+
         menuButtons = new ArrayList<Button>();
-        menuButtons.add(playButton);
         menuButtons.add(audioButton);
-        menuButtons.add(checkButton);
+        menuButtons.add(doneButton);
         menuButtons.add(hiScoreButton);
 
 
@@ -96,8 +99,8 @@ public class InputHandler implements InputProcessor {
             } else{
             rabbit.onClick();}
         } else if (world.isMenu()) {
-            if (playButton.isTouchDown(screenX, screenY)){
-                world.resume();
+            if (doneButton.isTouchDown(screenX, screenY)){
+                world.pause();
             } else if (audioButton.isTouchDown(screenX, screenY)) {
                 if (world.isSoundOn()) {
                     world.stopSound();
@@ -106,6 +109,7 @@ public class InputHandler implements InputProcessor {
                     world.startSound();
                     audioButton.changeTexture(AssetLoader.audioOn);
                 }
+
             }
         } else if (this.world.isReady()) {
             if(!settingsButton.isTouchDown(screenX, screenY)) {
@@ -189,7 +193,7 @@ public class InputHandler implements InputProcessor {
         return audioButton;
     }
 
-    public Button getCheckButton() {
-        return checkButton;
+    public Button getDoneButton() {
+        return doneButton;
     }
 }

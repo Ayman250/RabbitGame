@@ -3,6 +3,7 @@ package com.ZamanGames.RabbitGame.gameworld;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
+import com.badlogic.gdx.utils.TimeUtils;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -25,6 +26,9 @@ public class GameWorld {
     }
 
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
+
+
+
         currentState = GameState.READY;
 
         this.gameWidth = gameWidth;
@@ -48,7 +52,7 @@ public class GameWorld {
     public void update(float delta) {
 
         runTime += delta;
-        System.out.println(currentState);
+        System.out.println(delta);
         switch (currentState) {
             case READY:
             case MENU:
@@ -114,7 +118,7 @@ public class GameWorld {
 
     public void start() {
         currentState = GameState.RUNNING;
-        startSound();
+        AssetLoader.bgMusic.play();
     }
 
     public void restart() {
