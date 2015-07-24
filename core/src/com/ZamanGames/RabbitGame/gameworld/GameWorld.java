@@ -3,7 +3,6 @@ package com.ZamanGames.RabbitGame.gameworld;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameobjects.ScrollHandler;
 import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
-import com.badlogic.gdx.Game;
 
 /**
  * Created by Ayman on 6/6/2015.
@@ -17,7 +16,7 @@ public class GameWorld {
     private int gameWidth, gameHeight, groundY, score;
     private float scoreCounter, runTime = 0;
 
-    private boolean scoring;
+    private boolean scoring, soundOn;
 
     private GameState currentState;
 
@@ -42,12 +41,14 @@ public class GameWorld {
 
         scoring = true;
 
+        soundOn = true;
+
     }
 
     public void update(float delta) {
 
         runTime += delta;
-
+        System.out.println(currentState);
         switch (currentState) {
             case READY:
             case MENU:
@@ -113,7 +114,7 @@ public class GameWorld {
 
     public void start() {
         currentState = GameState.RUNNING;
-        playMusic();
+        startSound();
     }
 
     public void restart() {
@@ -130,30 +131,46 @@ public class GameWorld {
         scroller.pause();
         rabbit.pause();
         stopScoring();
+        pauseMusic();
         currentState = GameState.PAUSED;
     }
 
     public void resume() {
-        currentState = GameState.RUNNING;
         scroller.resume();
         rabbit.resume();
         resumeScoring();
+        playMusic();
+        currentState = GameState.RUNNING;
     }
 
     public void menu() {
         currentState = GameState.MENU;
     }
 
-    public void playMusic() {
-        AssetLoader.bgMusic.play();
+    public boolean isSoundOn() {
+        return soundOn;
+    }
+
+    public void startSound() {
+        AssetLoader.bgMusic.setVolume(1);
+        soundOn = true;
+    }
+
+    public void stopSound() {
+        AssetLoader.bgMusic.setVolume(0);
+        soundOn = false;
+    }
+
+    public void stopMusic() {
+        AssetLoader.bgMusic.stop();
     }
 
     public void pauseMusic() {
         AssetLoader.bgMusic.pause();
     }
 
-    public void stopMusic() {
-        AssetLoader.bgMusic.stop();
+    public void playMusic() {
+        AssetLoader.bgMusic.play();
     }
 
     public boolean isHighScore() {

@@ -3,6 +3,7 @@ package com.ZamanGames.RabbitGame.rhelpers;
 import com.ZamanGames.RabbitGame.gameobjects.Rabbit;
 import com.ZamanGames.RabbitGame.gameworld.GameWorld;
 import com.ZamanGames.RabbitGame.ui.Button;
+import com.ZamanGames.RabbitGame.ui.MusicButton;
 import com.badlogic.gdx.InputProcessor;
 
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ public class InputHandler implements InputProcessor {
 
     private float scaleFactorX, scaleFactorY;
 
-    private Button playButton, settingsButton, auddioOnButton, audioOffButton, checkButton, hiScoreButton, pauseButton;
+    private Button playButton, settingsButton, checkButton, hiScoreButton, pauseButton;
+
+    private MusicButton audioButton;
 
     public InputHandler(GameWorld world, float scaleFactorX, float scaleFactorY) {
         this.world = world;
@@ -37,14 +40,13 @@ public class InputHandler implements InputProcessor {
 
         playButton = new Button(world.getGameWidth() / 2 - AssetLoader.playButtonUp.getRegionWidth() / 2, world.getGameHeight()/2 - 100, 200, 200,
                 AssetLoader.playButton, AssetLoader.playButton);
-        auddioOnButton = new Button(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2, world.getGameHeight() / 2 + 20, 210, -70, AssetLoader.audioOn, AssetLoader.audioOn);
-        audioOffButton = new Button(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2, world.getGameHeight() / 2 + 20, 210, -70, AssetLoader.audioOff, AssetLoader.audioOff);
+        audioButton = new MusicButton(world.getGameWidth() / 2 - AssetLoader.audioOn.getRegionWidth() / 2 - 100, world.getGameHeight() - 200, 210, -70, AssetLoader.audioOn, AssetLoader.audioOn);
         checkButton = new Button(world.getGameWidth() - 80, world.getGameHeight() + 80, 80, 80, AssetLoader.done, AssetLoader.done);
         pauseButton = new Button(50, 30, 80, 80, AssetLoader.pause, AssetLoader.pause);
 
         menuButtons = new ArrayList<Button>();
         menuButtons.add(playButton);
-        menuButtons.add(auddioOnButton);
+        menuButtons.add(audioButton);
         menuButtons.add(checkButton);
         menuButtons.add(hiScoreButton);
 
@@ -85,38 +87,45 @@ public class InputHandler implements InputProcessor {
         screenX = scaleX(screenX);
         screenY = scaleY(screenY);
 
-        System.out.println(screenX + " " + screenY);
+        //System.out.println(screenX + " " + screenY);
+        if (world.isRunning()) {
+            if (pauseButton.isTouchDown(screenX, screenY)) {
+                world.pause();
+                System.out.print("paused");
 
-        if (world.isMenu()) {
-            playButton.isTouchDown(screenX, screenY);
+            } else{
+            rabbit.onClick();}
+        } else if (world.isMenu()) {
+            if (playButton.isTouchDown(screenX, screenY)){
+                world.resume();
+            } else if (audioButton.isTouchDown(screenX, screenY)) {
+                if (world.isSoundOn()) {
+                    world.stopSound();
+                    audioButton.changeTexture(AssetLoader.audioOff);
+                } else {
+                    world.startSound();
+                    audioButton.changeTexture(AssetLoader.audioOn);
+                }
+            }
         } else if (this.world.isReady()) {
             if(!settingsButton.isTouchDown(screenX, screenY)) {
                 this.world.start();
             }
-        }
-
-
-        if (world.isRunning()) {
-            if(pauseButton.isClicked(screenX, screenY)){
-                world.pause();
-                System.out.print("paused");
-            }
-            rabbit.onClick();
         } else  if (world.isPaused()) {
-            if (settingsButton.isClicked(screenX, screenY)) {
+            if (settingsButton.isTouchDown(screenX, screenY)) {
                 world.menu();
             } else {
                 world.resume();
             }
 
             System.out.println("resumed");
-        }
-
-
-        if (this.world.isGameOver()) {
+        } else if (world.isGameOver()) {
             //Reset all variables, go to GameState.Ready
             this.world.restart();
         }
+
+
+
 
 
         //System.out.println();
@@ -127,13 +136,6 @@ public class InputHandler implements InputProcessor {
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         screenX = scaleX(screenX);
         screenY = scaleY(screenY);
-
-        if (world.isMenu()) {
-            if (playButton.isTouchDown(screenX, screenY)) {
-                world.ready();
-                return true;
-            }
-        }
 
         rabbit.onRelease();
         return false;
@@ -183,8 +185,8 @@ public class InputHandler implements InputProcessor {
         return playButton;
     }
 
-    public Button getAuddioOnButton() {
-        return auddioOnButton;
+    public Button getAudioOnButton() {
+        return audioButton;
     }
 
     public Button getCheckButton() {

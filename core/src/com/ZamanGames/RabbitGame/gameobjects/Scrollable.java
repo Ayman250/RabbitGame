@@ -47,12 +47,12 @@ public class Scrollable {
     }
 
     public void stop() {
-        System.out.println(initXVelocity);
+        //fSystem.out.println(initXVelocity);
         velocity.x = 0;
     }
 
     public void resume() {
-        System.out.println(initXVelocity);
+        //System.out.println(initXVelocity);
         velocity.x = initXVelocity;
     }
 

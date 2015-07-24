@@ -28,7 +28,7 @@ import java.util.Random;
  */
 public class GameRender {
     private GameWorld world;
-    private OrthographicCamera cam, menuCam;
+    private OrthographicCamera cam;
     private Rabbit rabbit;
 
     private SpriteBatch batch;
@@ -56,7 +56,7 @@ public class GameRender {
 
     private List<Button> menuButtons;
 
-    private Button playButton, settingsButton, auddioOnButton, audioOffButton, checkButton, hiScoreButton, pauseButton;
+    private Button playButton, settingsButton, audioButton, checkButton, hiScoreButton, pauseButton;
 
     private ShapeRenderer shapeRenderer;
 
@@ -68,8 +68,6 @@ public class GameRender {
 
         cam = new OrthographicCamera();
         cam.setToOrtho(true, this.gameWidth, this.gameHeight);
-        menuCam = new OrthographicCamera();
-        menuCam.setToOrtho(true, this.gameWidth, this.gameHeight);
         //cam.setToOrtho(true, 1080, 1920);
 
         batch = new SpriteBatch();
@@ -91,7 +89,7 @@ public class GameRender {
         initAssets();
 
         shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(menuCam.combined);
+
 
         r = new Random();
 
