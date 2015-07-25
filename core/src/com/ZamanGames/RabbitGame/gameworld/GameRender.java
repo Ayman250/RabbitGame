@@ -12,12 +12,14 @@ import com.ZamanGames.RabbitGame.rhelpers.AssetLoader;
 import com.ZamanGames.RabbitGame.rhelpers.InputHandler;
 import com.ZamanGames.RabbitGame.ui.Button;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
@@ -337,10 +339,10 @@ public class GameRender {
 //        shapeRenderer.end();
         ;
 
-//        if ( world.isMenu() || world.isPaused()) {
-//            batch.draw(AssetLoader.uiBackground, 0, 0, 1280, 720);
-//
-//        }
+        if ( world.isMenu() || world.isPaused()) {
+            batch.draw(AssetLoader.uiBackground, 320, 180, 640, 360);
+
+        }
 
         if (world.isPaused()) {
             AssetLoader.gameFont.draw(batch, "Touch To Resume",

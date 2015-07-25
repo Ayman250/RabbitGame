@@ -15,7 +15,7 @@ public class GameWorld {
     private int rabbitWidth, rabbitHeight;
 
     private int gameWidth, gameHeight, groundY, score;
-    private float scoreCounter, runTime = 0;
+    private float scoreCounter, runTime = 0, initRHeight;
 
     private boolean scoring, soundOn;
 
@@ -56,7 +56,7 @@ public class GameWorld {
         switch (currentState) {
             case READY:
             case MENU:
-                updateReady(delta);
+                updateMenu(delta);
                 break;
             case RUNNING:
                 updateRunning(delta);
