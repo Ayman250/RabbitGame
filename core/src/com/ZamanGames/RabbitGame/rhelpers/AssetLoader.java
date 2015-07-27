@@ -80,7 +80,7 @@ public class AssetLoader {
         background.flip(false, true);
         done.flip(false, true);
 
-        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.mp3"));
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("data/bgMusic.ogg"));
 
 
         gameFont = new BitmapFont(Gdx.files.internal("data/gameFont.fnt"), true);

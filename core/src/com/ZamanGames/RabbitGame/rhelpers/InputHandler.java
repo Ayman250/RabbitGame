@@ -119,7 +119,7 @@ public class InputHandler implements InputProcessor {
             if (settingsButton.isTouchDown(screenX, screenY)) {
                 world.menu();
             } else {
-                world.resume();
+                world.startResuming();
             }
 
             System.out.println("resumed");

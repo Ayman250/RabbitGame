@@ -16,13 +16,14 @@ public class GameWorld {
 
     private int gameWidth, gameHeight, groundY, score;
     private float scoreCounter, runTime = 0, initRHeight;
+    private double resumingCounter;
 
     private boolean scoring, soundOn;
 
     private GameState currentState;
 
     public enum GameState {
-        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED;
+        MENU, READY, RUNNING, GAMEOVER, HIGHSCORE, PAUSED, RESUMING;
     }
 
     public GameWorld(int gameWidth, int gameHeight, float midPointY, int groundY) {
@@ -47,6 +48,10 @@ public class GameWorld {
 
         soundOn = true;
 
+        resumingCounter = 3;
+
+
+
     }
 
     public void update(float delta) {
@@ -60,6 +65,9 @@ public class GameWorld {
                 break;
             case RUNNING:
                 updateRunning(delta);
+                break;
+            case RESUMING:
+                updateResuming(delta);
                 break;
             case PAUSED:
                 updatePaused(delta);
@@ -112,6 +120,15 @@ public class GameWorld {
         scroller.stop();
     }
 
+    public void updateResuming(float delta) {
+        resumingCounter -= delta;
+        if (resumingCounter <= 0) {
+            resume();
+            resumingCounter = 3;
+        }
+
+    }
+
     public void ready() {
         currentState = GameState.READY;
     }
@@ -119,6 +136,10 @@ public class GameWorld {
     public void start() {
         currentState = GameState.RUNNING;
         AssetLoader.bgMusic.play();
+    }
+
+    public void startResuming() {
+        currentState = GameState.RESUMING;
     }
 
     public void restart() {
@@ -197,6 +218,10 @@ public class GameWorld {
         return currentState == GameState.MENU;
     }
 
+    public boolean isResuming() {
+        return currentState == GameState.RESUMING;
+    }
+
     public boolean isPaused() {
         return currentState == GameState.PAUSED;
     }
@@ -232,6 +257,9 @@ public class GameWorld {
 
     }
 
+    public int getResumingTime() {
+        return (int) Math.ceil(resumingCounter);
+    }
     public int getScore() {
         return score;
     }

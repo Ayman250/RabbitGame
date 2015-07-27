@@ -234,7 +234,7 @@ public class GameRender {
     }
 
     public void drawRabbit(float delta, float runTime) {
-        if (rabbit.inAir() || world.isReady() || world.isPaused()){
+        if (rabbit.inAir() || world.isReady() || world.isPaused() || world.isMenu()){
             batch.draw(rabbitJumped, rabbit.getX(), rabbit.getY(), rabbit.getWidth(), rabbit.getHeight());
         }
         else{
@@ -300,6 +300,7 @@ public class GameRender {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
         batch.begin();
 //        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 //        shapeRenderer.setColor(Color.BLUE);
@@ -339,16 +340,27 @@ public class GameRender {
 //        shapeRenderer.end();
         ;
 
-        if ( world.isMenu() || world.isPaused()) {
-            batch.draw(AssetLoader.uiBackground, 320, 180, 640, 360);
+        if (world.isResuming()) {
+            batch.setColor(0.5F, 0.5F, 0.5F, 1F);
+            AssetLoader.gameFont.getData().setScale(4, 4);
+            AssetLoader.gameFont.draw(batch, "" + world.getResumingTime(),
+                    gameWidth / 2 - 30, gameHeight / 2 - 90);
+            AssetLoader.gameFont.getData().setScale(2, 2);
 
         }
 
+        if ( world.isMenu() || world.isPaused()) {
+            batch.setColor(1F, 1F, 1F, 1F);
+            batch.draw(AssetLoader.uiBackground, 320, 180, 640, 360);
+        }
+
         if (world.isPaused()) {
+            batch.setColor(1F, 1F, 1F, 1F);
             AssetLoader.gameFont.draw(batch, "Touch To Resume",
-                    gameWidth / 2 - 150, gameHeight / 2 - 40);
+                    gameWidth / 2 - 150, gameHeight / 2 - 90);
             settingsButton.draw(batch);
             hiScoreButton.draw(batch);
+            batch.setColor(0.5F, 0.5F, 0.5F, 1F);
         }
 
         if (world.isReady()) {
@@ -356,6 +368,7 @@ public class GameRender {
             hiScoreButton.draw(batch);
         }
         if (world.isRunning()) {
+            batch.setColor(1F, 1F, 1F, 1F);
             pauseButton.draw(batch);
         }
 
